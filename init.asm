@@ -24,14 +24,4 @@
         out0    (cmr_addr), a           ; set CMR to x1 mode
         out0    (ccr_addr), a           ; set CCR to default - normal drive, no standby 
 
-        ; set up MMU - bottom 512k of physical memory is ROM, top 512k is RAM 
-        ; top 32k of logical memory is top 32k of physical RAM
-        ; bottom 32k of logical memory is banked, left as bottom of ROM at start
-
-        ld      a, $80                  ; first 4 bits set logical bottom of common
-                                        ; area 1 (and top of banked area) to 32k 
-                                        ; bottom 4 bits set bottom of banked area
-                                        ; to 0.  No common area 0.
-        out0    (cbar_addr), a
-
-        ld      a, (1024-64) >> 2       ; set physical address of common area
+        
