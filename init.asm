@@ -34,4 +34,5 @@
                                         ; to 0.  No common area 0.
         out0    (cbar_addr), a
 
-        ld      a, (1024-64) >> 2       ; set physical address of common area
+        ld      a, (1024-64) >> 2       ; set physical address of common area???
+        out0    (cbr_addr), A
