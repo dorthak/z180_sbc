@@ -23,7 +23,7 @@ RDR1:                   .equ    Z180_BASE + $09         ; SIO Port 1 Receive
 
 ; address and  bit-assignment for the SD card enable and satus light port
 sd_enable_bit:          .equ    $2
-status_enable_bit:      .equ    $2
+status_enable_bit:      .equ    $4
 sd_enable_addr:         .equ    $0C
 status_led_addr:        .equ    $0E
 

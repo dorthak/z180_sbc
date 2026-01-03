@@ -4,9 +4,10 @@ CROSS_AS=uz80as
 CROSS_AS_FLAGS=-t hd64180
 
 
-all: blinky1
+all: blinky1 blinky2
 
 blinky1: blinky1.hex
+blinky1: blinky2.hex
 
 clean:
 	rm -f *.hex
