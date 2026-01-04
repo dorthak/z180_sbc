@@ -3,7 +3,7 @@
 ; z180 initialization at start
 ;###########
 
-        #include "z180.asm"
+#include "z180.asm"
 
         .org     $0000                  ;Cold reset entry point
         
@@ -34,5 +34,16 @@
                                         ; to 0.  No common area 0.
         out0    (cbar_addr), a
 
-        ld      a, (1024-64) >> 2       ; set physical address of common area???
+        ld      a, +(1024-64) >> 2       ; set physical address of common area 1.
+                                        ; The register is in 4Kb chunks.  ">> 2"
+                                        ; converts 1Kb value to 4Kb chunks.
+                                        ; Total physical memory size is 1Mb - 1024Kb
+                                        ; Since the entire logical memory needs to be 
+                                        ; mapped onto the physical memory, we need to
+                                        ; offset by 64k, not just the 32k that is 
+                                        ; actually Common Area 1
         out0    (cbr_addr), A
+
+        ; Set up stack
+        ld      sp, stack_top 
+

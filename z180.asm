@@ -14,3 +14,10 @@ bbr_addr:               .equ    Z180_BASE + $39
 cbar_addr:              .equ    Z180_BASE + $3A
 
 ;dcntl_addr:             .equ    Z180_BASE + $32
+
+; Since z180 decrements SP prior to a push, setting stack_top to 0 will place first 
+; byte stored in stack at $FFFF, the top of RAM.
+stack_top:              .equ    0
+
+; bottom of the unbanked RAM segment
+ram_start:              .equ    $8000
