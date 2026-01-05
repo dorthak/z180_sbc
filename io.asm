@@ -7,7 +7,7 @@ CNTLA0:                 .equ    Z180_BASE               ; SIO Port 0 Control A
 CNTLA1:                 .equ    Z180_BASE + $01         ; SIO Port 1 Control A
 
 CNTLB0:                 .equ    Z180_BASE + $02         ; SIO Port 0 Control B
-CNTLB1:                 .equ    Z180_BASE + $02         ; SIO Port 1 Control B
+CNTLB1:                 .equ    Z180_BASE + $03         ; SIO Port 1 Control B
 
 STAT0:                  .equ    Z180_BASE + $04         ; SIO Port 0 Status
 STAT1:                  .equ    Z180_BASE + $05         ; SIO Port 1 Status

@@ -14,7 +14,7 @@
         ;turn off DRAM Referesh and set zero states
         xor     a
         out0    (rcr_addr), a           ; set RCR to zero to disable DRAM refresh
-        ;out0    (dcntl_addr), a         ; set DCNTL to zero to disable all wait states 
+        ;out0    (dcntl_addr), a        ; set DCNTL to zero to disable all wait states 
         ld      a, %11110000            ; set DCNTRL to 3 memory wait states and 3 IO wait states, 
                                         ; more conservative
         out0    (dcntl_addr), a        
@@ -34,7 +34,7 @@
                                         ; to 0.  No common area 0.
         out0    (cbar_addr), a
 
-        ld      a, +(1024-64) >> 2       ; set physical address of common area 1.
+        ld      a, +(1024-64) >> 2      ; set physical address of common area 1.
                                         ; The register is in 4Kb chunks.  ">> 2"
                                         ; converts 1Kb value to 4Kb chunks.
                                         ; Total physical memory size is 1Mb - 1024Kb
@@ -47,3 +47,18 @@
         ; Set up stack
         ld      sp, stack_top 
 
+; Copy ROM into RAM
+
+        ld      hl, ramcode             ; start copying from the ramcode label
+        ld      de, ram_start           ; copy to bottom of ram
+        ld      bc, prog_end-ram_start  ; number of bytes to copy is equal to 
+                                        ; the endof file less ram_start label
+                                        ; since .org was used rather than .phase
+        ldir
+        jp      prog_start              ; switch execution to ram
+
+        ; Starting here, running from RAM
+ramcode:
+        .phase  ram_start
+
+; the prog_start and prog_end label must be defined at the bottom of every program!

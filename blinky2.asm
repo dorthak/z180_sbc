@@ -1,22 +1,6 @@
 #include "init.asm"
 #include "io.asm"
 
-; Copy ROM into RAM
-
-        ld      hl, ramcode             ; start copying from the ramcode label
-        ld      de, ram_start           ; copy to bottom of ram
-        ld      bc, finish-ram_start      ; number of bytes to copy is equal to 
-                                        ; the endof file less ram_start label
-                                        ; since .org was used rather than .phase
-        ldir
-        jp      ram_start               ; switch execution to ram
-
-        ; Starting here, running from RAM
-ramcode:
-        .phase  ram_start
-
-
-
 loop:
         xor     a                       ; Turn LED on (active low)
         out0    (status_led_addr), a
@@ -41,5 +25,7 @@ dloop:
         ret
 
 
+
+; the finish label must be defined at the bottom of every program!
 finish:   
         .end
