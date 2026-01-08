@@ -35,22 +35,6 @@ sio1_tx_ready:
 
 con_rx_ready:
 sio0_rx_ready:
-;         in0      a, (STAT0)     ; read sio status byte
-;         push    AF              ; prserve A for after error check
-;         and     $80             ; if zero, no error, skip to checking for data
-;         jr      Z, sio0_rx_ready1
-
-;         ; clear errors
-;         in0      a, (CNTLA0)    ; get current sio control A value
-;         res     3, a            ; reset bit 3 (EFT) to 0
-;         out0    (CNTLA0), a     ; write updated CNTLA0       
-
-; sio0_rx_ready1:
-;         pop     AF              ; restore the status value
-;         and     $08             ; Bit 4 needs to be 1 if ready to transmit
-;         ret
-
-
         ; hack to clear overrun errors
         in0     a, (CNTLA0)     ; get current sio control A value
         res     3, a            ; reset bit 3 (EFT) to 0
@@ -69,21 +53,15 @@ sio0_rx_ready:
 ;###########
 
 sio1_rx_ready:
-        in0      a, (STAT1)     ; read sio status byte
-        push    AF              ; prserve A for after error check
-        and     $70             ; if zero, no error, skip to checking for data
-        jr      Z, sio1_rx_ready1
-
-        ; clear errors
-        in0      a, (CNTLA1)    ; get current sio control A value
+        ; hack to clear overrun errors
+        in0     a, (CNTLA1)     ; get current sio control A value
         res     3, a            ; reset bit 3 (EFT) to 0
-        out0    (CNTLA1), a     ; write updated CNTLA1        
+        out0    (CNTLA1), A
 
-sio1_rx_ready1:
-        pop     AF              ; restore the status value
-        and     $08             ; Bit 4 needs to be 1 if ready to transmit
+        in0     a, (STAT1)      ; read sio status register
+        and     $80             ; check if top bit is zero, this sets the nz flag
         ret
-
+        
 ;###########
 ; Affects: AF
 ;###########
@@ -105,7 +83,7 @@ sio0_init:
         ret
 
 sio1_init:
-        ld      a, 01100101B    ; rcv enable, xmit enable, no parity
+        ld      a, 01100100B    ; rcv enable, xmit enable, no parity
         out0    (CNTLA1), a
 
         ld      a, 00000000B    ; div 10, div 16, div2 18432000/1/1/10/16/2 = 57600 

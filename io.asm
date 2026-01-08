@@ -21,9 +21,13 @@ TDR1:                   .equ    Z180_BASE + $07         ; SIO Port 1 Transmit
 RDR0:                   .equ    Z180_BASE + $08         ; SIO Port 0 Receive 
 RDR1:                   .equ    Z180_BASE + $09         ; SIO Port 1 Receive 
 
+CNTR:                   .equ    Z180_BASE + $0A         ; Clocked Serial Port (CSI/O) control register
+TRDR:                   .equ    Z180_BASE + $0B         ; CSIO Tx/Rx Data register
+
+
 ; address and  bit-assignment for the SD card enable and satus light port
 sd_enable_bit:          .equ    $2
 status_enable_bit:      .equ    $4
-sd_enable_addr:         .equ    $0C
-status_led_addr:        .equ    $0E
+sd_enable_addr:         .equ    $0C         ; RTCIO in RomWBW
+status_led_addr:        .equ    $0E         ; LEDPORT in RomWBW
 
