@@ -4,16 +4,17 @@
 #CROSS_AS_FLAGS=-t hd64180
 
 CROSS_AS=zasm
-CROSS_AS_FLAGS=--z180 -u --dotnames 
+CROSS_AS_FLAGS=--z180 -u --dotnames -y
 
 
-all: hello_sio3
+all: spi_test
 
 blinky1: blinky1.bin
 blinky2: blinky2.bin
 hello_sio1: hello_sio1.bin
 hello_sio2: hello_sio2.bin
 hello_sio3: hello_sio3.bin
+spi_test: spi_test.bin
 
 clean:
 	rm -f *.hex
@@ -31,3 +32,4 @@ blinky2.bin: io.asm z180.asm
 hello_sio1.bin: init.asm io.asm z180.asm sio.asm
 hello_sio2.bin: init.asm io.asm z180.asm sio.asm
 hello_sio3.bin: init.asm io.asm z180.asm sio.asm puts.asm
+spi_test.bin: init.asm io.asm z180.asm sio.asm puts.asm spi.asm
