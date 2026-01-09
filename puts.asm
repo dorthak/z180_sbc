@@ -1,5 +1,7 @@
 ; Write null-terminated string found at HL to the console
 
+
+
 puts:
     push    af
     push    bc
@@ -43,5 +45,5 @@ iputs:
 puts_crlf:
 
     call    iputs
-    defb    $D, $A, 0
+    defb    CR, LF, 0
     ret

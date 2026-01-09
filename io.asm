@@ -31,3 +31,8 @@ status_enable_bit:      .equ    $4
 sd_enable_addr:         .equ    $0C         ; RTCIO in RomWBW
 status_led_addr:        .equ    $0E         ; LEDPORT in RomWBW
 
+
+; constants for non-printable characters
+CR          .equ    $D
+LF          .equ    $A
+
