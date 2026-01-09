@@ -26,8 +26,8 @@ clean:
 #	$(CROSS_AS) $(CROSS_AS_FLAGS)  $(basename $@).asm $@ $(basename $@).lst
 	$(CROSS_AS) $(CROSS_AS_FLAGS)  -i $(basename $@).asm -o $@ -l $(basename $@).lst
 
-blinky1.bin: init.asm io.asm z180.asm
-blinky2.bin: init.asm io.asm z180.asm
+blinky1.bin: io.asm z180.asm
+blinky2.bin: io.asm z180.asm
 hello_sio1.bin: init.asm io.asm z180.asm sio.asm
 hello_sio2.bin: init.asm io.asm z180.asm sio.asm
 hello_sio3.bin: init.asm io.asm z180.asm sio.asm puts.asm
