@@ -25,7 +25,7 @@ spi_get:        call        spi_waittx          ; make sure we aren't sending
                 out0        (CNTR), a
 
                 call        spi_waitrx
-                in0         a, (TRDR)           ; Get the bit
+                in0         a, (TRDR)           ; Get the byte
                 ret
 
 ; Check if SPI TX is ready
