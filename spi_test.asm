@@ -31,9 +31,15 @@ halt_loop:
 test_80clks:    ld      b, 10               ; 10 1-byte clock bursts
 test_80clks_loop:
                 call    spi_get
-                call    blink
+                ;call    blink
                 djnz    test_80clks_loop
+                call    blink
+                call    blink
+                call    blink
+                call    blink
                 ret
+
+        
 
 
 ;###########
@@ -67,6 +73,20 @@ blink:  push    af
         pop     af
         ret
 
+;###########
+; Flips the SD card light.
+; Affects: Nothing
+;###########
+
+half_blink:  push    af
+        ld      a, (light_toggle)
+        xor     a, status_enable_bit
+        ld      (light_toggle), a
+        out0    (status_led_addr), a
+        pop     af
+        ret
+
+
 
 boot_msg:
 	defb    CR, LF, LF
@@ -74,6 +94,9 @@ boot_msg:
 	defb	'Z180 SBC SPI test',CR, LF
 	defb	'##############################################################################',CR, LF
 	defb	0
+
+light_toggle:
+        defb    0
 ; the prog_end label must be defined at the bottom of every program!
 prog_end:   
         .end

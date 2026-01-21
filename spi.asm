@@ -19,6 +19,7 @@ spi_put:        call spi_waittx                 ; check if done sending
 ; get one byte, return in A
 ; clobbers AF
 spi_get:        call        spi_waittx          ; make sure we aren't sending
+                ;call        spi_waitrx          ; make sure we aren't recieving
 
                 in0         a, (CNTR)           
                 set         5, a                ; Start receiver
@@ -40,5 +41,5 @@ spi_waittx:     in0         a, (CNTR)
 ; Clobbers AF
 spi_waitrx:     in0         a, (CNTR)
                 bit         5, a                ; RX empty?
-                jr          nz, spi_waittx      
+                jr          nz, spi_waitrx      
                 ret
