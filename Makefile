@@ -32,4 +32,4 @@ blinky2.bin: io.asm z180.asm
 hello_sio1.bin: init.asm io.asm z180.asm sio.asm
 hello_sio2.bin: init.asm io.asm z180.asm sio.asm
 hello_sio3.bin: init.asm io.asm z180.asm sio.asm puts.asm
-spi_test.bin: init.asm io.asm z180.asm sio.asm puts.asm spi.asm
+spi_test.bin: init.asm io.asm z180.asm sio.asm puts.asm spi.asm hexdump.asm
