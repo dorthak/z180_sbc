@@ -17,7 +17,8 @@ prog_start:
     ;call    test_80clks
     ;call    test_read
     ;call    test_write_byt
-    call    test_write_str
+    call    test_ssel
+    ;call    test_write_str
 
 
     call    iputs
@@ -64,6 +65,14 @@ test_write_byt: call    iputs
 
                 ret  
 
+test_ssel:      call    iputs
+                defb    'test_ssel', CR, LF, 0    
+
+                call    spi_ssel_true
+                call    blink
+                call    spi_ssel_false
+
+                ret
 
 
 test_write_str: call    iputs

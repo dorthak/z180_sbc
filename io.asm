@@ -26,7 +26,7 @@ TRDR:                   .equ    Z180_BASE + $0B         ; CSIO Tx/Rx Data regist
 
 
 ; address and  bit-assignment for the SD card enable and satus light port
-sd_enable_bit:          .equ    $2
+sd_enable_bit:          .equ    $4
 status_enable_bit:      .equ    $4
 sd_enable_addr:         .equ    $0C         ; RTCIO in RomWBW
 status_led_addr:        .equ    $0E         ; LEDPORT in RomWBW

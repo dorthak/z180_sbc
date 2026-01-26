@@ -2,6 +2,10 @@
 
 spi_init:       ld          a, 6                ; div by 1280 - 14KHz @18MHz clock?
                 out0        (CNTR), a
+
+                ld          a, sd_enable_bit    ; SD Enable is active low, so set high at init
+                ld          (spi_ssel_cache), a ; Set cache
+                out0        (sd_enable_addr), a ; and write out to harware
                 ret
 
 
@@ -69,6 +73,41 @@ spi_wr_str_lp:
                 pop         af
                 
                 ret
+
+; Enable SD card select line
+; Clobbers AF
+spi_ssel_true:
+                call        spi_get             ; Send 8 clk pulses, to clear
+
+                ld          a, (spi_ssel_cache) ; retrieve cached value
+                and         !(sd_enable_bit)    ; set enable bit low (active low!)
+                ld          (spi_ssel_cache), a ; save back to cache
+                out0        (sd_enable_addr), a ; output to hardware
+
+                ; make sure card is not busy doing things
+; spi_ssel_true_busy:
+;                 call        spi_get
+;                 cp          $FF                 ; pullup on MISO line
+;                 jr          nz, spi_ssel_true_busy
+
+                 ret
+
+; Disable SD card select line
+; Clobbers AF
+spi_ssel_false:
+                call        spi_get             ; Send 8 clk pulses, to clear
+
+                ld          a, (spi_ssel_cache) ; retrieve cached value
+                or          sd_enable_bit       ; set enable bit high (active low!)
+                ld          (spi_ssel_cache), a ; save back to cache
+                out0        (sd_enable_addr), a ; output to hardware
+
+                call        spi_get             ; generate 16 more clk pulses
+                call        spi_get
+
+                ret
+
+
 
 
 spi_ssel_cache: db         0                   ; reserve byte for spi device select cache         
