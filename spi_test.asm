@@ -16,8 +16,8 @@ prog_start:
 
     ;call    test_80clks
     ;call    test_read
-    call    test_write_byt
-    ;call    test_write_str
+    ;call    test_write_byt
+    call    test_write_str
 
 
     call    iputs
