@@ -17,8 +17,8 @@ prog_start:
     ;call    test_80clks
     ;call    test_read
     ;call    test_write_byt
-    call    test_ssel
-    ;call    test_write_str
+    ;call    test_ssel
+    call    test_write_str
 
 
     call    iputs
@@ -84,13 +84,13 @@ test_write_str: call    iputs
 
                 call    hexdump
 
-                ; call   spi_ssel_true
+                call   spi_ssel_true
 
                 ld      hl, write_test1
                 ld      bc, 4
                 call    spi_write_str
 
-                ; call   spi_ssel_false
+                call   spi_ssel_false
                 ret
 
 
