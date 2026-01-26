@@ -6,6 +6,10 @@
 CROSS_AS=zasm
 CROSS_AS_FLAGS=--z180 -u --dotnames -y
 
+DATE := $(shell date +"%Y-%m-%d %H:%M:%S%z")
+GIT_VERSION := $(shell git show -s --format='%h - %s - %ci')
+
+.SECONDARY:
 
 all: spi_test
 
@@ -23,9 +27,13 @@ clean:
 	rm -f *.lst
 	rm -f *.com
 
-%.bin: %.asm 
+%.tmp: %.asm 
+	cat $< | sed  -e "s/@@DATE@@/$(DATE)/g" -e "s/@@GIT_VERSION@@/$(GIT_VERSION)/g" > $(basename $@).tmp
+
+
+%.bin: %.tmp 
 #	$(CROSS_AS) $(CROSS_AS_FLAGS)  $(basename $@).asm $@ $(basename $@).lst
-	$(CROSS_AS) $(CROSS_AS_FLAGS)  -i $(basename $@).asm -o $@ -l $(basename $@).lst
+	$(CROSS_AS) $(CROSS_AS_FLAGS)  -i $(basename $@).tmp -o $@ -l $(basename $@).lst
 
 blinky1.bin: io.asm z180.asm
 blinky2.bin: io.asm z180.asm

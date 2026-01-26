@@ -43,3 +43,32 @@ spi_waitrx:     in0         a, (CNTR)
                 bit         5, a                ; RX empty?
                 jr          nz, spi_waitrx      
                 ret
+
+
+; Write multi-byte string
+; hl had buffer pointer
+; bc has count
+
+spi_write_str:  push        af
+                push        de
+                push        bc
+                push        hl                  ; end protection of registers
+
+spi_wr_str_lp:  
+                push        bc                  ; preserve count for loop
+                ld          c, (hl)             ; fetch byte from write buffer
+                inc         hl                  ; advance buffer pointer
+                call        spi_put             ; send byte in c to spi
+                pop         bc                  ; restore loop counter
+                djnz        spi_wr_str_lp
+
+
+                pop         hl
+                pop         bc
+                pop         de
+                pop         af
+                
+                ret
+
+
+spi_ssel_cache: db         0                   ; reserve byte for spi device select cache         

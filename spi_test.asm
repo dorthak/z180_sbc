@@ -2,6 +2,7 @@
 #include "sio.asm"
 #include "puts.asm"
 #include "spi.asm"
+#include "hexdump.asm"
 
 prog_start:
     di                                      ; just in case
@@ -13,7 +14,10 @@ prog_start:
 
     call    spi_init
 
-    call    test_80clks
+    ;call    test_80clks
+    ;call    test_read
+    call    test_write_byt
+    ;call    test_write_str
 
 
     call    iputs
@@ -28,18 +32,62 @@ halt_loop:
     jp      halt_loop
 
 
-test_80clks:    ld      b, 10               ; 10 1-byte clock bursts
+test_80clks:    call    iputs
+                defb    'test_80clks', CR, LF, 0      
+                
+                ld      b, 10               ; 10 1-byte clock bursts
 test_80clks_loop:
                 call    spi_get
                 ;call    blink
                 djnz    test_80clks_loop
-                call    blink
-                call    blink
-                call    blink
-                call    blink
+                ;call    blink
                 ret
 
         
+test_read:      call    iputs
+                defb    'test_read', CR, LF, 0      
+                call    iputs
+                defb    'A=0x', 0
+
+                call    spi_get              ; get one byte from SPI
+
+                call    hexdump_a
+                call    puts_crlf
+
+                ret
+
+test_write_byt: call    iputs
+                defb    'test_write_byt', CR, LF, 0    
+
+                ld      c, $55
+                call    spi_put
+
+                ret  
+
+
+
+test_write_str: call    iputs
+                defb    'test_write_str', CR, LF, 0      
+
+                ld      hl, write_test1                 ; buffer address
+                ld      bc, 4                           ; buffer size
+                ld      e, 0                            ; no fancy formatting
+
+                call    hexdump
+
+                ; call   spi_ssel_true
+
+                ld      hl, write_test1
+                ld      bc, 4
+                call    spi_write_str
+
+                ; call   spi_ssel_false
+                ret
+
+
+
+write_test1:    db      $01, $02, $80, $40
+
 
 
 ;###########
@@ -89,9 +137,11 @@ half_blink:  push    af
 
 
 boot_msg:
-	defb    CR, LF, LF
+	defb    CR, LF, CR, LF
 	defb	'##############################################################################',CR, LF
 	defb	'Z180 SBC SPI test',CR, LF
+        defb    '       git: @@GIT_VERSION@@', CR, LF
+        defb    '     build: @@DATE@@', CR, LF
 	defb	'##############################################################################',CR, LF
 	defb	0
 
