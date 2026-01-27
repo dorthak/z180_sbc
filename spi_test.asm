@@ -18,8 +18,10 @@ prog_start:
     ;call    test_read
     ;call    test_write_byt
     ;call    test_ssel
-    call    test_write_str
+    ;call    test_write_str
 
+    call    test_80clks ; needed befroe running cmd0
+    call    test_cmd0
 
     call    iputs
     defb    CR, LF, 'Tests Done', CR, LF, 0
@@ -59,10 +61,20 @@ test_read:      call    iputs
 
 test_write_byt: call    iputs
                 defb    'test_write_byt', CR, LF, 0    
+                call    iputs
+                defb    'Byte=0x', 0
+                
+                ld      d, $F5
+                ld      a, d
+                call    hexdump_a
+                call    puts_crlf
 
-                ld      c, $55
+                call    spi_ssel_true
+
+                ld      c, d
+
                 call    spi_put
-
+                call    spi_ssel_false
                 ret  
 
 test_ssel:      call    iputs
@@ -93,10 +105,70 @@ test_write_str: call    iputs
                 call   spi_ssel_false
                 ret
 
+test_cmd0:      call    iputs
+                defb    'test_cmd0', CR, LF, 0    
+                
+                call   spi_ssel_true  
+
+                call    iputs
+                defb    'CMD0=', 0
+
+                ld      hl, test_cmd0_msg       ; buffer address
+                ld      bc, 6                   ; buffer size
+                ld      e, 0                    ; no fancy formatting
+
+                call    hexdump
+
+                ; send CMD0 mesage
+                ld      hl, test_cmd0_msg
+                ld      c, 0
+                ld      b, 6
+                call    spi_write_str
+
+                ld      b, 0xf0                 ; may need to read multiple bytes befre SD resonds
+test_cmd0_loop:
+                push    bc                      ; save retry counter
+
+                call    iputs
+                defb    'R1=', 0
+
+                call    spi_get
+                push    af                      ; save response byte
+                call    hexdump_a
+                call    puts_crlf
+
+                pop     af
+                pop     bc
+
+                and     $80                     ; is MSB 1? 
+
+                ;cp      $01                     ; Is the R1 response $01?
+                jr      z, test_cmd0_success    ; yes -> success
+
+                djnz    test_cmd0_loop          ; R1 response is bad, but keep reading until B is zero
+
+                call    iputs
+                defb    'CMD0 failed after max retries', CR, LF, 0
+                jp      test_cmd0_done
+
+
+test_cmd0_success:
+                call    iputs
+                defb    'CMD0 success!', CR, LF, 0
+
+test_cmd0_done:
+
+                call    spi_ssel_false
+
+                ret
+
+
+test_cmd0_msg:
+	        db	$40, $0, $0, $0, $0, $95
+
 
 
 write_test1:    db      $01, $02, $80, $40
-
 
 
 ;###########
