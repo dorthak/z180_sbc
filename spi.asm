@@ -92,10 +92,10 @@ spi_ssel_true:
                 out0        (sd_enable_addr), a ; output to hardware
 
                 ; make sure card is not busy doing things
-; spi_ssel_true_busy:
-;                 call        spi_get
-;                 cp          $FF                 ; pullup on MISO line
-;                 jr          nz, spi_ssel_true_busy
+spi_ssel_true_busy:
+                 call        spi_get
+                 cp          $FF                 ; pullup on MISO line
+                 jr          nz, spi_ssel_true_busy
 
                  ret
 
