@@ -4,14 +4,15 @@
 #CROSS_AS_FLAGS=-t hd64180
 
 CROSS_AS=zasm
-CROSS_AS_FLAGS=--z180 -u --dotnames -y
+CROSS_AS_FLAGS=--z180 -u --dotnames -y -L ./lib
 
 DATE := $(shell date +"%Y-%m-%d %H:%M:%S%z")
 GIT_VERSION := $(shell git show -s --format='%h - %s - %ci')
 
 .SECONDARY:
 
-all: spi_test
+#all: spi_test
+all: sd_test hello
 
 blinky1: blinky1.bin
 blinky2: blinky2.bin
@@ -19,6 +20,8 @@ hello_sio1: hello_sio1.bin
 hello_sio2: hello_sio2.bin
 hello_sio3: hello_sio3.bin
 spi_test: spi_test.bin
+sd_test: sd_test.bin
+hello: hello.bin
 
 clean:
 	rm -f *.hex
@@ -32,8 +35,10 @@ clean:
 
 
 %.bin: %.tmp 
-#	$(CROSS_AS) $(CROSS_AS_FLAGS)  $(basename $@).asm $@ $(basename $@).lst
-	$(CROSS_AS) $(CROSS_AS_FLAGS)  -i $(basename $@).tmp -o $@ -l $(basename $@).lst
+# uz80as version
+#	$(CROSS_AS) $(CROSS_AS_FLAGS)  $(basename $@).asm $@ $(basename $@).lst 
+# zasm version
+	$(CROSS_AS) $(CROSS_AS_FLAGS)  -i $(basename $@).tmp -o $@ -l $(basename $@).lst 
 
 blinky1.bin: io.asm z180.asm
 blinky2.bin: io.asm z180.asm
@@ -41,3 +46,5 @@ hello_sio1.bin: init.asm io.asm z180.asm sio.asm
 hello_sio2.bin: init.asm io.asm z180.asm sio.asm
 hello_sio3.bin: init.asm io.asm z180.asm sio.asm puts.asm
 spi_test.bin: init.asm io.asm z180.asm sio.asm puts.asm spi.asm hexdump.asm
+sd_test.bin: init.asm io.asm z180.asm sio.asm puts.asm spi.asm hexdump.asm sd.asm
+hello.bin: io.asm memory.asm hexdump.asm sio.asm puts.asm
