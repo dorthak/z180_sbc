@@ -9,6 +9,8 @@ loop:
         inc     de
         ld      a, d
         call    hexdump_a
+        ld      a, e
+        call    hexdump_a
         call    iputs
         defb    ': Hello from the SD Card!', CR, LF, 0      
         ld      hl, 0
