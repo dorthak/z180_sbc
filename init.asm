@@ -1,3 +1,7 @@
+; Large portions of this code are copied from, or inspired by: 
+;   John Winans' z80-retro-cpm project.  
+;   Wayne Warthen's RomWBW project
+; All of their Copyright is retained by original authors
 
 ;###########
 ; z180 initialization at start

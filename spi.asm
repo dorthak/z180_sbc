@@ -1,3 +1,8 @@
+; Large portions of this code are copied from, or inspired by: 
+;   John Winans' z80-retro-cpm project.  
+;   Wayne Warthen's RomWBW project
+; All of their Copyright is retained by original authors
+
 #include "io.asm"
 
 spi_init:       ld          a, 6                ; div by 1280 - 14KHz @18MHz clock?
@@ -24,7 +29,7 @@ spi_put:        push        bc
                 ret
 
 
-; get one byte, return in A
+; get one byte, return in A and C
 ; clobbers AF
 spi_get:        push        bc
                 call        spi_waittx          ; make sure we aren't sending
@@ -37,7 +42,7 @@ spi_get:        push        bc
                 call        spi_waitrx
                 in0         a, (TRDR)           ; Get the byte
                 call        mirror              ; MSB<->LSB, result in A.
-                pop         bc
+                pop         bc                  ; because mirror clobbers BC
                 ret
 
 ; Check if SPI TX is ready
@@ -58,7 +63,7 @@ spi_waitrx:     in0         a, (CNTR)
 
 ; Write multi-byte string
 ; hl had buffer pointer
-; bc has count
+; b has count
 
 spi_write_str:  push        af
                 push        de
@@ -72,6 +77,31 @@ spi_wr_str_lp:
                 call        spi_put             ; send byte in c to spi
                 pop         bc                  ; restore loop counter
                 djnz        spi_wr_str_lp
+
+
+                pop         hl
+                pop         bc
+                pop         de
+                pop         af
+                
+                ret
+
+; Read multi-byte string
+; hl had buffer pointer
+; b has count
+
+spi_read_str:   push        af
+                push        de
+                push        bc
+                push        hl                  ; end protection of registers
+
+spi_r_str_lp:  
+                push        bc                  ; preserve count for loop
+                call        spi_get             ; fetch byte from spi
+                ld          (hl), a             ; fetch byte from write buffer
+                inc         hl                  ; advance buffer pointer
+                pop         bc                  ; restore loop counter
+                djnz        spi_r_str_lp
 
 
                 pop         hl

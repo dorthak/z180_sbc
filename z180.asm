@@ -1,3 +1,8 @@
+; Large portions of this code are copied from, or inspired by: 
+;   John Winans' z80-retro-cpm project.  
+;   Wayne Warthen's RomWBW project
+; All of their Copyright is retained by original authors
+
 ; base address for re-located on-board control registers
 Z180_BASE:              .equ    $C0
 
