@@ -49,7 +49,8 @@
         out0    (cbr_addr), A
 
         ; Set up stack
-        ld      sp, stack_top 
+        ;ld      sp, stack_top 
+        ld      sp, LOAD_BASE           ; set stack to below where CP/M will go
 
 ; Copy ROM into RAM
 

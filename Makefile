@@ -47,4 +47,4 @@ hello_sio2.bin: init.asm io.asm z180.asm sio.asm
 hello_sio3.bin: init.asm io.asm z180.asm sio.asm puts.asm
 spi_test.bin: init.asm io.asm z180.asm sio.asm puts.asm spi.asm hexdump.asm
 sd_test.bin: init.asm io.asm z180.asm sio.asm puts.asm spi.asm hexdump.asm sd.asm
-hello.bin: io.asm memory.asm hexdump.asm sio.asm puts.asm
+hello.bin: io.asm z180.asm hexdump.asm sio.asm puts.asm

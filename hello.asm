@@ -4,7 +4,7 @@
 ; All of their Copyright is retained by original authors
 
 #include "io.asm"
-#include "memory.asm"
+#include "z180.asm"
 
         .org    LOAD_BASE               ; second stage load address
         ld      sp, LOAD_BASE           ; boot loader should have initialized SIO, SPI, etc.
