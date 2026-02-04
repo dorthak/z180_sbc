@@ -29,9 +29,11 @@ clean:
 	rm -f *.obj
 	rm -f *.lst
 	rm -f *.com
+	rm -f *.tmp
 
 %.tmp: %.asm 
 	cat $< | sed  -e "s/@@DATE@@/$(DATE)/g" -e "s/@@GIT_VERSION@@/$(GIT_VERSION)/g" > $(basename $@).tmp
+
 
 
 %.bin: %.tmp 
@@ -40,11 +42,11 @@ clean:
 # zasm version
 	$(CROSS_AS) $(CROSS_AS_FLAGS)  -i $(basename $@).tmp -o $@ -l $(basename $@).lst 
 
-blinky1.bin: io.asm z180.asm
-blinky2.bin: io.asm z180.asm
-hello_sio1.bin: init.asm io.asm z180.asm sio.asm
-hello_sio2.bin: init.asm io.asm z180.asm sio.asm
-hello_sio3.bin: init.asm io.asm z180.asm sio.asm puts.asm
-spi_test.bin: init.asm io.asm z180.asm sio.asm puts.asm spi.asm hexdump.asm
-sd_test.bin: init.asm io.asm z180.asm sio.asm puts.asm spi.asm hexdump.asm sd.asm
-hello.bin: io.asm z180.asm hexdump.asm sio.asm puts.asm
+blinky1.tmp: io.asm z180.asm
+blinky2.tmp: io.asm z180.asm
+hello_sio1.tmp: init.asm io.asm z180.asm sio.asm
+hello_sio2.tmp: init.asm io.asm z180.asm sio.asm
+hello_sio3.tmp: init.asm io.asm z180.asm sio.asm puts.asm
+spi_test.tmp: init.asm io.asm z180.asm sio.asm puts.asm spi.asm hexdump.asm
+sd_test.tmp: init.asm io.asm z180.asm sio.asm puts.asm spi.asm hexdump.asm sd.asm
+hello.tmp: io.asm z180.asm hexdump.asm sio.asm puts.asm
