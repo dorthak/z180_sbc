@@ -37,7 +37,7 @@ test_sd:
     call	iputs
 	db	    CR, LF, 'Reading SD card block zero', CR, LF, LF, 0
     call	iputs
-	db	    CR, LF, 'Entering test_sd', CR, LF, LF, 0
+	db	    CR, LF, 'Entering test_sd (80 clocks and CMD0)', CR, LF, LF, 0
 
     call    sd_boot                         ; send 74+Clks
 
@@ -51,7 +51,7 @@ test_sd:
 
 boot_sd_1:
     call	iputs
-	db	    CR, LF, 'Entering boot_sd_1', CR, LF, LF, 0
+	db	    CR, LF, 'Entering boot_sd_1 (CMD8)', CR, LF, LF, 0
 
     ld      de, LOAD_BASE                   ; temporary buffer
     call    sd_cmd8                         ; CMD9 sent to verify SD card version and voltage
@@ -74,7 +74,7 @@ boot_sd_1:
 
 boot_sd_2:
     call	iputs
-	db	    CR, LF, 'Entering boot_sd_2', CR, LF, LF, 0
+	db	    CR, LF, 'Entering boot_sd_2 (ACMD41)', CR, LF, LF, 0
 
 
 .ac41_max_retry: equ	$80		            ; limit the number of ACMD41 retries to 128
@@ -115,6 +115,10 @@ boot_sd_2:
 	db	    ' times.', CR, LF, LF, 0
 #endif
 
+
+    call	iputs
+	db	    CR, LF, 'Exiting ac41_done (CMD58)', CR, LF, LF, 0
+
 	; Find out the card capacity (SDHC or SDXC)
 	; This status is not valid until after ACMD41.
 	ld	    de, LOAD_BASE
@@ -140,6 +144,8 @@ boot_sd_2:
 
 
 .boot_hcxc_ok:
+    call	iputs
+	db	    CR, LF, 'Entering hcxc_ok (CMD17)', CR, LF, LF, 0
     ; TEMP
     ret
 

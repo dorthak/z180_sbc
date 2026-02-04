@@ -92,8 +92,8 @@ sd_cmd8:
     push    de                  ; PUSH response buffer address
 #endif
 
-    call	iputs
-	db	    CR, LF, 'Entering sd_cmd8', CR, LF, LF, 0
+    ; call	iputs
+	; db	    CR, LF, 'Entering sd_cmd8', CR, LF, LF, 0
 
     ld      hl, .sd_cmd8_buf
     ld      b, .sd_cmd8_len
@@ -132,7 +132,7 @@ sd_cmd58:
 #endif
 
     ld      hl, .sd_cmd58_buf
-    ld      bc, .sd_cmd58_len
+    ld      b, .sd_cmd58_len
     call    .sd_cmd_r3
 
 #if .sd_debug
@@ -166,7 +166,7 @@ sd_cmd58:
 sd_cmd55:
 
     ld      hl, .sd_cmd55_buf   ; HL = buffer to write
-    ld      bc, .sd_cmd55_len   ; B = buffer byte count
+    ld      b, .sd_cmd55_len   ; B = buffer byte count
     call    .sd_cmd_r1          ; write buffer, A = R1 response byte
 
 #if .sd_debug
@@ -205,7 +205,7 @@ sd_acmd41:
     call    sd_cmd55            ; send the A-command prefix
 
     ld      hl, .sd_acmd41_buf  ; HL = command buffer
-    ld      bc, .sd_acmd41_len  ; BC = buffer byte count
+    ld      b, .sd_acmd41_len  ; BC = buffer byte count
     call    .sd_cmd_r1
 
 #if .sd_debug
