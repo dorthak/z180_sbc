@@ -235,6 +235,169 @@ sd_acmd41:
 .sd_acmd41_len: equ $-.sd_acmd41_buf
 
 ;############################################################################
+; CMD17 (READ_SINGLE_BLOCK)
+;
+; Read one block given by the 32-bit (little endian) number at
+; the top of the stack into the buffer given by address in DE.
+;
+; - set SSEL = true
+; - send command
+; - read for CMD ACK
+; - wait for 'data token'
+; - read data block
+; - read data CRC
+; - set SSEL = false
+;
+; A = 0 if the read operation was successful. Else A=1
+; Clobbers A, IX
+;############################################################################
+.sd_debug_cmd17: equ    .sd_debug
+
+sd_cmd17:
+                                ; +10 = &block_number
+                                ; +8 = return @
+    push    bc                  ; +6
+    push    hl                  ; +4
+    push    iy                  ; +2
+    push    de                  ; +0 target buffer address
+
+    ld      iy, .sd_scratch     ; iy = buffer to format command
+    ld      ix, 10              ; 10 is the offset from sp to the location of the block number
+    add     ix, sp              ; ix = address of uint32_t sd_lba_block number
+
+    ld      (iy+0), 17|0x40     ; the command byte
+    ld      a, (ix+3)           ; stack = little endian
+    ld      (iy+1), a           ; cmd_buffer = big endian
+    ld      a, (ix+2)
+    ld      (iy+2), a
+    ld      a, (ix+1)
+    ld      (iy+3), a
+    ld      a, (ix+0)
+    ld      (iy+4), a
+    ld      (iy+5), 0x00|0x01   ; the CRC byte
+
+#if .sd_debug_cmd17
+    ; print the comand buffer
+    call    iputs
+    db      'CMD17: ', 0
+    push    iy
+    pop     hl                  ; HL = IY = cmd_buffer address
+    ld      b, 6                ; B = command buffer length
+    ld      e, 0
+    call    hexdump
+
+    ; print the target address
+    call    iputs
+    db      '  Target: ', 0
+
+    pop     de                  ; restore DE = target buffer address
+    push    de                  ; and keep it on the stack too
+
+    ld      a, d
+    call    hexdump_a
+    ld      a, e
+    call    hexdump_a
+    call    puts_crlf
+#endif
+
+    ; assert the SSEL line
+    call    spi_ssel_true       ; Doesn't bugger up de
+
+    ; send the command
+    push    iy
+    pop     hl                  ; HL = IY = cmd_buffer address
+    ld      b, 6                ; B = command buffer length
+    call    spi_write_str       ; clobbers A, E
+
+    ; read the R1 response message
+    call    .sd_read_r1         ; clobbers A, E
+
+#if .sd_debug_cmd17
+    push    af
+    call    iputs
+    db      '  R1: ', 0
+    pop     af
+    push    af
+    call    hexdump_a
+    call    puts_crlf
+    pop     af
+#endif
+
+    ; If R1 status != SD_READY (0x00) then error (SD spec p265, Section 7.2.3)
+    or      a                   ; if (a == 0x00) then is OK
+    jr      z, .sd_cmd17_r1ok
+
+    ; print the R1 status byte
+    push    af
+    call    iputs
+    db      CR, LF, "SD CMD17 R1 error = 0x", 0
+    pop     af
+    call    hexdump_a
+    call    puts_crlf
+
+    jp      .sd_cmd17_err
+
+
+.sd_cmd17_r1ok:
+
+    ; read and toss bytes while waiting for the data token
+    ld      bc, $1000           ; expect to wait a while for a reply
+.sd_cmd17_loop:
+    call    spi_get             ; (clobbers A)
+    cp      0xff                ; if a=0xff then command is not yet completed
+    jr      nz, .sd_cmd17_token
+    dec     bc
+    ld      a, b
+    or      c
+    jr      nz, .sd_cmd17_loop
+
+    call    iputs
+    db      "SD CMD17 data timeout", CR, LF, 0
+    jp      .sd_cmd17_err       ; no flag ever arrived
+
+.sd_cmd17_token:
+    cp      $fe                 ; A = data block token? (else is junk from the SD)
+    jr      z, .sd_cmd17_tokok
+
+    push    af
+    call    iputs
+    db      "SD CMD17 invalid response token: 0x", 0
+    pop     af
+    call    hexdump_a
+    call    iputs
+    db      CR, LF, 0
+    jp      .sd_cmd17_err
+
+.sd_cmd17_tokok:
+    pop     hl                  ; HL = target buffer address
+    push    hl                  ; and keep the stack level the same
+    ld      bc, $200            ; 512 bytes to read
+
+
+    call    spi_read_str         
+    call    spi_get             ; read the CRC value (XXX should check this)
+    call    spi_get             ; read the CRC value (XXX should check this)
+
+    ; TG Dummy 8 clock according to spec in ssel_false function
+    call    spi_ssel_false
+
+    xor a           ; A = 0 = success!
+
+.sd_cmd17_done:
+    pop de
+    pop iy
+    pop hl
+    pop bc
+    ret
+
+.sd_cmd17_err:
+    call    spi_ssel_false
+
+    ld  a,0x01      ; return an error flag
+    jr  .sd_cmd17_done
+
+
+;############################################################################
 ; Send a command and read an R1 response message.
 ; HL = command buffer address
 ; B = command byte length
@@ -355,7 +518,10 @@ sd_acmd41:
     ld      (hl), a         ; save it
     inc     hl              ; advance receive buffer pointer
 
-    ld      b, 4
+    ld      bc, 4
     call    spi_read_str
 
     ret
+
+.sd_scratch:
+    ds      6

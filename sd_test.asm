@@ -130,13 +130,13 @@ boot_sd_2:
 	ld	    hl, LOAD_BASE
 	ld	    bc, 5
 	ld	    e, 0
-	call	hexdump			; dump the response message from CMD58
+	call	hexdump							; dump the response message from CMD58
 #endif
 
 	; Check that CCS=1 here to indicate that we have an HC/XC card
-	ld	a,(LOAD_BASE+1)
-	and	0x40			; CCS bit is here (See SD spec p275)
-	jr	nz,.boot_hcxc_ok
+	ld		a, (LOAD_BASE+1)
+	and		0x40							; CCS bit is here (See SD spec p275)
+	jr		nz, .boot_hcxc_ok
 
 	call	iputs
 	db	'Error: SD card capacity is not SDHC or SDXC.\r\n\0'
@@ -146,7 +146,37 @@ boot_sd_2:
 .boot_hcxc_ok:
     call	iputs
 	db	    CR, LF, 'Entering hcxc_ok (CMD17)', CR, LF, LF, 0
-    ; TEMP
+
+	ld		hl, 0							; SD card block number to read
+	push	hl								; high half
+	push	hl								; low half
+	ld		de, LOAD_BASE					; where to read the sector data into
+	call	sd_cmd17
+	pop		hl								; remove the block number from the stack
+	pop		hl
+
+	or		a
+	jr		z, .boot_cmd17_ok				; if CMD17 ended OK then run the code
+
+	call	iputs
+	db		'Error: SD card CMD17 failed to read block zero.', CR, LF, 0
+	ret
+
+.boot_cmd17_ok:
+
+#if .debug
+	call	iputs
+	db		'The block has been read!', CR, LF, 0
+
+	ld		hl, LOAD_BASE					; Dump the block we read from the SD card
+	ld		bc, 0x200						; 512 bytes to dump
+	ld		e, 1							; and make it all all purdy like
+	call	hexdump
+#endif
+
+	jp		LOAD_BASE						; Go execute what ever came from the SD card
+
+
     ret
 
 ;###########
