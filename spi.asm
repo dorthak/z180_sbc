@@ -29,7 +29,7 @@ spi_put:        push        bc
                 ret
 
 
-; get one byte, return in A and C
+; get one byte, return in A 
 ; clobbers AF
 spi_get:        push        bc
                 call        spi_waittx          ; make sure we aren't sending
@@ -88,7 +88,7 @@ spi_wr_str_lp:
 
 ; Read multi-byte string
 ; hl had buffer pointer
-; b has count
+; bc has count
 
 spi_read_str:   push        af
                 push        de
@@ -101,7 +101,10 @@ spi_r_str_lp:
                 ld          (hl), a             ; fetch byte from write buffer
                 inc         hl                  ; advance buffer pointer
                 pop         bc                  ; restore loop counter
-                djnz        spi_r_str_lp
+                dec         bc
+                ld          a, b
+                or          c                   ; or's two halves of BC, only zero if BC zero
+                jr          nz, spi_r_str_lp
 
 
                 pop         hl
