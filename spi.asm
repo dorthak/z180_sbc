@@ -63,7 +63,7 @@ spi_waitrx:     in0         a, (CNTR)
 
 ; Write multi-byte string
 ; hl had buffer pointer
-; b has count
+; bc has count
 
 spi_write_str:  push        af
                 push        de
@@ -76,7 +76,10 @@ spi_wr_str_lp:
                 inc         hl                  ; advance buffer pointer
                 call        spi_put             ; send byte in c to spi
                 pop         bc                  ; restore loop counter
-                djnz        spi_wr_str_lp
+                dec         bc
+                ld          a, b
+                or          c                   ; or's two halves of BC, only zero if BC zero
+                jr          nz, spi_wr_str_lp
 
 
                 pop         hl

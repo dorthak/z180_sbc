@@ -44,7 +44,7 @@ sd_boot:
 sd_cmd0:
 
     ld      hl, .sd_cmd0_buf    ; HL = command buffer
-    ld      b, .sd_cmd0_len     ; B = command buffer length
+    ld      bc, .sd_cmd0_len     ; BC = command buffer length
     call    .sd_cmd_r1          ; send CMD0, A has result
 
 #if .sd_debug
@@ -96,7 +96,7 @@ sd_cmd8:
 	; db	    CR, LF, 'Entering sd_cmd8', CR, LF, LF, 0
 
     ld      hl, .sd_cmd8_buf
-    ld      b, .sd_cmd8_len
+    ld      bc, .sd_cmd8_len
     call    .sd_cmd_r7
 
 
@@ -132,7 +132,7 @@ sd_cmd58:
 #endif
 
     ld      hl, .sd_cmd58_buf
-    ld      b, .sd_cmd58_len
+    ld      bc, .sd_cmd58_len
     call    .sd_cmd_r3
 
 #if .sd_debug
@@ -166,7 +166,7 @@ sd_cmd58:
 sd_cmd55:
 
     ld      hl, .sd_cmd55_buf   ; HL = buffer to write
-    ld      b, .sd_cmd55_len   ; B = buffer byte count
+    ld      bc, .sd_cmd55_len   ; BC = buffer byte count
     call    .sd_cmd_r1          ; write buffer, A = R1 response byte
 
 #if .sd_debug
@@ -205,7 +205,7 @@ sd_acmd41:
     call    sd_cmd55            ; send the A-command prefix
 
     ld      hl, .sd_acmd41_buf  ; HL = command buffer
-    ld      b, .sd_acmd41_len  ; BC = buffer byte count
+    ld      bc, .sd_acmd41_len  ; BC = buffer byte count
     call    .sd_cmd_r1
 
 #if .sd_debug
@@ -282,7 +282,7 @@ sd_cmd17:
     db      'CMD17: ', 0
     push    iy
     pop     hl                  ; HL = IY = cmd_buffer address
-    ld      b, 6                ; B = command buffer length
+    ld      bc, 6               ; BC = command buffer length
     ld      e, 0
     call    hexdump
 
@@ -306,7 +306,7 @@ sd_cmd17:
     ; send the command
     push    iy
     pop     hl                  ; HL = IY = cmd_buffer address
-    ld      b, 6                ; B = command buffer length
+    ld      bc, 6                ; BC = command buffer length
     call    spi_write_str       ; clobbers A, E
 
     ; read the R1 response message
@@ -400,7 +400,7 @@ sd_cmd17:
 ;############################################################################
 ; Send a command and read an R1 response message.
 ; HL = command buffer address
-; B = command byte length
+; BC = command byte length
 ; Clobbers A, E
 ; Returns A = reply message byte
 ;
@@ -422,7 +422,7 @@ sd_cmd17:
     call    spi_ssel_true       ; Does not clobber hl or bc
 
     ; write a sequence of bytes represending the CMD message
-    call    spi_write_str       ; write B bytes from HL buffer @
+    call    spi_write_str       ; write BC bytes from HL buffer @
 
     ; read the R1 response message
     call    .sd_read_r1         ; A = E = message response byte
@@ -440,7 +440,7 @@ sd_cmd17:
 ; Send a command and read an R7 response message.
 ; Note that an R3 response is the same size, so can use the same code.
 ; HL = command buffer address
-; B = command byte length
+; BC = command byte length
 ; DE = 5-byte response buffer address
 ; Clobbers A, E
 ;############################################################################
