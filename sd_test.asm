@@ -9,8 +9,8 @@
 #include "sd.asm"
 #include "hexdump.asm"
 
-;.debug: equ 0
-.debug: equ 1
+.debug: equ 0
+;.debug: equ 1
 
 
 prog_start:
