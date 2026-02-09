@@ -381,20 +381,219 @@ sd_cmd17:
     ; TG Dummy 8 clock according to spec in ssel_false function
     call    spi_ssel_false
 
-    xor a           ; A = 0 = success!
+    xor     a                   ; A = 0 = success!
 
 .sd_cmd17_done:
-    pop de
-    pop iy
-    pop hl
-    pop bc
+    pop     de
+    pop     iy
+    pop     hl
+    pop     bc
     ret
 
 .sd_cmd17_err:
     call    spi_ssel_false
 
-    ld  a,0x01      ; return an error flag
-    jr  .sd_cmd17_done
+    ld      a, 0x01             ; return an error flag
+    jr      .sd_cmd17_done
+
+;############################################################################
+; CMD24 (WRITE_BLOCK)
+;
+; Write one block given by the 32-bit (little endian) number at
+; the top of the stack from the buffer given by address in DE.
+;
+; - set SSEL = true
+; - send command
+; - read for CMD ACK
+; - send 'data token'
+; - write data block
+; - wait while busy
+; - read 'data response token' (must be 0bxxx00101 else errors) (see SD spec: 7.3.3.1, p281)
+; - set SSEL = false
+;
+; - set SSEL = true
+; - wait while busy     Wait for the write operation to complete.
+; - set SSEL = false
+;
+; XXX This /should/ check to see if the block address was valid
+; and that there was no write protect error by sending a CMD13
+; after the long busy wait has completed.
+;
+; A = 0 if the write operation was successful. Else A = 1.
+; Clobbers A, IX
+;############################################################################
+.sd_debug_cmd24: equ    .sd_debug
+
+sd_cmd24:
+                                ; +10 = &block_number
+                                ; +8 = return @
+    push    bc                  ; +6
+    push    de                  ; +4 target buffer address
+    push    hl                  ; +2
+    push    iy                  ; +0
+
+    ld      iy, .sd_scratch     ; iy = buffer to format command
+    ld      ix, 10              ; 10 is the offset from sp to the location of the block number
+    add     ix,sp               ; ix = address of uint32_t sd_lba_block number
+
+.sd_cmd24_len: equ  6
+
+    ld      (iy+0), 24|0x40     ; the command byte
+    ld      a, (ix+3)           ; stack = little endian
+    ld      (iy+1), a           ; cmd_buffer = big endian
+    ld      a, (ix+2)
+    ld      (iy+2), a
+    ld      a, (ix+1)
+    ld      (iy+3), a
+    ld      a, (ix+0)
+    ld      (iy+4), a
+    ld      (iy+5), 0x00|0x01   ; the CRC byte
+
+#if .sd_debug_cmd24
+    push    de
+    ; print the command buffer
+    call    iputs
+    db      "  CMD24: ", 0
+    push    iy
+    pop     hl                  ; hl = &cmd_buffer
+    ld      bc, .sd_cmd24_len
+    ld      e,0
+    call    hexdump
+
+    ; print the target address
+    call    iputs
+    db      "  CMD24: source: ", 0
+    ld      a, (ix-5)
+    call    hexdump_a
+    ld      a, (ix-6)
+    call    hexdump_a
+    call    puts_crlf
+    pop     de
+#endif
+
+    ; assert the SSEL line
+    call    spi_ssel_true
+
+    ; send the command
+    push    iy
+    pop     hl                  ; hl = iy = &cmd_buffer
+    ld      bc, .sd_cmd24_len
+    call    spi_write_str       ; clobbers A, E
+
+    ; read the R1 response message
+    call    .sd_read_r1         ; clobbers A, E
+
+    ; If R1 status != SD_READY (0x00) then error
+    or      a                   ; if (a == 0x00)
+    jr      z, .sd_cmd24_r1ok   ; then OK
+                    ; else error...
+
+    push    af
+    call    iputs
+    db      "SD CMD24 status = ", 0
+    pop     af
+    call    hexdump_a
+    call    iputs
+    db      " != SD_READY", CR, LF, 0 
+    jp      .sd_cmd24_err       ; then error
+
+
+.sd_cmd24_r1ok:
+    ; give the SD card an extra 8 clocks before we send the start token
+    call    spi_get             ; Ignore response
+
+    ; send the start token: 0xfe
+    ld      c, $FE
+    call    spi_put             ; clobbers AF
+
+    ; send 512 bytes
+
+    ld      l, (ix-6)           ; HL = source buffer address
+    ld      h, (ix-5)
+    ld      bc, $200            ; BC = 512 bytes to write
+    call    spi_write_str
+          
+    ; read for up to 250msec waiting on a completion status
+
+    ld      bc, $F000           ; wait a potentially /long/ time for the write to complete
+.sd_cmd24_wdr:                  ; wait for data response message
+    call    spi_get             ; clobber A, DE
+    cp      0xff
+    jr      nz, .sd_cmd24_drc
+    dec     bc
+    ld      a, b
+    or      c
+    jr      nz, .sd_cmd24_wdr
+
+    call    iputs
+    db      "SD CMD24 completion status timeout!", CR, LF, 0
+    jp      .sd_cmd24_err       ; timed out
+
+
+.sd_cmd24_drc:
+    ; Make sure the response is 0bxxx00101 else is an error
+    and     0x1f
+    cp      0x05
+    jr      z, .sd_cmd24_ok
+
+    push    bc
+    call    iputs
+    db       "ERROR: SD CMD24 completion status != 0x05 (count=", 0
+    pop     bc
+    push    bc
+    ld      a, b
+    call    hexdump_a
+    pop     bc
+    ld      a, c
+    call    hexdump_a
+    call    iputs
+    db      ")", CR, LF, 0
+
+    jp      .sd_cmd24_err
+
+.sd_cmd24_ok:
+    ; TG Dummy 8 clock here, then code is free to NOT poll for completion!
+    ; Not polling here, but checking for busy before the next CMD is issued
+    ;   saves some cycles at the expense of detecting failure
+
+    call    spi_ssel_false
+;   call spi_read8  ; Dummy 8 clocks, just in case the many in the loop aren't enough
+
+            ; TG 071723 REVIEWS NOTE COMPLETION CHECK REMOVAL
+#if 1
+    ; Wait until the card reports that it is not busy
+    call    spi_ssel_true
+
+.sd_cmd24_busy:                 ; It's in THIS loop that a lot of time is
+                                ;   spent waiting for the write to complete
+    call    spi_get             ; clobber A, DE.  Return character received in A
+    cp      0xff
+    jr      nz, .sd_cmd24_busy
+
+    call    spi_ssel_false
+
+#endif
+
+    xor     a                   ; A = 0 = success!
+
+.sd_cmd24_done:
+    pop     iy
+    pop     hl
+    pop     de
+    pop     bc
+
+    ret
+
+.sd_cmd24_err:
+    call    spi_ssel_false
+
+#if .sd_debug_cmd24
+    call    iputs
+    db      "SD CMD24 write failed!", CR, LF, 0
+#endif
+
+    ld      a, 0x01             ; return an error flag
+    jr      .sd_cmd24_done
 
 
 ;############################################################################
