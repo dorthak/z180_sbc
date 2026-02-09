@@ -12,8 +12,8 @@
 ; - send ACMD41 (finish bringing the SD card on line)
 ; - send CMD58 to verify the card is SDHC/SDXC mode (512-byte block size)
 
-;.sd_debug: equ 0
-.sd_debug: equ 1
+.sd_debug: equ 0
+;.sd_debug: equ 1
 
 ;############################################################################
 ; SSEL = HI (deassert)
