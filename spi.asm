@@ -3,7 +3,7 @@
 ;   Wayne Warthen's RomWBW project
 ; All of their Copyright is retained by original authors
 
-#include "io.asm"
+;#include "io.asm"
 
 spi_init:       ld          a, 6                ; div by 1280 - 14KHz @18MHz clock?
                 out0        (CNTR), a

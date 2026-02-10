@@ -20,11 +20,6 @@ cbar_addr:              .equ    Z180_BASE + $3A
 
 ;dcntl_addr:             .equ    Z180_BASE + $32
 
-; Since z180 decrements SP prior to a push, setting stack_top to 0 will place first 
-; byte stored in stack at $FFFF, the top of RAM.
-;stack_top:              .equ    0
-stack_top:              .equ    LOAD_BASE   ; set stack to below where CP/M will go
-
 ; bottom of the unbanked RAM segment
 ram_start:              .equ    $8000
 
@@ -36,3 +31,9 @@ MEM:                    .equ 60
 CPM_BASE:	            .equ	(MEM-7)*1024
 
 LOAD_BASE:	            .equ	$C000		; where the boot loader reads the image from the SD card
+
+; Since z180 decrements SP prior to a push, setting stack_top to 0 will place first 
+; byte stored in stack at $FFFF, the top of RAM.
+;stack_top:              .equ    0
+stack_top:              .equ    LOAD_BASE   ; set stack to below where CP/M will go
+

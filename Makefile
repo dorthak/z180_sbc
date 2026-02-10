@@ -1,10 +1,10 @@
 .PHONY: all clean
 
-#CROSS_AS=uz80as
-#CROSS_AS_FLAGS=-t hd64180
+CROSS_AS=uz80as
+CROSS_AS_FLAGS=--dot-labels -x -t hd64180
 
-CROSS_AS=zasm
-CROSS_AS_FLAGS=--z180 -u --dotnames -y -L ./lib
+#CROSS_AS=zasm
+#CROSS_AS_FLAGS=--z180 -u --dotnames -y -L ./lib
 
 DATE := $(shell date +"%Y-%m-%d %H:%M:%S%z")
 GIT_VERSION := $(shell git show -s --format='%h - %s - %ci')
@@ -39,9 +39,9 @@ clean:
 
 %.bin: %.tmp 
 # uz80as version
-#	$(CROSS_AS) $(CROSS_AS_FLAGS)  $(basename $@).asm $@ $(basename $@).lst 
+	$(CROSS_AS) $(CROSS_AS_FLAGS)  $(basename $@).tmp $@ $(basename $@).lst 
 # zasm version
-	$(CROSS_AS) $(CROSS_AS_FLAGS)  -i $(basename $@).tmp -o $@ -l $(basename $@).lst 
+#	$(CROSS_AS) $(CROSS_AS_FLAGS)  -i $(basename $@).tmp -o $@ -l $(basename $@).lst 
 
 blinky1.tmp: io.asm z180.asm
 blinky2.tmp: io.asm z180.asm

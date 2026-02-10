@@ -64,6 +64,6 @@
 
         ; Starting here, running from RAM
 ramcode:
-        .phase  ram_start
+        .org  ram_start
 
 ; the prog_start and prog_end label must be defined at the bottom of every program!

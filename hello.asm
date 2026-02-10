@@ -3,7 +3,7 @@
 ;   Wayne Warthen's RomWBW project
 ; All of their Copyright is retained by original authors
 
-#include "io.asm"
+;#include "io.asm"
 #include "z180.asm"
 
         .org    LOAD_BASE               ; second stage load address
