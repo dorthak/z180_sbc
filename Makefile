@@ -1,7 +1,7 @@
 .PHONY: all clean
 
 CROSS_AS=uz80as
-CROSS_AS_FLAGS=--dot-labels -x -t hd64180
+CROSS_AS_FLAGS= -t hd64180 -a
 
 #CROSS_AS=zasm
 #CROSS_AS_FLAGS=--z180 -u --dotnames -y -L ./lib
