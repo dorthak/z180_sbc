@@ -12,7 +12,7 @@ GIT_VERSION := $(shell git show -s --format='%h - %s - %ci')
 .SECONDARY:
 
 #all: spi_test
-all: sd_test hello
+all: firmware hello
 
 blinky1: blinky1.bin
 blinky2: blinky2.bin
@@ -22,6 +22,7 @@ hello_sio3: hello_sio3.bin
 spi_test: spi_test.bin
 sd_test: sd_test.bin
 hello: hello.bin
+firmware: firmware.bin
 
 clean:
 	rm -f *.hex
@@ -49,4 +50,5 @@ hello_sio2.tmp: init.asm io.asm z180.asm sio.asm
 hello_sio3.tmp: init.asm io.asm z180.asm sio.asm puts.asm
 spi_test.tmp: init.asm io.asm z180.asm sio.asm puts.asm spi.asm hexdump.asm
 sd_test.tmp: init.asm io.asm z180.asm sio.asm puts.asm spi.asm hexdump.asm sd.asm
+firmware.tmp: init.asm io.asm z180.asm sio.asm puts.asm spi.asm hexdump.asm sd.asm
 hello.tmp: io.asm z180.asm hexdump.asm sio.asm puts.asm

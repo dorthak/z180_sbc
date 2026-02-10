@@ -22,7 +22,8 @@ cbar_addr:              .equ    Z180_BASE + $3A
 
 ; Since z180 decrements SP prior to a push, setting stack_top to 0 will place first 
 ; byte stored in stack at $FFFF, the top of RAM.
-; stack_top:              .equ    0
+;stack_top:              .equ    0
+stack_top:              .equ    LOAD_BASE   ; set stack to below where CP/M will go
 
 ; bottom of the unbanked RAM segment
 ram_start:              .equ    $8000
