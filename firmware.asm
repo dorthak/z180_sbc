@@ -10,9 +10,9 @@
 #include "hexdump.asm"
 
 ;.debug: equ 0
-.debug: equ 1
+.debug: .equ 1
 
-.boot_rom_version:	equ	1
+.boot_rom_version:	.equ	1
 .load_blks:	equ	(0x10000-LOAD_BASE)/512
 
 prog_start:
