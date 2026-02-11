@@ -3,7 +3,7 @@
 ;   Wayne Warthen's RomWBW project
 ; All of their Copyright is retained by original authors
 
-#include "spi.asm"
+    .include "spi.asm"
 
 ; To initialize an SDHC/SDXC card:
 ; - send at least 74 CLKs
@@ -12,8 +12,8 @@
 ; - send ACMD41 (finish bringing the SD card on line)
 ; - send CMD58 to verify the card is SDHC/SDXC mode (512-byte block size)
 
-.sd_debug: equ 0
-;.sd_debug: equ 1
+;.sd_debug: .equ 0
+.sd_debug: .equ 1
 
 ;############################################################################
 ; SSEL = HI (deassert)
@@ -45,9 +45,9 @@ sd_cmd0:
 
     ld      hl, .sd_cmd0_buf    ; HL = command buffer
     ld      bc, .sd_cmd0_len     ; BC = command buffer length
-    call    .sd_cmd_r1          ; send CMD0, A has result
+    call    sd_cmd_r1          ; send CMD0, A has result
 
-#if .sd_debug
+    .ifdef .sd_debug
     push    af
     call    iputs
     db      'CMD0: ', 0
@@ -62,12 +62,12 @@ sd_cmd0:
     call    hexdump_a           ; dump the reply message
     call    puts_crlf
     pop     af
-#endif
+    .endif
 
    ret
 
 .sd_cmd0_buf:   db  0|0x40,0,0,0,0,0x94|0x01
-.sd_cmd0_len:   equ $-.sd_cmd0_buf
+.sd_cmd0_len:   .equ $-.sd_cmd0_buf
 
 ;############################################################################
 ; Send a CMD8 (SEND_IF_COND) message and read an R7 response.
@@ -88,19 +88,19 @@ sd_cmd0:
 ;############################################################################
 
 sd_cmd8:
-#if .sd_debug
+    .ifdef .sd_debug
     push    de                  ; PUSH response buffer address
-#endif
+    .endif
 
     ; call	iputs
 	; db	    CR, LF, 'Entering sd_cmd8', CR, LF, LF, 0
 
     ld      hl, .sd_cmd8_buf
     ld      bc, .sd_cmd8_len
-    call    .sd_cmd_r7
+    call    sd_cmd_r7
 
 
-#if .sd_debug
+    .ifdef .sd_debug
     call    iputs
     db      'CMD8: ', 0
     ld      hl, .sd_cmd8_buf
@@ -113,11 +113,11 @@ sd_cmd8:
     ld      bc, 5
     ld      e, 0
     call    hexdump             ; dump the reply message
-#endif
+    .endif
     
     ret
 .sd_cmd8_buf:   db  8|0x40,0,0,0x01,0xaa,0x86|0x01
-.sd_cmd8_len:   equ $-.sd_cmd8_buf 
+.sd_cmd8_len:   .equ $-.sd_cmd8_buf 
 
 ;############################################################################
 ; Send a CMD58 message and read an R3 response.
@@ -127,15 +127,15 @@ sd_cmd8:
 ; Return the 5-byte response in the buffer pointed to by DE.
 ;############################################################################
 sd_cmd58:
-#if .sd_debug
+    .ifdef .sd_debug
     push    de                  ; PUSH buffer address
-#endif
+    .endif
 
     ld      hl, .sd_cmd58_buf
     ld      bc, .sd_cmd58_len
-    call    .sd_cmd_r3
+    call    sd_cmd_r3
 
-#if .sd_debug
+    .ifdef .sd_debug
     call    iputs
     db      'CMD58: ', 0
     ld      hl, .sd_cmd58_buf
@@ -148,12 +148,12 @@ sd_cmd58:
     ld      bc,5
     ld      e,0
     call    hexdump             ; dump the reply message
-#endif
+    .endif
 
     ret
 
 .sd_cmd58_buf:  db  58|0x40,0,0,0,0,0x00|0x01
-.sd_cmd58_len:  equ $-.sd_cmd58_buf
+.sd_cmd58_len:  .equ $-.sd_cmd58_buf
 
 
 ;############################################################################
@@ -167,9 +167,9 @@ sd_cmd55:
 
     ld      hl, .sd_cmd55_buf   ; HL = buffer to write
     ld      bc, .sd_cmd55_len   ; BC = buffer byte count
-    call    .sd_cmd_r1          ; write buffer, A = R1 response byte
+    call    sd_cmd_r1          ; write buffer, A = R1 response byte
 
-#if .sd_debug
+    .ifdef .sd_debug
     push    af
     call    iputs
     db      'CMD55: ', 0
@@ -184,12 +184,12 @@ sd_cmd55:
     call    hexdump_a           ; dump the response byte
     call    puts_crlf
     pop     af
-#endif
+    .endif
 
     ret
 
 .sd_cmd55_buf:  db  55|0x40,0,0,0,0,0x00|0x01
-.sd_cmd55_len:  equ $-.sd_cmd55_buf
+.sd_cmd55_len:  .equ $-.sd_cmd55_buf
 
 ;############################################################################
 ; Send a ACMD41 (SD_SEND_OP_COND) message and return an R1 response byte in A.
@@ -206,9 +206,9 @@ sd_acmd41:
 
     ld      hl, .sd_acmd41_buf  ; HL = command buffer
     ld      bc, .sd_acmd41_len  ; BC = buffer byte count
-    call    .sd_cmd_r1
+    call    sd_cmd_r1
 
-#if .sd_debug
+    .ifdef .sd_debug
     push    af
     call    iputs
     db      'ACMD41: ', 0
@@ -223,7 +223,7 @@ sd_acmd41:
     call    hexdump_a           ; dump the status byte
     call    puts_crlf
     pop     af
-#endif
+    .endif
 
     ret
   
@@ -232,7 +232,7 @@ sd_acmd41:
 ; The folowing works on my MicroCenter SDHC cards:
 
 .sd_acmd41_buf: db  41|0x40,0x40,0,0,0,0x00|0x01    ; Note the HCS flag is set here
-.sd_acmd41_len: equ $-.sd_acmd41_buf
+.sd_acmd41_len: .equ $-.sd_acmd41_buf
 
 ;############################################################################
 ; CMD17 (READ_SINGLE_BLOCK)
@@ -251,7 +251,9 @@ sd_acmd41:
 ; A = 0 if the read operation was successful. Else A=1
 ; Clobbers A, IX
 ;############################################################################
-.sd_debug_cmd17: equ    .sd_debug
+    .ifdef .sd_debug
+.sd_debug_cmd17: .equ    .sd_debug
+    .endif
 
 sd_cmd17:
                                 ; +10 = &block_number
@@ -261,7 +263,7 @@ sd_cmd17:
     push    iy                  ; +2
     push    de                  ; +0 target buffer address
 
-    ld      iy, .sd_scratch     ; iy = buffer to format command
+    ld      iy, sd_scratch     ; iy = buffer to format command
     ld      ix, 10              ; 10 is the offset from sp to the location of the block number
     add     ix, sp              ; ix = address of uint32_t sd_lba_block number
 
@@ -276,7 +278,7 @@ sd_cmd17:
     ld      (iy+4), a
     ld      (iy+5), 0x00|0x01   ; the CRC byte
 
-#if .sd_debug_cmd17
+    .ifdef .sd_debug_cmd17
     ; print the comand buffer
     call    iputs
     db      'CMD17: ', 0
@@ -298,7 +300,7 @@ sd_cmd17:
     ld      a, e
     call    hexdump_a
     call    puts_crlf
-#endif
+    .endif
 
     ; assert the SSEL line
     call    spi_ssel_true       ; Doesn't bugger up de
@@ -310,9 +312,9 @@ sd_cmd17:
     call    spi_write_str       ; clobbers A, E
 
     ; read the R1 response message
-    call    .sd_read_r1         ; clobbers A, E
+    call    sd_read_r1         ; clobbers A, E
 
-#if .sd_debug_cmd17
+    .ifdef .sd_debug_cmd17
     push    af
     call    iputs
     db      '  R1: ', 0
@@ -321,7 +323,7 @@ sd_cmd17:
     call    hexdump_a
     call    puts_crlf
     pop     af
-#endif
+    .endif
 
     ; If R1 status != SD_READY (0x00) then error (SD spec p265, Section 7.2.3)
     or      a                   ; if (a == 0x00) then is OK
@@ -422,7 +424,9 @@ sd_cmd17:
 ; A = 0 if the write operation was successful. Else A = 1.
 ; Clobbers A, IX
 ;############################################################################
-.sd_debug_cmd24: equ    .sd_debug
+    .ifdef .sd_debug
+.sd_debug_cmd24: .equ    .sd_debug
+    .endif 
 
 sd_cmd24:
                                 ; +10 = &block_number
@@ -432,11 +436,11 @@ sd_cmd24:
     push    hl                  ; +2
     push    iy                  ; +0
 
-    ld      iy, .sd_scratch     ; iy = buffer to format command
+    ld      iy, sd_scratch     ; iy = buffer to format command
     ld      ix, 10              ; 10 is the offset from sp to the location of the block number
     add     ix,sp               ; ix = address of uint32_t sd_lba_block number
 
-.sd_cmd24_len: equ  6
+    .sd_cmd24_len: .equ  6
 
     ld      (iy+0), 24|0x40     ; the command byte
     ld      a, (ix+3)           ; stack = little endian
@@ -449,7 +453,7 @@ sd_cmd24:
     ld      (iy+4), a
     ld      (iy+5), 0x00|0x01   ; the CRC byte
 
-#if .sd_debug_cmd24
+    .ifdef .sd_debug_cmd24
     push    de
     ; print the command buffer
     call    iputs
@@ -469,7 +473,7 @@ sd_cmd24:
     call    hexdump_a
     call    puts_crlf
     pop     de
-#endif
+    .endif
 
     ; assert the SSEL line
     call    spi_ssel_true
@@ -481,7 +485,7 @@ sd_cmd24:
     call    spi_write_str       ; clobbers A, E
 
     ; read the R1 response message
-    call    .sd_read_r1         ; clobbers A, E
+    call    sd_read_r1         ; clobbers A, E
 
     ; If R1 status != SD_READY (0x00) then error
     or      a                   ; if (a == 0x00)
@@ -560,7 +564,7 @@ sd_cmd24:
 ;   call spi_read8  ; Dummy 8 clocks, just in case the many in the loop aren't enough
 
             ; TG 071723 REVIEWS NOTE COMPLETION CHECK REMOVAL
-#if 1
+    .if 1
     ; Wait until the card reports that it is not busy
     call    spi_ssel_true
 
@@ -572,7 +576,7 @@ sd_cmd24:
 
     call    spi_ssel_false
 
-#endif
+    .endif
 
     xor     a                   ; A = 0 = success!
 
@@ -587,10 +591,10 @@ sd_cmd24:
 .sd_cmd24_err:
     call    spi_ssel_false
 
-#if .sd_debug_cmd24
+    .ifdef .sd_debug_cmd24
     call    iputs
     db      "SD CMD24 write failed!", CR, LF, 0
-#endif
+    .endif
 
     ld      a, 0x01             ; return an error flag
     jr      .sd_cmd24_done
@@ -616,7 +620,7 @@ sd_cmd24:
 ; SSEL = HI
 ;############################################################################
 
-.sd_cmd_r1:
+sd_cmd_r1:
     ; assert the SSEL line
     call    spi_ssel_true       ; Does not clobber hl or bc
 
@@ -624,7 +628,7 @@ sd_cmd24:
     call    spi_write_str       ; write BC bytes from HL buffer @
 
     ; read the R1 response message
-    call    .sd_read_r1         ; A = E = message response byte
+    call    sd_read_r1         ; A = E = message response byte
 
     push af                     ; Save response byte
 
@@ -644,8 +648,8 @@ sd_cmd24:
 ; Clobbers A, E
 ;############################################################################
 
-.sd_cmd_r3:
-.sd_cmd_r7:
+sd_cmd_r3:
+sd_cmd_r7:
     call    spi_ssel_true       ; Doesn't clobber hl or bc
 
     push    de                  ; save the response buffer @
@@ -653,7 +657,7 @@ sd_cmd24:
 
     ; read the response message into buffer @ in HL
     pop     hl                  ; pop the response buffer @ HL
-    call    .sd_read_r7
+    call    sd_read_r7
 
     ; de-assert the SSEL line
     call    spi_ssel_false
@@ -671,7 +675,7 @@ sd_cmd24:
 ; Clobbers A, B
 ;############################################################################
 
-.sd_read_r1:
+sd_read_r1:
 
 
 
@@ -691,7 +695,7 @@ sd_cmd24:
 .sd_r1_done:
     
     ; call    iputs
-    ; defb    ".sd_read_r1 response = ", 0
+    ; defb    "sd_read_r1 response = ", 0
 
     ; ld      a, e            ; copy the final value into A
     ; call    hexdump_a
@@ -711,9 +715,8 @@ sd_cmd24:
 ; Read an R7 message into the 5-byte buffer pointed to by HL.
 ; Clobbers HL, A, and E
 ;############################################################################
-
-.sd_read_r7:
-    call    .sd_read_r1     ; A = byte #1
+sd_read_r7:
+    call    sd_read_r1     ; A = byte #1
     ld      (hl), a         ; save it
     inc     hl              ; advance receive buffer pointer
 
@@ -722,5 +725,5 @@ sd_cmd24:
 
     ret
 
-.sd_scratch:
+sd_scratch:
     ds      6

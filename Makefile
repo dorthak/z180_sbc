@@ -3,8 +3,11 @@
 #CROSS_AS=uz80as
 #CROSS_AS_FLAGS=-t hd64180
 
-CROSS_AS=zasm
-CROSS_AS_FLAGS=--z180 -u --dotnames -y -L ./lib
+CROSS_AS=~/vasm/vasmz80_oldstyle
+CROSS_AS_FLAGS=-Fbin -esc -dotdir -hd64180 -ldots
+
+#CROSS_AS=zasm
+#CROSS_AS_FLAGS=--z180 -u --dotnames -y -L ./lib
 
 DATE := $(shell date +"%Y-%m-%d %H:%M:%S%z")
 GIT_VERSION := $(shell git show -s --format='%h - %s - %ci')
@@ -41,7 +44,10 @@ clean:
 # uz80as version
 #	$(CROSS_AS) $(CROSS_AS_FLAGS)  $(basename $@).asm $@ $(basename $@).lst 
 # zasm version
-	$(CROSS_AS) $(CROSS_AS_FLAGS)  -i $(basename $@).tmp -o $@ -l $(basename $@).lst 
+#	$(CROSS_AS) $(CROSS_AS_FLAGS)  -i $(basename $@).tmp -o $@ -l $(basename $@).lst 
+# vasm version
+	$(CROSS_AS) $(CROSS_AS_FLAGS)  -o $@ -L $(basename $@).lst $(basename $@).tmp
+
 
 blinky1.tmp: io.asm z180.asm
 blinky2.tmp: io.asm z180.asm

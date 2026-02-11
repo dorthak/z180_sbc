@@ -3,11 +3,11 @@
 ;   Wayne Warthen's RomWBW project
 ; All of their Copyright is retained by original authors
 
-#include "init.asm"
-#include "sio.asm"
-#include "puts.asm"
-#include "spi.asm"
-#include "hexdump.asm"
+        .include "init.asm"
+        .include "sio.asm"
+        .include "puts.asm"
+        .include "spi.asm"
+        .include "hexdump.asm"
 
 prog_start:
     di                                      ; just in case

@@ -3,8 +3,7 @@
 ;   Wayne Warthen's RomWBW project
 ; All of their Copyright is retained by original authors
 
-#include "io.asm"
-#include "z180.asm"
+        .include "z180.asm"
 
         .org    LOAD_BASE               ; second stage load address
         ld      sp, LOAD_BASE           ; boot loader should have initialized SIO, SPI, etc.
@@ -28,6 +27,6 @@ delay:
 
 
 
-#include 'hexdump.asm'
-#include 'sio.asm'
-#include 'puts.asm'
+        .include 'hexdump.asm'
+        .include 'sio.asm'
+        .include 'puts.asm'

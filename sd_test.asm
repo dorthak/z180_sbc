@@ -3,13 +3,13 @@
 ;   Wayne Warthen's RomWBW project
 ; All of their Copyright is retained by original authors
 
-#include "init.asm"
-#include "sio.asm"
-#include "puts.asm"
-#include "sd.asm"
-#include "hexdump.asm"
+	.include "init.asm"
+	.include "sio.asm"
+	.include "puts.asm"
+	.include "sd.asm"
+	.include "hexdump.asm"
 
-.debug: equ 0
+.debug: .equ 1
 ;.debug: equ 1
 
 
@@ -77,7 +77,7 @@ boot_sd_2:
 	db	    CR, LF, 'Entering boot_sd_2 (ACMD41)', CR, LF, LF, 0
 
 
-.ac41_max_retry: equ	$80		            ; limit the number of ACMD41 retries to 128
+.ac41_max_retry: .equ	$80		            ; limit the number of ACMD41 retries to 128
 
 	ld	    b, .ac41_max_retry
 .ac41_loop:
@@ -104,7 +104,7 @@ boot_sd_2:
 	ret
 
 .ac41_done:
-#if .debug
+	.ifdef .debug
 	call    iputs
 	db	    '** Note: Called ACMD41 0x', 0
 	ld	    a,.ac41_max_retry
@@ -113,7 +113,7 @@ boot_sd_2:
 	call	hexdump_a
 	call	iputs
 	db	    ' times.', CR, LF, LF, 0
-#endif
+	.endif
 
 
     call	iputs
@@ -124,14 +124,14 @@ boot_sd_2:
 	ld	    de, LOAD_BASE
 	call	sd_cmd58
 
-#if .debug
+	.ifdef .debug
 	call	iputs
 	db	    '** Note: Called CMD58: R3: ', 0
 	ld	    hl, LOAD_BASE
 	ld	    bc, 5
 	ld	    e, 0
 	call	hexdump							; dump the response message from CMD58
-#endif
+	.endif
 
 	; Check that CCS=1 here to indicate that we have an HC/XC card
 	ld		a, (LOAD_BASE+1)
@@ -164,7 +164,7 @@ boot_sd_2:
 
 .boot_cmd17_ok:
 
-#if .debug
+	.ifdef .debug
 	call	iputs
 	db		'The block has been read!', CR, LF, 0
 
@@ -172,7 +172,7 @@ boot_sd_2:
 	ld		bc, 0x200						; 512 bytes to dump
 	ld		e, 1							; and make it all all purdy like
 	call	hexdump
-#endif
+	.endif
 
 	jp		LOAD_BASE						; Go execute what ever came from the SD card
 

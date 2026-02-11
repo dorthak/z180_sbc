@@ -7,7 +7,7 @@
 ; z180 initialization at start
 ;###########
 
-#include "z180.asm"
+        .include "z180.asm"
 
         .org     $0000                  ;Cold reset entry point
         

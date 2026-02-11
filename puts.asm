@@ -12,7 +12,7 @@ puts:
     push    bc
     push    hl
 
-    call    .puts_loop
+    call    puts_loop
 
     pop     hl
     pop     bc
@@ -20,14 +20,14 @@ puts:
 
     ret
 
-.puts_loop:
+puts_loop:
     ld      a, (hl)             ; Get next byte to send
     or      a 
     jr      z, .puts_done       ; If A is zero, this is the terminating null
     ld      c, a                ; Put into C for the tx routine
     call    con_tx_char
     inc     hl
-    jp      .puts_loop
+    jp      puts_loop
 
 .puts_done
     ret
@@ -38,7 +38,7 @@ puts:
 iputs:
     ex      (sp), hl            ; sp contains the pc from before the call, so put in hl
                                 ; to point at the string to be printed
-    call    .puts_loop          
+    call    puts_loop          
     inc     hl
     ex      (sp), hl            ; put the byte after the string back into the sp
                                 ; so that it can be fed back to the PC on return
