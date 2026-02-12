@@ -9,8 +9,8 @@
 	.include "sd.asm"
 	.include "hexdump.asm"
 
-.debug: .equ 1
-;.debug: equ 1
+debug: .equ 1
+;debug: equ 1
 
 
 prog_start:
@@ -104,7 +104,7 @@ boot_sd_2:
 	ret
 
 .ac41_done:
-	.ifdef .debug
+	.ifdef debug
 	call    iputs
 	db	    '** Note: Called ACMD41 0x', 0
 	ld	    a,.ac41_max_retry
@@ -124,7 +124,7 @@ boot_sd_2:
 	ld	    de, LOAD_BASE
 	call	sd_cmd58
 
-	.ifdef .debug
+	.ifdef debug
 	call	iputs
 	db	    '** Note: Called CMD58: R3: ', 0
 	ld	    hl, LOAD_BASE
@@ -164,7 +164,7 @@ boot_sd_2:
 
 .boot_cmd17_ok:
 
-	.ifdef .debug
+	.ifdef debug
 	call	iputs
 	db		'The block has been read!', CR, LF, 0
 

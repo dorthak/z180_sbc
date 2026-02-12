@@ -12,8 +12,8 @@
 ; - send ACMD41 (finish bringing the SD card on line)
 ; - send CMD58 to verify the card is SDHC/SDXC mode (512-byte block size)
 
-;.sd_debug: .equ 0
-.sd_debug: .equ 1
+;sd_debug: .equ 0
+;sd_debug: .equ 1
 
 ;############################################################################
 ; SSEL = HI (deassert)
@@ -47,7 +47,7 @@ sd_cmd0:
     ld      bc, .sd_cmd0_len     ; BC = command buffer length
     call    sd_cmd_r1          ; send CMD0, A has result
 
-    .ifdef .sd_debug
+    .ifdef sd_debug
     push    af
     call    iputs
     db      'CMD0: ', 0
@@ -88,7 +88,7 @@ sd_cmd0:
 ;############################################################################
 
 sd_cmd8:
-    .ifdef .sd_debug
+    .ifdef sd_debug
     push    de                  ; PUSH response buffer address
     .endif
 
@@ -100,7 +100,7 @@ sd_cmd8:
     call    sd_cmd_r7
 
 
-    .ifdef .sd_debug
+    .ifdef sd_debug
     call    iputs
     db      'CMD8: ', 0
     ld      hl, .sd_cmd8_buf
@@ -127,7 +127,7 @@ sd_cmd8:
 ; Return the 5-byte response in the buffer pointed to by DE.
 ;############################################################################
 sd_cmd58:
-    .ifdef .sd_debug
+    .ifdef sd_debug
     push    de                  ; PUSH buffer address
     .endif
 
@@ -135,7 +135,7 @@ sd_cmd58:
     ld      bc, .sd_cmd58_len
     call    sd_cmd_r3
 
-    .ifdef .sd_debug
+    .ifdef sd_debug
     call    iputs
     db      'CMD58: ', 0
     ld      hl, .sd_cmd58_buf
@@ -169,7 +169,7 @@ sd_cmd55:
     ld      bc, .sd_cmd55_len   ; BC = buffer byte count
     call    sd_cmd_r1          ; write buffer, A = R1 response byte
 
-    .ifdef .sd_debug
+    .ifdef sd_debug
     push    af
     call    iputs
     db      'CMD55: ', 0
@@ -208,7 +208,7 @@ sd_acmd41:
     ld      bc, .sd_acmd41_len  ; BC = buffer byte count
     call    sd_cmd_r1
 
-    .ifdef .sd_debug
+    .ifdef sd_debug
     push    af
     call    iputs
     db      'ACMD41: ', 0
@@ -251,8 +251,8 @@ sd_acmd41:
 ; A = 0 if the read operation was successful. Else A=1
 ; Clobbers A, IX
 ;############################################################################
-    .ifdef .sd_debug
-.sd_debug_cmd17: .equ    .sd_debug
+    .ifdef sd_debug
+sd_debug_cmd17: .equ    1
     .endif
 
 sd_cmd17:
@@ -278,7 +278,7 @@ sd_cmd17:
     ld      (iy+4), a
     ld      (iy+5), 0x00|0x01   ; the CRC byte
 
-    .ifdef .sd_debug_cmd17
+    .ifdef sd_debug_cmd17
     ; print the comand buffer
     call    iputs
     db      'CMD17: ', 0
@@ -314,7 +314,7 @@ sd_cmd17:
     ; read the R1 response message
     call    sd_read_r1         ; clobbers A, E
 
-    .ifdef .sd_debug_cmd17
+    .ifdef sd_debug_cmd17
     push    af
     call    iputs
     db      '  R1: ', 0
@@ -424,8 +424,8 @@ sd_cmd17:
 ; A = 0 if the write operation was successful. Else A = 1.
 ; Clobbers A, IX
 ;############################################################################
-    .ifdef .sd_debug
-.sd_debug_cmd24: .equ    .sd_debug
+    .ifdef sd_debug
+sd_debug_cmd24: .equ    1
     .endif 
 
 sd_cmd24:
@@ -453,7 +453,7 @@ sd_cmd24:
     ld      (iy+4), a
     ld      (iy+5), 0x00|0x01   ; the CRC byte
 
-    .ifdef .sd_debug_cmd24
+    .ifdef sd_debug_cmd24
     push    de
     ; print the command buffer
     call    iputs
@@ -591,7 +591,7 @@ sd_cmd24:
 .sd_cmd24_err:
     call    spi_ssel_false
 
-    .ifdef .sd_debug_cmd24
+    .ifdef sd_debug_cmd24
     call    iputs
     db      "SD CMD24 write failed!", CR, LF, 0
     .endif
