@@ -5,8 +5,8 @@
 
 ; Test SIO1
 
-#include "init.asm"
-#include "sio.asm"
+        .include "init.asm"
+        .include "sio.asm"
 
 prog_start:
 

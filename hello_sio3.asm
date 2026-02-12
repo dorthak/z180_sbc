@@ -5,9 +5,9 @@
 
 ; Test SIO1
 
-#include "init.asm"
-#include "sio.asm"
-#include "puts.asm"
+        .include "init.asm"
+        .include "sio.asm"
+        .include "puts.asm"
 
 prog_start:
 
@@ -74,7 +74,7 @@ blink:
         ret
 
 message:
-        .asciz "Hello, World"
+        .asciiz "Hello, World"
 
 ; the prog_end label must be defined at the bottom of every program!
 prog_end:   

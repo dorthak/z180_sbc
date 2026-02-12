@@ -3,8 +3,8 @@
 ;   Wayne Warthen's RomWBW project
 ; All of their Copyright is retained by original authors
 
-#include "z180.asm"
-#include "io.asm"
+        .include "z180.asm"
+        .include "io.asm"
 
         .org     $0000                  ;Cold reset entry point
         

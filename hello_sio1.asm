@@ -3,8 +3,8 @@
 ;   Wayne Warthen's RomWBW project
 ; All of their Copyright is retained by original authors
 
-#include "init.asm"
-#include "sio.asm"
+        .include "init.asm"
+        .include "sio.asm"
 
 prog_start:
 
