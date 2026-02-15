@@ -46,7 +46,7 @@
                                         ; mapped onto the physical memory, we need to
                                         ; offset by 64k, not just the 32k that is 
                                         ; actually Common Area 1
-        out0    (cbr_addr), A
+        out0    (cbr_addr), a
 
         ; Set up stack
         ld      sp, stack_top 
@@ -60,6 +60,12 @@
                                         ; the endof file less ram_start label
                                         ; since .org was used rather than .phase
         ldir
+
+; Change banked area to point to bottom 32K of RAM
+        ld      a, +(512 >> 2)          ; bottom of RAM 
+        out0    (bbr_addr), a
+
+; Continue running from RAM
         jp      prog_start              ; switch execution to ram
 
         ; Starting here, running from RAM
