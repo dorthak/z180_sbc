@@ -6,7 +6,7 @@
         .include "z180.asm"
         .include "io.asm"
 
-        .org     $0000                  ;Cold reset entry point
+       .org     $0000                  ;Cold reset entry point
         
         ; reposition z180 control registers
         ld      a, Z180_BASE
@@ -15,7 +15,7 @@
         ;turn off DRAM Referesh and set zero states
         xor     a
         out0    (rcr_addr), a           ; set RCR to zero to disable DRAM refresh
-        ;out0    (dcntl_addr), a         ; set DCNTL to zero to disable all wait states 
+        ;out0    (dcntl_addr), a        ; set DCNTL to zero to disable all wait states 
         ld      a, %11110000            ; set DCNTRL to 3 memory wait states and 3 IO wait states, 
                                         ; more conservative
         out0    (dcntl_addr), a        
@@ -25,32 +25,27 @@
         out0    (cmr_addr), a           ; set CMR to x1 mode
         out0    (ccr_addr), a           ; set CCR to default - normal drive, no standby 
 
-
 loop:
         xor     a                       ; Turn LED on (active low)
         out0    (status_led_addr), a
-        
-        call delay
+        ld      hl, $0000
 
-        ld      a, status_enable_bit    ; Tuirn LED off
-        out0    (status_led_addr), a
-
-        call delay
-
-        jp loop
-
-; DELAY function
-delay:
-        ld hl, $8000
-dloop:
+dly1:
         dec     hl
         ld      a, h
         or      l
-        jp      nz, dloop
-        ret
+        jp      nz, dly1
 
+        ld      a, status_enable_bit    ; Tuirn LED off
+        out0    (status_led_addr), a
+        ld      hl, $0000
 
+dly2:
+        dec     hl
+        ld      a, h
+        or      l
+        jp      nz, dly2
 
-; the finish label must be defined at the bottom of every program!
-finish:   
+        jp loop
+ 
         .end
