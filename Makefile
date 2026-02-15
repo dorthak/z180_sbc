@@ -1,4 +1,4 @@
-.PHONY: all clean
+.PHONY: all clean flash
 
 #CROSS_AS=uz80as
 #CROSS_AS_FLAGS=-t hd64180
@@ -36,6 +36,10 @@ clean:
 	rm -fr *.com
 	rm -fr *.tmp
 	rm -fr *.dep
+
+flash:
+	~/z80-retro/2065-Z80-programmer/pi/flash < firmware.bin
+
 
 # .SECONDARY:
 
