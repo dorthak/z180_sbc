@@ -401,6 +401,7 @@ boot_msg:
 	defb	'##############################################################################',CR, LF
 	defb	0
 
+
 ; the prog_end label must be defined at the bottom of every program!
 prog_end:   
         .end

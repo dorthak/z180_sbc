@@ -4,7 +4,7 @@
 #CROSS_AS_FLAGS=-t hd64180
 
 CROSS_AS=~/vasm/vasmz80_oldstyle
-CROSS_AS_FLAGS=-Fbin -esc -dotdir -hd64180 -ldots -I./lib 
+CROSS_AS_FLAGS=-Fbin -esc -dotdir -hd64180 -ldots -I./lib -I./cpm
 
 #CROSS_AS=zasm
 #CROSS_AS_FLAGS=--z180 -u --dotnames -y -L ./lib
@@ -16,7 +16,7 @@ GIT_VERSION := $(shell git show -s --format='%h - %s - %ci')
 #all: spi_test
 all: firmware hello
 
-blinky1: blinky1.bin
+blinky1: test/blinky1.bin
 blinky2: blinky2.bin
 hello_sio1: hello_sio1.bin
 hello_sio2: hello_sio2.bin
@@ -29,12 +29,13 @@ firmware: firmware.bin
 -include *.dep
 
 clean:
-	rm -f *.hex
-	rm -f *.bin
-	rm -f *.obj
-	rm -f *.lst
-	rm -f *.com
-	rm -f *.tmp
+	rm -fr *.hex
+	rm -fr *.bin
+	rm -fr *.obj
+	rm -fr *.lst
+	rm -fr *.com
+	rm -fr *.tmp
+	rm -fr *.dep
 
 # .SECONDARY:
 
