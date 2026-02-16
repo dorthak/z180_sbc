@@ -409,7 +409,6 @@ boot_msg:
 	ascii	'##############################################################################\r\n'
 	ascii	'Z180 SBC Flash Boot loader v0.1 Copyright (C) 2026 J. Galak Consulting, Inc.\r\n'
     ascii	'       Portions Copyright (C) John Winans\r\n'
-    ascii	'       CP/M 2.2 Copyright (C) 1979 Digital Research\r\n'
     ascii   '       git: @@GIT_VERSION@@\r\n'
     ascii   '       build: @@DATE@@\r\n'
 	asciiz	'##############################################################################\r\n'
