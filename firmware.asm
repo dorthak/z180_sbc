@@ -4,10 +4,7 @@
 ; All of their Copyright is retained by original authors
 
     .include "init.asm"
-    .include "sio.asm"
-    .include "puts.asm"
-    .include "sd.asm"
-    .include "hexdump.asm"
+
 
 
 debug: .equ 1
@@ -17,12 +14,27 @@ load_blks:	.equ	(0x10000-LOAD_BASE)/512
 
 prog_start:
     di                                      ; just in case
+    ; call    blink
+    ; call    blink
+    ; call    blink
+
     call    con_init
     call    spi_init
 
     ld      hl, boot_msg
     call    puts
     call    puts_crlf
+
+    ; test that ROM has been turned off.
+    ; call    iputs
+    ; asciiz  "\r\n Testing that ROM is diabled, result should be 0x55: "
+    ; ld      hl, 0xF0
+    ; ld      (hl), 0x55
+    ; xor     a
+    ; ld      a, (hl)
+    ; call    hexdump_a
+    ; call    puts_crlf
+    
 
     call    boot_sd
 
@@ -393,14 +405,50 @@ read_blocks:
 
 
 boot_msg:
-	defb    '\r\n\r\n'
-	defb	'##############################################################################\r\n'
-	defb	'Z180 SBC Flash Boot loader 0.1\r\n'
-    defb    '       git: @@GIT_VERSION@@\r\n'
-    defb    '     build: @@DATE@@\r\n'
-	defb	'##############################################################################\r\n'
+	ascii    '\r\n\r\n'
+	ascii	'##############################################################################\r\n'
+	ascii	'Z180 SBC Flash Boot loader 0.1\r\n'
+    ascii    '       git: @@GIT_VERSION@@\r\n'
+    ascii    '     build: @@DATE@@\r\n'
+	asciiz	'##############################################################################\r\n'
 	
 
+;###########
+; Delay for a hardcoded time period.
+; Affects: AF, HL
+;###########
+
+; delay:  ld hl, $4000
+; dloop:
+;         dec     hl
+;         ld      a, h
+;         or      l
+;         jp      nz, dloop
+;         ret
+
+
+;###########
+; Blink the SD card light.
+; Affects: Nothing
+;###########
+
+; blink:  push    af
+;         push    hl
+;         xor     a                       ; Turn LED on (active low)
+;         out0    (status_led_addr), a
+;         call delay
+;         ld      a, status_enable_bit    ; Tuirn LED off
+;         out0    (status_led_addr), a
+;         call delay
+;         pop     hl
+;         pop     af
+;         ret
+
+
+    .include "sio.asm"
+    .include "puts.asm"
+    .include "sd.asm"
+    .include "hexdump.asm"        
 
 ; the prog_end label must be defined at the bottom of every program!
 prog_end:   
