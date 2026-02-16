@@ -332,7 +332,7 @@ sd_cmd17:
     ; print the R1 status byte
     push    af
     call    iputs
-    db      CR, LF, "SD CMD17 R1 error = 0x", 0
+    asciiz  "\r\nSD CMD17 R1 error = 0x"
     pop     af
     call    hexdump_a
     call    puts_crlf
@@ -354,7 +354,7 @@ sd_cmd17:
     jr      nz, .sd_cmd17_loop
 
     call    iputs
-    db      "SD CMD17 data timeout", CR, LF, 0
+    asciiz  "SD CMD17 data timeout\r\n"
     jp      .sd_cmd17_err       ; no flag ever arrived
 
 .sd_cmd17_token:
@@ -363,11 +363,11 @@ sd_cmd17:
 
     push    af
     call    iputs
-    db      "SD CMD17 invalid response token: 0x", 0
+    asciiz  "SD CMD17 invalid response token: 0x"
     pop     af
     call    hexdump_a
     call    iputs
-    db      CR, LF, 0
+    asciiz  '\r\n'
     jp      .sd_cmd17_err
 
 .sd_cmd17_tokok:
@@ -494,11 +494,11 @@ sd_cmd24:
 
     push    af
     call    iputs
-    db      "SD CMD24 status = ", 0
+    asciiz  "SD CMD24 status = "
     pop     af
     call    hexdump_a
     call    iputs
-    db      " != SD_READY", CR, LF, 0 
+    asciiz  " != SD_READY\r\n"
     jp      .sd_cmd24_err       ; then error
 
 
@@ -530,7 +530,7 @@ sd_cmd24:
     jr      nz, .sd_cmd24_wdr
 
     call    iputs
-    db      "SD CMD24 completion status timeout!", CR, LF, 0
+    asciiz  "SD CMD24 completion status timeout!\r\n"
     jp      .sd_cmd24_err       ; timed out
 
 
@@ -542,7 +542,7 @@ sd_cmd24:
 
     push    bc
     call    iputs
-    db       "ERROR: SD CMD24 completion status != 0x05 (count=", 0
+    asciiz  "ERROR: SD CMD24 completion status != 0x05 (count="
     pop     bc
     push    bc
     ld      a, b
@@ -551,7 +551,7 @@ sd_cmd24:
     ld      a, c
     call    hexdump_a
     call    iputs
-    db      ")", CR, LF, 0
+    asciiz  ")\r\n"
 
     jp      .sd_cmd24_err
 
@@ -593,7 +593,7 @@ sd_cmd24:
 
     .ifdef sd_debug_cmd24
     call    iputs
-    db      "SD CMD24 write failed!", CR, LF, 0
+    asciiz  "SD CMD24 write failed!\r\n"
     .endif
 
     ld      a, 0x01             ; return an error flag

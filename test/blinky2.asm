@@ -15,7 +15,7 @@
         ;turn off DRAM Referesh and set zero states
         xor     a
         out0    (rcr_addr), a           ; set RCR to zero to disable DRAM refresh
-        ;out0    (dcntl_addr), a         ; set DCNTL to zero to disable all wait states 
+        ;out0    (dcntl_addr), a        ; set DCNTL to zero to disable all wait states 
         ld      a, %11110000            ; set DCNTRL to 3 memory wait states and 3 IO wait states, 
                                         ; more conservative
         out0    (dcntl_addr), a        
@@ -25,6 +25,7 @@
         out0    (cmr_addr), a           ; set CMR to x1 mode
         out0    (ccr_addr), a           ; set CCR to default - normal drive, no standby 
 
+        ld      sp, 0 
 
 loop:
         xor     a                       ; Turn LED on (active low)

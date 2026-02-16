@@ -14,19 +14,21 @@ GIT_VERSION := $(shell git show -s --format='%h - %s - %ci')
 
 
 #all: spi_test
-all: firmware hello
+all: firmware bios
 
 blinky1: test/blinky1.bin
-blinky2: blinky2.bin
-hello_sio1: hello_sio1.bin
-hello_sio2: hello_sio2.bin
-hello_sio3: hello_sio3.bin
-spi_test: spi_test.bin
-sd_test: sd_test.bin
-hello: hello.bin
+blinky2: test/blinky2.bin
+hello_sio1: test/hello_sio1.bin
+hello_sio2: test/hello_sio2.bin
+hello_sio3: test/hello_sio3.bin
+spi_test: test/spi_test.bin
+sd_test: test/sd_test.bin
+hello: test/hello.bin
 firmware: firmware.bin
+bios: bios.bin
 
--include *.dep
+-include *.dep test/*.dep
+
 
 clean:
 	rm -fr *.hex
@@ -49,7 +51,7 @@ flash:
 
 
 %.bin: %.tmp 
-	$(CROSS_AS) $(CROSS_AS_FLAGS) -depend=make -depfile $@.dep -o $@ $(basename $@).tmp
+	$(CROSS_AS) $(CROSS_AS_FLAGS) -depend=make -depfile $@.dep -o $@ $(basename $@).tmp -L $(basename $@).lst
 
 # uz80as version
 #	$(CROSS_AS) $(CROSS_AS_FLAGS)  $(basename $@).asm $@ $(basename $@).lst 

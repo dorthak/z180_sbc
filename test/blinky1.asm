@@ -6,7 +6,7 @@
         .include "z180.asm"
         .include "io.asm"
 
-       .org     $0000                  ;Cold reset entry point
+        .org     $0000                  ;Cold reset entry point
         
         ; reposition z180 control registers
         ld      a, Z180_BASE

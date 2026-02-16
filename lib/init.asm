@@ -62,8 +62,8 @@
         ldir
 
 ; Change banked area to point to bottom 32K of RAM
-        ld      a, +(512 >> 2)          ; bottom of RAM 
-        out0    (bbr_addr), a
+;        ld      a, +(512 >> 2)          ; bottom of RAM 
+;        out0    (bbr_addr), a
 
 ; Continue running from RAM
         jp      prog_start              ; switch execution to ram

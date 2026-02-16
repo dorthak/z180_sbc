@@ -38,6 +38,6 @@ status_led_addr:        .equ    $0E         ; LEDPORT in RomWBW
 
 
 ; constants for non-printable characters
-CR          .equ    $D
-LF          .equ    $A
+;CR          .equ    $D
+;LF          .equ    $A
 

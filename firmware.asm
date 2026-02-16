@@ -114,7 +114,7 @@ boot_sd_2:
 
 .ac41_fail:
 	call	iputs
-	db	    'Error: Can not read SD card (ac41 command failed)', CR, LF, LF, 0
+	asciiz  'Error: Can not read SD card (ac41 command failed)\r\n\r\n'
 	ret
 
 .ac41_done:
@@ -393,13 +393,13 @@ read_blocks:
 
 
 boot_msg:
-	defb    CR, LF, CR, LF
-	defb	'##############################################################################',CR, LF
-	defb	'Z180 SBC Flash Boot loader 0.1',CR, LF
-    defb    '       git: @@GIT_VERSION@@', CR, LF
-    defb    '     build: @@DATE@@', CR, LF
-	defb	'##############################################################################',CR, LF
-	defb	0
+	defb    '\r\n\r\n'
+	defb	'##############################################################################\r\n'
+	defb	'Z180 SBC Flash Boot loader 0.1\r\n'
+    defb    '       git: @@GIT_VERSION@@\r\n'
+    defb    '     build: @@DATE@@\r\n'
+	defb	'##############################################################################\r\n'
+	
 
 
 ; the prog_end label must be defined at the bottom of every program!

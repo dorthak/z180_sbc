@@ -11,31 +11,31 @@
 ;   Set memory limit here. This is the amount of contigeous
 ; ram starting from 0000. CP/M will reside at the end of this space.
 ;
-;MEM     EQU     62              ;for a 62k system (TS802 TEST - WORKS OK).
+;MEM     .equ     62              ;for a 62k system (TS802 TEST - WORKS OK).
 ;
-IOBYTE:  EQU     3               ;i/o definition byte.
-TDRIVE:  EQU     4               ;current drive name and user number.
-ENTRY:   EQU     5               ;entry point for the cp/m bdos.
-TFCB:    EQU     5CH             ;default file control block.
-TBUFF:   EQU     80H             ;i/o buffer and command line storage.
-TBASE:   EQU     100H            ;transiant program storage area.
+IOBYTE:  .equ     3               ;i/o definition byte.
+TDRIVE:  .equ     4               ;current drive name and user number.
+ENTRY:   .equ     5               ;entry point for the cp/m bdos.
+TFCB:    .equ     5CH             ;default file control block.
+TBUFF:   .equ     80H             ;i/o buffer and command line storage.
+TBASE:   .equ     100H            ;transiant program storage area.
 ;
 ;   Set control character equates.
 ;
-CNTRLC:  EQU     3               ;control-c
-CNTRLE:  EQU     05H             ;control-e
-BS:      EQU     08H             ;backspace
-TAB:     EQU     09H             ;tab
-LF:      EQU     0AH             ;line feed
-FF:      EQU     0CH             ;form feed
-CR:      EQU     0DH             ;carriage return
-CNTRLP:  EQU     10H             ;control-p
-CNTRLR:  EQU     12H             ;control-r
-CNTRLS:  EQU     13H             ;control-s
-CNTRLU:  EQU     15H             ;control-u
-CNTRLX:  EQU     18H             ;control-x
-CNTRLZ:  EQU     1AH             ;control-z (end-of-file mark)
-DEL:     EQU     7FH             ;rubout
+CNTRLC:  .equ     3               ;control-c
+CNTRLE:  .equ     05H             ;control-e
+BS:      .equ     08H             ;backspace
+TAB:     .equ     09H             ;tab
+LF:      .equ     0AH             ;line feed
+FF:      .equ     0CH             ;form feed
+CR:      .equ     0DH             ;carriage return
+CNTRLP:  .equ     10H             ;control-p
+CNTRLR:  .equ     12H             ;control-r
+CNTRLS:  .equ     13H             ;control-s
+CNTRLU:  .equ     15H             ;control-u
+CNTRLX:  .equ     18H             ;control-x
+CNTRLZ:  .equ     1AH             ;control-z (end-of-file mark)
+DEL:     .equ     7FH             ;rubout
 ;
 ;   Set origin for CP/M
 ;
@@ -547,7 +547,7 @@ GETEXT9:DEC     C
 ;
 ;   CP/M command table. Note commands can be either 3 or 4 characters long.
 ;
-NUMCMDS: EQU     6               ;number of commands
+NUMCMDS: .equ     6               ;number of commands
 CMDTBL: DEFB    'DIR '
         DEFB    'ERA '
         DEFB    'TYPE'
@@ -1206,7 +1206,7 @@ GETBACK1: CALL  CONVFST         ;convert first name in (FCB).
 ;   ccp stack area.
 ;
         DEFB    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-CCPSTACK: EQU    $       ;end of ccp stack area.
+CCPSTACK: .equ    $       ;end of ccp stack area.
 ;
 ;   Batch (or SUBMIT) processing information storage.
 ;
@@ -1281,7 +1281,7 @@ FBASE1: EX      DE,HL           ;save the (DE) parameters.
 ;
 ;   BDOS function jump table.
 ;
-NFUNCTS: EQU     41              ;number of functions in followin table.
+NFUNCTS: .equ     41              ;number of functions in followin table.
 ;
 FUNCTNS:DEFW    WBOOT,GETCON,OUTCON,GETRDR,PUNCH,LIST,DIRCIO,GETIOB
         DEFW    SETIOB,PRTSTR,RDBUFF,GETCSTS,GETVER,RSTDSK,SETDSK,OPENFIL
@@ -1693,7 +1693,7 @@ USRSTACK: DEFW  0               ;save users stack pointer here.
 ;
         DEFB    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
         DEFB    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-STKAREA: EQU     $               ;end of stack area.
+STKAREA: .equ     $               ;end of stack area.
 ;
 USERNO: DEFB    0               ;current user number.
 ACTIVE: DEFB    0               ;currently active drive.

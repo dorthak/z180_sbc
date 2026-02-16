@@ -50,5 +50,5 @@ iputs:
 puts_crlf:
 
     call    iputs
-    defb    CR, LF, 0
+    asciiz  '\r\n'
     ret
