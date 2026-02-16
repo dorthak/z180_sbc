@@ -1,4 +1,4 @@
-.PHONY: all clean flash
+.PHONY: all clean flash install
 
 #CROSS_AS=uz80as
 #CROSS_AS_FLAGS=-t hd64180
@@ -14,7 +14,7 @@ GIT_VERSION := $(shell git show -s --format='%h - %s - %ci')
 
 
 #all: spi_test
-all: firmware bios
+all: firmware bios 
 
 blinky1: test/blinky1.bin
 blinky2: test/blinky2.bin
@@ -41,6 +41,9 @@ clean:
 
 flash:
 	~/z80-retro/2065-Z80-programmer/pi/flash < firmware.bin
+
+install:
+	sudo dd if=bios.bin of=/dev/sda1 bs=512
 
 
 # .SECONDARY:

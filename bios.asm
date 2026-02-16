@@ -7,7 +7,6 @@
 
 debug:      .equ 1
 
-    .include "io.asm"
     .include "z180.asm"
 
 stacktop:   .equ 0x0000             ; end of RAM
@@ -46,7 +45,12 @@ PRSTAT: JP      bios_prstat
 SECTRN: JP      bios_sectrn
 
 bios_boot:
-    jp      bios_boot
+    ld      sp, stack_top
+    call    con_init                ; should be initialized from bootloader, but init anyway           
+    ld      hl, boot_msg
+    call    puts
+
+    jp      halt_loop
 
 
 bios_wboot:
@@ -66,6 +70,28 @@ bios_write:
 bios_prstat:
 bios_sectrn:
 
-.halt_loop:
+halt_loop:
     halt
-    jp      .halt_loop
+    jp      halt_loop
+
+    
+    .include "sio.asm"
+    .include "puts.asm"
+    .include "sd.asm"
+    .include "hexdump.asm"        
+
+
+boot_msg:
+	ascii    '\r\n\r\n'
+	ascii	'##############################################################################\r\n'
+	ascii	'Z180 SBC BIOS v0.1 Copyright (C) 2026 J. Galak Consulting, Inc.\r\n'
+    ascii	'       Portions Copyright (C) John Winans\r\n'
+    ascii	'       CP/M 2.2 Copyright (C) 1979 Digital Research\r\n'
+    ascii   '       git: @@GIT_VERSION@@\r\n'
+    ascii   '       build: @@DATE@@\r\n'
+	asciiz	'##############################################################################\r\n'
+	
+
+
+prog_end:   
+        .end
