@@ -3,8 +3,11 @@
 #CROSS_AS=uz80as
 #CROSS_AS_FLAGS=-t hd64180
 
-CROSS_AS=~/vasm/vasmz80_oldstyle
-CROSS_AS_FLAGS=-Fbin -esc -dotdir -hd64180 -ldots -I./lib -I./cpm
+# CROSS_AS=~/vasm/vasmz80_oldstyle
+# CROSS_AS_FLAGS=-Fbin -esc -dotdir -hd64180 -ldots -I./lib -I./cpm
+
+CROSS_AS=~/zmac/src/zmac
+CROSS_AS_FLAGS=--od . --oo cim --z180 --dep -I ./lib -I ./cpm
 
 #CROSS_AS=zasm
 #CROSS_AS_FLAGS=--z180 -u --dotnames -y -L ./lib
@@ -54,7 +57,9 @@ install:
 
 
 %.bin: %.tmp 
-	$(CROSS_AS) $(CROSS_AS_FLAGS) -depend=make -depfile $@.dep -o $@ $(basename $@).tmp -L $(basename $@).lst
+	$(CROSS_AS) $(CROSS_AS_FLAGS) $(basename $@).tmp
+# %.bin: %.tmp 
+# 	$(CROSS_AS) $(CROSS_AS_FLAGS) -depend=make -depfile $@.dep -o $@ $(basename $@).tmp -L $(basename $@).lst
 
 # uz80as version
 #	$(CROSS_AS) $(CROSS_AS_FLAGS)  $(basename $@).asm $@ $(basename $@).lst 
