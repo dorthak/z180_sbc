@@ -64,9 +64,26 @@ SECTRN: JP      bios_sectrn
 
 bios_boot:
     ld      sp, stack_top
+
+    ; preserve info about flash loader location in RAM
+    push    hl                      
+    push    de
+
     call    con_init                ; should be initialized from bootloader, but init anyway           
     ld      hl, .boot_msg
     call    puts
+
+    ; Wipe the space occupied by loader
+    pop     hl                      ; loader code in RAM starts here
+    
+    push    hl                      ; put code start +1 into de
+    pop     de                      
+    inc     de
+    
+    pop     bc                      ; size of bootloader (was in de before)
+
+    ld      (hl), 0                 ; set byte at addr 0 to 0, it'll be copied to rest of range
+    ldir
 
     ; Wipe the zero-page from random stuff from boot loader or noise
     ld      hl, 0                   ; Start from here

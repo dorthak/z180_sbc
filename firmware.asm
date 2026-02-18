@@ -14,9 +14,6 @@ load_blks:	.equ	(0x10000-LOAD_BASE)/512
 
 prog_start:
     di                                      ; just in case
-    ; call    blink
-    ; call    blink
-    ; call    blink
 
     call    con_init
     call    spi_init
@@ -25,15 +22,26 @@ prog_start:
     call    puts
     call    puts_crlf
 
-    ; test that ROM has been turned off.
-    ; call    iputs
-    ; asciiz  "\r\n Testing that ROM is diabled, result should be 0x55: "
-    ; ld      hl, 0xF0
-    ; ld      (hl), 0x55
-    ; xor     a
-    ; ld      a, (hl)
-    ; call    hexdump_a
-    ; call    puts_crlf
+;    test that ROM has been turned off.
+    .ifdef  debug
+    call    iputs
+    asciiz  "\r\nTesting that ROM is diabled, result should be 0x55: 0x"
+    ld      hl, $F0
+    ld      (hl), $55
+    xor     a
+    ld      a, (hl)
+    call    hexdump_a
+    call    puts_crlf
+    
+    call    iputs
+    asciiz  "And now should be 0xA2: 0x"
+    ld      (hl), $A2
+    xor     a
+    ld      a, (hl)
+    call    hexdump_a
+    call    puts_crlf
+
+    .endif
     
 
     call    boot_sd
@@ -310,7 +318,12 @@ boot_sd_2:
 
 	or	    a
 	ld	    a, boot_rom_version
-	jp	    z, LOAD_BASE		            ; Run the code that we just read in from the SD card.
+	
+    ; tell bios what portion of RAM is occupied by the boot loader, so it can erase it:
+    ld      hl, ram_start                   ; loader is in RAM starting here
+    ld      de, prog_end-ram_start          ; loader takes up this much space
+    
+    jp	    z, LOAD_BASE		            ; Run the code that we just read in from the SD card.
 
 	call	iputs
 	asciiz	'Error: Could not load O/S from partition 1.\r\n'

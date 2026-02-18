@@ -61,15 +61,23 @@
                                         ; since .org was used rather than .phase
         ldir
 
-; Change banked area to point to bottom 32K of RAM
-        ld      a, +(512 >> 2)          ; bottom of RAM 
-        out0    (bbr_addr), a
+        ; call    blink
+        ; call    blink
+        ; call    blink
 
 ; Continue running from RAM
-        jp      prog_start              ; switch execution to ram
+        jp      romoff                  ; switch execution to ram
 
         ; Starting here, running from RAM
 ramcode:
         .phase  ram_start
+
+romoff:
+        ; Change banked area to point to bottom 32K of RAM
+        ld      a, +(512 >> 2)          ; bottom of RAM 
+        out0    (bbr_addr), a
+
+
+        jp      prog_start
 
 ; the prog_start and prog_end label must be defined at the bottom of every program!
