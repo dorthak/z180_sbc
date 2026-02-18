@@ -44,6 +44,7 @@ flash:
 
 install:
 	sudo dd if=bios.bin of=/dev/sda1 bs=512
+	sync
 
 
 # .SECONDARY:
