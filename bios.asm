@@ -5,7 +5,16 @@
 
 ; CP/M 2.2 BIOS for the z180 SBC  (SC131 or s100computers z180 SBC board)
 
-debug:      .equ 1
+;##########################################################################
+; set .debug to:
+;    0 = no debug output
+;    1 = print messages from new code under development
+;    2 = print all the above plus the primairy 'normal' debug messages
+;    3 = print all the above plus verbose 'noisy' debug messages
+;##########################################################################
+
+debug:      .equ 3
+
 
     .include "z180.asm"
 
@@ -70,6 +79,17 @@ bios_boot:
     push    de
 
     call    con_init                ; should be initialized from bootloader, but init anyway           
+    
+    .if debug > 0
+        call    iputs
+        asciiz  "\r\n.bios_boot entered\r\n\"
+	    call	iputs
+	    asciiz	"NOTICE: Debug level is set to: 0x"
+	    ld	    a, debug		    ; A = the current debug level
+	    call	hexdump_a		    ; print the current level number
+	    call	puts_crlf		    ; and a newline
+    .endif
+    
     ld      hl, .boot_msg
     call    puts
 
@@ -84,9 +104,11 @@ bios_boot:
 
     ld      (hl), 0                 ; set byte at addr 0 to 0, it'll be copied to rest of range
     ldir
-
-    call    iputs
-    asciiz  "\r\nflash bios wiped\r\n"
+    
+    .if debug >=3
+        call    iputs
+        asciiz  "\r\nflash bios wiped\r\n"
+    .endif
 
     ; Wipe the zero-page from random stuff from boot loader or noise
     ld      hl, 0                   ; Start from here
@@ -95,9 +117,10 @@ bios_boot:
     ld      (hl), 0                 ; set byte at addr 0 to 0, it'll be copied to rest of range
     ldir  
 
-
-    call    iputs
-    asciiz  "\r\nzero page wiped\r\n"
+     .if debug >=3
+        call    iputs
+        asciiz  "\r\nzero page wiped\r\n"
+    .endif
 
     jp      gocpm
 
@@ -131,17 +154,17 @@ bios_boot:
 ;##########################################################################
 
 bios_wboot:
-    .ifdef debug
-    call    iputs
-    asciiz  "\r\nbios_wboot entered\r\n"
+    .if debug >=2
+        call    iputs
+        asciiz  "\r\nbios_wboot entered\r\n"
     .endif
 
     ; TODO: Reload CCP and BDOS here
 
 gocpm:
-    .ifdef debug
-    call    iputs
-    asciiz  "\r\ngocpm entered\r\n"
+    .if debug >=2
+        call    iputs
+        asciiz  "\r\ngocpm entered\r\n"
     .endif
 
 	ld	    a,0xc3		            ; opcode for JP
@@ -156,12 +179,12 @@ gocpm:
 	ld	    bc, 0x80		        ; this is here because it is in the example CBIOS (AG p.52)
 	call	bios_setdma             
 
-    .ifdef debug
-	; dump the zero-page for reference
-	ld	    hl, 0		            ; start address
-	ld	    bc, 0x100	            ; number of bytes
-	ld	    e, 1		            ; fancy format
-	call	hexdump    
+    .if debug >=3
+        ; dump the zero-page for reference
+        ld	    hl, 0		            ; start address
+        ld	    bc, 0x100	            ; number of bytes
+        ld	    e, 1		            ; fancy format
+        call	hexdump    
     .endif
 
 	ld	    a, (4)		            ; load the current disk # from page-zero into a/c
@@ -271,9 +294,9 @@ bios_reader:
 ;
 ;##########################################################################
 bios_home:
-    .ifdef debug
-	call	iputs
-	asciiz  "bios_home entered\r\n"
+    .if debug >=2
+        call	iputs
+        asciiz  "bios_home entered\r\n"
     .endif
 
 	ld	    bc, 0
@@ -291,10 +314,10 @@ bios_home:
 bios_settrk:
 	ld	    (disk_track), bc
 
-    .ifdef debug
-	call	iputs
-	asciiz  ".bios_settrk entered: "
-	call	debug_disk
+    .if debug >=2
+        call	iputs
+        asciiz  ".bios_settrk entered: "
+        call	debug_disk
     .endif
 
 	ret
@@ -320,10 +343,10 @@ bios_seldsk:
 	ld	    a, c
 	ld	    (disk_disk), a
 
-    .ifdef debug
-	call	iputs
-	asciiz	"bios_seldsk entered: "
-    call	debug_disk
+    .if debug >=2
+        call	iputs
+        asciiz	"bios_seldsk entered: "
+        call	debug_disk
     .endif
 
 	ld	    hl, 0			        ; HL = 0 = invalid disk 
@@ -341,10 +364,10 @@ bios_setsec:
     ld      (disk_sector), bc
 
 
-	.ifdef debug
-    call	iputs
-	asciiz	"bios_setsec entered: "
-    call	debug_disk
+	.if debug >=2
+        call	iputs
+        asciiz	"bios_setsec entered: "
+        call	debug_disk
     .endif
 
     ret
@@ -362,10 +385,10 @@ bios_setsec:
 bios_setdma:
     ld      (disk_dma), bc
 
-    .ifdef debug
-    call	iputs
-	asciiz	"bios_setdma entered: "
-    call	debug_disk
+    .if debug >=2
+        call	iputs
+        asciiz	"bios_setdma entered: "
+        call	debug_disk
     .endif
 
     ret
@@ -390,10 +413,10 @@ bios_setdma:
 
 bios_read:
 
-    .ifdef debug
-    call	iputs
-	asciiz	"bios_read entered: "
-    call	debug_disk
+    .if debug >=1
+        call	iputs
+        asciiz	"bios_read entered: "
+        call	debug_disk
     .endif
 
 
@@ -427,10 +450,10 @@ bios_read:
 ;##########################################################################
 bios_write:
 
-    .ifdef debug
-    call	iputs
-	asciiz	"bios_write entered: "
-    call	debug_disk
+    .if debug >=1
+        call	iputs
+        asciiz	"bios_write entered: "
+        call	debug_disk
     .endif
 
     ld      a, 1                    ; XXX  <--------- stub in an error for every write
@@ -462,37 +485,38 @@ bios_sectrn:
 ;
 ; Clobbers AF, C
 ;##########################################################################
-debug_disk:
-    call	iputs
-	asciiz	'disk=0x'
+    .if debug >=1
+    debug_disk:
+        call	iputs
+        asciiz	'disk=0x'
 
-	ld	    a, (disk_disk)
-	call	hexdump_a
+        ld	    a, (disk_disk)
+        call	hexdump_a
 
-	call    iputs
-	asciiz	", track=0x"
-	ld	    a, (disk_track+1)
-	call	hexdump_a
-	ld	    a, (disk_track)
-	call	hexdump_a
+        call    iputs
+        asciiz	", track=0x"
+        ld	    a, (disk_track+1)
+        call	hexdump_a
+        ld	    a, (disk_track)
+        call	hexdump_a
 
-	call	iputs
-	asciiz	", sector=0x"
-	ld	    a, (disk_sector+1)
-	call	hexdump_a
-	ld	    a,(disk_sector)
-	call	hexdump_a
+        call	iputs
+        asciiz	", sector=0x"
+        ld	    a, (disk_sector+1)
+        call	hexdump_a
+        ld	    a,(disk_sector)
+        call	hexdump_a
 
-	call	iputs
-	asciiz	", dma=0x"
-	ld	    a, (disk_dma+1)
-	call	hexdump_a
-	ld	    a, (disk_dma)
-	call	hexdump_a
-	call	puts_crlf
+        call	iputs
+        asciiz	", dma=0x"
+        ld	    a, (disk_dma+1)
+        call	hexdump_a
+        ld	    a, (disk_dma)
+        call	hexdump_a
+        call	puts_crlf
 
-	ret
-
+        ret
+    .endif
 
 halt_loop:
     halt
