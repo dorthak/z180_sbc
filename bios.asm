@@ -75,15 +75,18 @@ bios_boot:
 
     ; Wipe the space occupied by loader
     pop     hl                      ; loader code in RAM starts here
-    
+
     push    hl                      ; put code start +1 into de
     pop     de                      
     inc     de
-    
+
     pop     bc                      ; size of bootloader (was in de before)
 
     ld      (hl), 0                 ; set byte at addr 0 to 0, it'll be copied to rest of range
     ldir
+
+    call    iputs
+    asciiz  "\r\nflash bios wiped\r\n"
 
     ; Wipe the zero-page from random stuff from boot loader or noise
     ld      hl, 0                   ; Start from here
@@ -92,7 +95,11 @@ bios_boot:
     ld      (hl), 0                 ; set byte at addr 0 to 0, it'll be copied to rest of range
     ldir  
 
-    jp      go_cpm
+
+    call    iputs
+    asciiz  "\r\nzero page wiped\r\n"
+
+    jp      gocpm
 
 .boot_msg:
 	ascii    '\r\n\r\n'
@@ -124,12 +131,19 @@ bios_boot:
 ;##########################################################################
 
 bios_wboot:
+    .ifdef debug
     call    iputs
     asciiz  "\r\nbios_wboot entered\r\n"
+    .endif
 
     ; TODO: Reload CCP and BDOS here
 
-go_cpm:
+gocpm:
+    .ifdef debug
+    call    iputs
+    asciiz  "\r\ngocpm entered\r\n"
+    .endif
+
 	ld	    a,0xc3		            ; opcode for JP
 	ld	    (0), a
 	ld	    hl, WBOOT
@@ -192,20 +206,293 @@ bios_conin:
 ;##########################################################################
 
 bios_conout:
-    JP      con_tx_char
+    jp      con_tx_char
 
+;##########################################################################
+;
+; CP/M 2.2 Alteration Guide p18:
+; Send the character from register C to the currently assigned listing
+; device.  The character is in ASCII with zero parity.
+;
+;##########################################################################
 bios_list:
-bios_punch:
-bios_reader:
-bios_home:
-bios_seldsk:
-bios_settrk:
-bios_setsec:
-bios_setdma:
-bios_read:
-bios_write:
+    ret
+
+
+;##########################################################################
+;
+; CP/M 2.2 Alteration Guide p20:
+; Return the ready status of the list device.  Used by the DESPOOL program
+; to improve console response during its operation.  The value 00 is
+; returned in A of the list device is not ready to accept a character, and
+; 0FFH if a character can be sent to the printer. 
+;
+; Note that a 00 value always suffices.
+;
+; Clobbers AF
+;##########################################################################
 bios_prstat:
+    ld      a, 0                    ; printer is never ready
+
+;##########################################################################
+;
+; CP/M 2.2 Alteration Guide p18:
+; Send the character from register C to the currently assigned punch device.
+; The character is in ASCII with zero parity.
+;
+; The z180 SBC currently has no punch device. Discard any data written.
+;
+;##########################################################################    
+bios_punch:
+    ret
+ 
+;##########################################################################
+;
+; CP/M 2.2 Alteration Guide p18:
+; Read the next character from the currently assigned reader device into
+; register A with zero parity (high order bit must be zero), an end of
+; file condition is reported by returning an ASCII control-Z (1AH).
+;
+; The z180 SBC currently has no tape device. Return the EOF character.
+;
+;##########################################################################  
+bios_reader:
+    ld      a, $1A
+    ret
+
+;##########################################################################
+;
+; CP/M 2.2 Alteration Guide p18:
+; Return the disk head of the currently selected disk to the track 
+; 00 position.
+;
+; The z180 SBC currently does not have a mechanical disk drive. So just treat
+; this like a SETTRK 0.
+;
+;##########################################################################
+bios_home:
+    .ifdef debug
+	call	iputs
+	asciiz  "bios_home entered\r\n"
+    .endif
+
+	ld	    bc, 0
+
+	; Fall into bios_settrk <--------------- NOTICE!!
+
+;##########################################################################
+;
+; CP/M 2.2 Alteration Guide p19:
+; Register BC contains the track number for subsequent disk
+; accesses on the currently selected drive.  BC can take on
+; values from 0-65535.
+;
+;##########################################################################
+bios_settrk:
+	ld	    (disk_track), bc
+
+    .ifdef debug
+	call	iputs
+	asciiz  ".bios_settrk entered: "
+	call	debug_disk
+    .endif
+
+	ret
+
+;##########################################################################
+;
+; CP/M 2.2 Alteration Guide p18:
+; Select the disk drive given by register C for further operations, where
+; register C contains 0 for drive A, 1 for drive B, and so-forth UP to 15
+; for drive P.
+;
+; On each disk select, SELDSK must return in HL the base address of a 
+; l6-byte area, called the Disk Parameter Header for the selected drive.
+;
+; If there is an attempt to select a non-existent drive, SELDSK returns
+; HL=0000H as an error indicator.
+;
+; The z180 SBC currently only has one drive. However, I implemented this to allow
+; more disks to be added without a rewrite.
+;
+;##########################################################################
+bios_seldsk:
+	ld	    a, c
+	ld	    (disk_disk), a
+
+    .ifdef debug
+	call	iputs
+	asciiz	"bios_seldsk entered: "
+    call	debug_disk
+    .endif
+
+	ld	    hl, 0			        ; HL = 0 = invalid disk 
+	ret
+
+
+;##########################################################################
+;
+; CP/M 2.2 Alteration Guide p19:
+; Register BC contains the sector number for subsequent disk accesses on
+; the currently selected drive.
+;
+;##########################################################################
+bios_setsec:
+    ld      (disk_sector), bc
+
+
+	.ifdef debug
+    call	iputs
+	asciiz	"bios_setsec entered: "
+    call	debug_disk
+    .endif
+
+    ret
+
+;##########################################################################
+;
+; CP/M 2.2 Alteration Guide p19:
+; Register BC contains the DMA (disk memory access) address for subsequent
+; read or write operations.  For example, if B = 00H and C = 80H when SETDMA
+; is called, then all subsequent read operations read their data into 80H
+; through 0FFH, and all subsequent write operations get their data from
+; 80H through 0FFH, until the next call to SETDMA changes it.
+;
+;##########################################################################
+bios_setdma:
+    ld      (disk_dma), bc
+
+    .ifdef debug
+    call	iputs
+	asciiz	"bios_setdma entered: "
+    call	debug_disk
+    .endif
+
+    ret
+
+
+;##########################################################################
+;
+; CP/M 2.2 Alteration Guide p19:
+; Assuming the drive has been selected, the track has been set, the sector
+; has been set, and the DMA address has been specified, the READ subroutine
+; attempts to read one sector based upon these parameters, and returns the
+; following error codes in register A:
+;
+;    0 no errors occurred
+;    1 non-recoverable error condition occurred
+;
+; When an error is reported the BDOS will print the message "BDOS ERR ON
+; x: BAD SECTOR".  The operator then has the option of typing <cr> to ignore
+; the error, or ctl-C to abort.
+;
+;##########################################################################    
+
+bios_read:
+
+    .ifdef debug
+    call	iputs
+	asciiz	"bios_read entered: "
+    call	debug_disk
+    .endif
+
+
+	; tell CP/M that we can not read the requested sector
+	ld	    a, 1	                ; XXX  <--------- stub in an error for every read
+    
+    ret
+
+;##########################################################################
+;
+; CP/M 2.2 Alteration Guide p19:
+; Write the data from the currently selected DMA address to the currently
+; selected drive, track, and sector.  The error codes given in the READ
+; command are returned in register A.
+;
+; Upon entry the value of C will be useful for deblocking and deblocking a
+; drive's physical sector sizes:
+;  0 = normal sector write
+;  1 = write into a directory sector
+;  2 = first sector of a newly used block
+;
+; Return the following completion status in register A:
+;
+;    0 no errors occurred
+;    1 non-recoverable error condition occurred
+;
+; When an error is reported the BDOS will print the message "BDOS ERR ON
+; x: BAD SECTOR".  The operator then has the option of typing <cr> to ignore
+; the error, or ctl-C to abort.
+;
+;##########################################################################
+bios_write:
+
+    .ifdef debug
+    call	iputs
+	asciiz	"bios_write entered: "
+    call	debug_disk
+    .endif
+
+    ld      a, 1                    ; XXX  <--------- stub in an error for every write
+
+    ret
+
+;##########################################################################
+;
+; CP/M 2.2 Alteration Guide p20:
+; Performs sector logical to physical sector translation in order to improve
+; the overall response of CP/M.
+;
+; Xlate the sector number in BC using table in DE & return in HL
+; If DE=0 here then translation is 1:1
+;
+; The Z80 Retro! does not translate its sectors.  Therefore it will return
+; HL = BC for a 1:1 translation.
+;
+;##########################################################################
 bios_sectrn:
+	; 1:1 translation  (no skew factor)
+	ld	    h, b
+	ld	    l, c
+	ret
+
+;##########################################################################
+; A debug routing for displaying the settings before a read or write
+; operation.
+;
+; Clobbers AF, C
+;##########################################################################
+debug_disk:
+    call	iputs
+	asciiz	'disk=0x'
+
+	ld	    a, (disk_disk)
+	call	hexdump_a
+
+	call    iputs
+	asciiz	", track=0x"
+	ld	    a, (disk_track+1)
+	call	hexdump_a
+	ld	    a, (disk_track)
+	call	hexdump_a
+
+	call	iputs
+	asciiz	", sector=0x"
+	ld	    a, (disk_sector+1)
+	call	hexdump_a
+	ld	    a,(disk_sector)
+	call	hexdump_a
+
+	call	iputs
+	asciiz	", dma=0x"
+	ld	    a, (disk_dma+1)
+	call	hexdump_a
+	ld	    a, (disk_dma)
+	call	hexdump_a
+	call	puts_crlf
+
+	ret
+
 
 halt_loop:
     halt
