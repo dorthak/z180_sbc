@@ -1,0 +1,11 @@
+Adventure 580 for CP/M - version B02
+====================================
+
+Index        -- This file
+adv     .com -- Run this to play the game.
+advi    .dat -- "A-Code" bytecode of the game.
+advi    .ptr -- Index over advi.dat.
+advt    .dat -- Encoded game text.
+advt    .ptr -- Index over advt.dat.
+compress.dat -- Compression tokens.
+symbol  .tab -- Use in conjunction with advdis to get an A-code disassembly.

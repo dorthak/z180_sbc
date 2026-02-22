@@ -1,4 +1,4 @@
-.PHONY: all clean flash install
+.PHONY: all clean flash install burn
 
 #CROSS_AS=uz80as
 #CROSS_AS_FLAGS=-t hd64180
@@ -47,8 +47,9 @@ flash:
 
 install:
 	cd filesystem && $(MAKE) all
-#	sudo dd if=bios.bin of=/dev/sda1 bs=512
-#	sync
+
+burn:
+	cd filesystem && $(MAKE) burn
 
 
 # .SECONDARY:

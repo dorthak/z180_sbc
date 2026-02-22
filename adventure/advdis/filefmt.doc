@@ -1,0 +1,270 @@
+CP/M Adventure 550/580 file format:
+===================================
+
+COMPRESS.DAT (version B02 only)
+-------------------------------
+
+= 128 bytes compressed words
+= 32 bytes offsets to compressed words +1, ie:
+	DB	1	;1st word is at 0
+	DB	2	;2nd word is at 1
+	DB	4	;3rd word is at 3 ...
+= 32 bytes lengths of the compressed words
+= 1 byte which is 0FFh if the user should be prompted to insert a second
+ disc in drive B: at the start of the game.
+= 1 byte which is 0FFh if ADVT.DAT is split in two parts (the second part will
+ be read from drive B: if the previous byte was 0FFh).
+
+DECODE.DAT (version B03 only)
+-------------------------------
+= Huffman encoding tree. Each node consists of two bytes: left offset,
+ right offset. If the top bit of an offset is set, then it is the offset
+ of a character; otherwise, it is the offset of the next node.
+
+Indexes (*.PTR files)
+---------------------
+
+  Each record is 128 bytes:
+
+= WORD subkey[18];
+= WORD key   [18];
+= WORD rec   [18];
+= BYTE offset[18];
+= WORD spare;
+
+  ADV treats the index as if it were a sequence of consecutive records 
+formed { subkey, key, rec, offset }. The 128-byte structure is a consequence
+of CP/M's disc I/O functions.
+
+  "key" and "subkey" are used for sorting and searching. The index is 
+                     sorted by key, then subkey.
+  "rec" is the number of the 128-byte record in the DAT file containing the 
+        object (1-based).
+  "offset" is the number of the object within the record. In ADVI.DAT, objects
+       are words so this is 1-64. In ADVT.DAT, objects are bytes so this is
+       1-128.
+
+  End of file is indicated by a record with subkey = -1  (0xFFFF).
+
+  Even the index files are too big to keep in memory on an 8-bit micro, so
+ADV only stores a list of (key, index-record) pairs:
+
+ + Let lastkey = -1.
+ + For each index record, read in the subkey and key arrays. For 0 < n < 18:
+     + If subkey[n] is -1, then this is the end of the file.
+     + If key   [n] equals lastkey, then skip this entry.
+     + Else, append (key[n], record_number) to the table. 
+
+ - see PTRLOAD.C, which replicates what ADV.COM does when reading in the
+  data tables.
+
+  When looking up an object, ADV:
+
+ + Looks up its key in the memory table.
+ + Loads the correct index record for that key. 
+ + Finds the first entry in that record with a matching key.
+ + If the subkey matches, fine; if not, it goes to the next entry (loading
+  the next index record if necessary).
+ + Continues searching in this way until either the key no longer matches,
+  or the record is found.
+
+  For objects in ADVI.DAT, their offset within the file is:
+
+   128 * (rec[n] - 1)  + 2 * (offset[n] - 1)
+
+  And for objects in ADVT.DAT, their offset is:
+
+   128 * (rec[n] - 1) + (offset[n] - 1)
+
+*.DAT files
+-----------
+
+  Objects in .DAT files are obfuscated to protect them from casual snoopers.
+To decode the byte at offset X in ADVI.DAT, use the formula:
+
+decoded_byte = (byte ^ 0x75) - (( (X % 128) / 2) + 1).
+
+  In ADVT.DAT, use:
+
+decoded_byte = (byte ^ 0x75) - ( (X % 128) + 1).
+
+Nearly all of ADVI.DAT is composed of A-code records:
+  
+  Records 0000-0999 (subkey    0 )  are initialisation code, run once.
+  Records 1000-1999 (subkeys 500+)  are code attached to the objects with the 
+                                    same number.
+  Records 2000-2999 (subkeys 500+)  are code attached to the rooms with the 
+                                    same number.
+  Records 3000-3999 (subkeys   1+)  are code attached to verbs with the same
+                                    number.
+  Records 5000-5999 (subkey    0 )  are subroutines, called by other code.
+  Records 6000-6999 (subkey    0 )  are code run every turn. 
+
+Non A-code records in ADVI.DAT are:
+
+  Record  9000      (subkey    0 )  is a single word, giving the number of 
+                                    words in the symbol table.
+  Record  9001      (subkey    0 )  is the symbol table. Each symbol is 4 
+                                    words - the first three are the symbol's
+                                    ASCII name, the last is its value. This
+                                    table is sorted alphabetically.
+  The file also contains records 9002 and 9003; these are not used by the 
+  interpreter, and point to places within the symbol table.
+
+  The format of an A-code record is given later.
+
+Records in ADVT.DAT are: 
+
+  Records 1000-1999 are object descriptions.
+			Subkey 0+ gives the object's name. 
+			Subkey 10+ is the description printed when the object
+                                  is present.
+                        Subkeys 20+, 30+ etc. are additional descriptions 
+                                  depending on the object's state.
+                                  (state 0 => subkey 10; state 1 => subkey 20 
+                                   etc.)
+  Records 2000-2999 are room descriptions.
+                        Subkey  0+ is the short description.
+                        Subkey 10+ is the long description.
+  Records 4000-4999 are messages.
+                        Subkey  0+ is the message.
+
+  Each subkey only holds one line of text. Messages with multiple lines are 
+stored in subkeys n, n+1, n+2, ... ; printing will continue until the 
+next subkey in sequence is not found.
+
+(If the game engine encounters ">$<" in a string, it will stop printing it.
+ However, there are no such strings in ADVT.DAT; I assume that whatever 
+ compiled ADVT.DAT from the A-code source did not include strings that 
+ started ">$<", to save space).
+
+In version B03, after the initial decode stage the string is then treated
+as a bitstream to be expanded using the Huffman table in DECODE.DAT. 
+Bytes are processed LSB first.
+
+Once decoded (and expanded) bytes in the string have the following meanings:
+
+	0:      End of string
+	1-31:   Expand to 1-31 spaces.
+ 	32-127:	ASCII
+	128+:   Compression tokens, stored in COMPRESS.DAT (version B02 only).
+		Bits 0-4 are token number.
+		Bit    5 set if token should be followed by a space.
+		Bit    6 set if first letter should be made uppercase.
+
+The following symbols have special meanings to the parser:
+
+Symbol    ID 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+HERE	7000	;Variable number for player's current location
+THERE	7001	;Variable number for player's previous location
+ARG1	7002	;Variable number for first word in command line
+ARG2	7003	;Variable number for second word in command line
+STATUS	7004	;Variable number for no. of words in command line
+NOBJ	no. of objects                 in ADVT.DAT
+NPLACE	no. of places                  in ADVT.DAT
+NREP	no. of repeat routines         in ADVI.DAT
+NINIT	no. of initialisation routines in ADVI.DAT
+NVARS	no. of variables used by code 
+EXPLOR	}
+SAY	} The "Go" and "Say" verbs, which can be ignored 
+
+(variable numbers are 7000+).
+
+Format of A-Code records
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+  An A-Code record starts with a word giving the number of words that
+follow. The remaining words are then intepreted as instructions:
+
+1	KEYWORD	word
+2	HAVE	object
+3	NEAR	object
+4	AT	place
+5	ANYOF	word
+6	IFEQ	val1,val2
+7	IFLT	val1,val2
+8	IFGT	val1,val2
+9	IFAT	place
+10	CHANCE	percent
+11	ELSE
+12	EOI
+13	EOF
+14	GET	object
+15	DROP	object
+16	APPORT	object,place
+17	SET	var,value
+18	ADD	var,value
+19	SUB	var,value
+20	GOTO	place
+21	MOVE	word,place
+22	CALL	subroutine
+23	SAY	message
+24	NAME	message,value
+25	VALUE	message,value
+26	PROCEED
+27	QUIT
+28	STOP
+29	IFHAVE	object
+30	IFNEAR	object
+31	OR
+32	RANDOM	var,maxvalue	
+33	BIT	var,bit
+34	BIS	var,bit
+35	BIC	var,bit
+36	ITOBJ	var
+37	ITPLACE	var
+38	EOI
+39	IFLOC	object,place
+40	INPUT
+41	LOCATE	var,object
+42	NOT
+43	IFKEY	word
+44	LDA	var,string	
+45	EVAL	var,var
+46	MULT	var,var
+47	DIV	var,var
+48	SVAR	var,sysvariable
+		;
+		; System variables that ADV expects are:
+		; 4  time, hours
+		; 5  time, minutes (used for time delay before RESTORE)
+		; 8  Is wizard mode allowed?
+		;
+		; The CP/M runtimes return zero for all of these.
+49	EXECUTIVE cmd,var
+		;
+		; EXECUTIVE commands are:
+		; 1  Save the game
+		; 2  Restore saved game
+		; 3  Delete savefile 
+		; 4  Clear any cached data (called after saved game restored)
+		; 5  Is Adventure available? Return:
+		;	0: Yes
+		;	1: No - out of hours
+		; 	2: No - system load too high
+		;	3: No - too many people logged on
+		; 6  Show open hours
+		; 7  Save variable during restore
+		; 8  Recover variable saved by EXECUTIVE 7
+		; 9  Lock the computer solid (versions B02/B03 only)
+50	QUERY	prompt
+51	AND
+52	XOR	(theorised; opcode 52 is not used in supplied files).
+53	DEPOSIT var,var
+54	ITLIST	var
+		;Acts as ITOBJ, but only on "nearby" objects.
+55	SMOVE	word,place,message
+56	DEFAULT	bit
+
+The A-Code instruction set is documented in detail at 
+      <https://mipmip.org/acode/>
+
+Splitting onto two discs
+------------------------
+
+  If the "two-files" flag is set in COMPRESS.DAT, then ADVT.DAT becomes 
+ADVT.DAT and ADVT2.DAT. File offsets greater than 82944 become (offset-82944)
+in ADVT2.DAT.
+
+

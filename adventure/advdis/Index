@@ -1,0 +1,13 @@
+Index  Makefile  advdis.c  advdis.doc  filefmt.doc  ptrdump.c  ptrload.c
+Adventure for CP/M 
+==================
+
+COPYING      -- The GNU General Public License (or, in UK English, Licence). 
+                It applies *only* to the files in this directory.
+Index        -- This file
+Makefile     -- Makefile for the C programs here
+advdis  .c   -- Disassemble a B-version adventure to A-code
+advdis  .doc -- advdis instructions
+filefmt .doc -- File formats used by the B-version adventure
+ptrdump .c   -- }
+ptrload .c   -- } example programs to view .PTR files

@@ -1,0 +1,1537 @@
+******* SOLUTION TO ADVENTURE VERSION B01 ********
+
+               by Calvin T. Richter
+
+     STOP:   This  is  a complete  walkthrough  of 
+Adventure Version B01.   As such,  it contains ex-
+plicit solutions to the problems and riddles which 
+a  player  will encounter therein.   In  order  to 
+derive the greatest pleasure from the game,  it is 
+reccommended  that  the reader not  consult  these 
+notes until he has given sufficient effort of  his 
+own to the game.   The greatest satisfaction comes 
+from  solving  its many puzzles and riddles  using 
+one's  own ingenuity (and luck),  thus looking  up 
+the  answer  here should be done only  as  a  last 
+resort.
+
+     The original Adventure,  developed in 1970 by 
+Crowther  and  Woods for  mainframe  systems,  has 
+spawned  and come to symbolize an entire genre  of 
+computer gaming.   It has since been released into 
+the  public  domain  and,  as is  inevitable  with 
+public   domain  software,   has   been   modified 
+extensively  and  now  exists  in  many  different 
+versions.    These  notes  apply  specifically  to 
+Adventure Version B01 by Michael Goetz,  a greatly 
+expanded  version of the original.   However,  the 
+player of the original,  and indeed  any,  version 
+will  find  in  these notes much to  aid  him,  as 
+Version   B01   contains  all  of   the   original 
+unmodified.
+     In Adventure,  the player assumes the role of 
+an adventurer whose task it is to explore Colossal 
+Cavern,  a  large underground cavern full of trea-
+sures  and  magic and inhabitants of  many  kinds.  
+The  object  for the adventurer is to  collect  as 
+much  of the treasure as possible and to bring  it 
+home  while avoiding the many snares  and  dangers 
+awaiting  him.   Along  the way he will find  many 
+objects  and discover many things which  will  aid 
+(and hinder) him in his quest.
+
+     When  Adventure is first brought up,  the as-
+piring adventurer is greeted with those now-legen-
+dary words: "You are standing at the end of a road 
+before  a small brick building.   Around you is  a 
+forest.   A small stream flows out of the building 
+and down a gulley."  This building,  it will  soon 
+be  discovered,  serves as the adventurer's  "home 
+base",  wherein  he will deposit all the treasures 
+he  discovers.   Scoring in Adventure proceeds  as 
+follows: To begin, the adventurer is awarded twen-
+ty  points simply for gaining entrance to the  Ca-
+vern.   This is done in an effort to  discriminate 
+between serious, though perhaps inexperienced, ad-
+venturers  and  the obvious rank  amateurs.   Once 
+admittance to Colossal Cavern is  gained,  scoring 
+continues  on the following basis:  fifteen points 
+are awarded for each treasure which the adventurer 
+successfully removes from the Cavern and  deposits 
+in  the building (though these points will be sub-
+tracted again should the treasure ever be  removed 
+again).  Sixty-nine  points are awarded upon  suc-
+cessful entry into the first part of the end game, 
+or Master's Section, twenty for successful comple-
+tion of this section, and twenty for completion of 
+the final part of the Master's Game.  In addition, 
+there  are a few various and sundry  other  points 
+awarded,  such  as  awards based on the amount  of 
+Cavern explored,  or successfully getting  through 
+some of the more harrowing sections.
+     In  addition to raw pointage,  the game  will 
+also  award  a  ranking,  based on the  number  of 
+points achieved, when the player either decides to 
+end the game or gets killed.   The rankings run as 
+follows:
+     0   to 19  pts......rank amateur
+     20  to 129  " ......novice-class adventurer
+     130 to 239  " ......experienced      "
+     240 to 349  " ......seasoned         "
+     350 to 469  " ......Junior Master
+     470 to 509  " ......Master Adventurer Class C
+     510 to 529  " ......Master Adventurer Class B
+     530 to 549  " ......Master Adventurer Class A
+     550         " ......Adventurer Grandmaster
+
+     The Cavern itself is quite extensive, consis-
+ting of many rooms,  tunnels and other  unexplored 
+passages,  much  of which a player would never see 
+were  he  to  rely upon these notes for  his  sole 
+guide.   The  purpose of these notes is simply  to 
+lead  the reader in the quickest,  most  efficient 
+manner  possible to the treasures and  out  again.  
+Thus  the reader is strongly encouraged to explore 
+on his own as well,  apart from these  notes.   Of 
+most interest to the adventurer in the Cavern are, 
+of course,  the treasures.  Of these, it will suf-
+fice  to  say at the moment that there are  twenty 
+six, as follows:
+
+     A bag filled with pieces of eight
+     A massive iridium crown
+     A large sparkling nugget of gold
+     Diamonds
+     Bars of silver
+     Precious jelwelry
+     Many coins
+     The pirate's treasure chest
+     A large nest, full of golden eggs
+     A jewel-encrusted trident
+     A gem-encrusted visorless helmet
+     A delicate, precious, ming vase
+     An emerald the size of a plover's egg
+     A saphire-encrusted sceptre
+     The ruby yacht of Omar Khayyam
+     A platinum pyramid, 8 inches on a side 
+     A glistening pearl
+     A persian rug
+     Rare spices
+     A string of ancient indian turquoise beads
+     A golden chain 
+     A shiny ring (crafted of the finest mithril)
+     A small spyglass carved out of whale baleen
+     A crystalline sculpture of a moose
+     An ancient chinese jade bracelet
+     A casket full of rare opals
+
+In addition to the treasures,  the adventurer will 
+discover  a number of other objects which  may  be 
+manipulated in one manner or another.   It will be 
+discovered  that all,  or nearly so,  of these ob-
+jects serve a useful purpose;  it is only left  up 
+to  the  adventurer to discover what that  purpose 
+is.   More will be said about these objects as the 
+game progresses.   Magic also works in the Cavern, 
+and  the  adventurer will often  discover  himself 
+using it as well to further his progress.
+     Finally,  as will be seen,  the Cavern is in-
+habited by a wide variety of mythical and  magical 
+beasts,  most  of which are there solely  for  the 
+purposes of thwarting the adventurer in his quest.  
+Thus,  as  part of his adventure,  the player must 
+learn how properly to deal with these creatures as 
+well.  These Cavern residents will be discussed at 
+greater length as they are encountered.
+
+
+
+     Having  gotten the preliminaries out  of  the 
+way,  then,  it is time to begin the game.  Before 
+doing so, however, it will be necessary to offer a 
+brief  explanation of the notation employed below.  
+The  computer will act as a sort of guide  through 
+the Cavern and is instructed by the adventurer  in 
+what to do with one- or two-word commands.   Thus, 
+for  example,  if the adventurer wishes to proceed 
+to  the  south,  he simply gives  the  command  GO 
+SOUTH, or SOUTH.  Often I will suggest, usually in 
+parentheses and always in capital letters for ease 
+of  recognition,  an  exact command which  may  be 
+given to achieve a desired result. In addition, in 
+a  separate column to the right of the text I will 
+summarize  the  commands explained  in  the  text.  
+Thus,  the  experienced adventurer may bypass  the 
+verbiage  and simply refer to the summary  command 
+column.     Thus, the reader might read a sentence 
+such as:  "From here, proceed northwest (GO NORTH-
+WEST,  or NORTHWEST,  or simply NW)" and, in addi-
+tion, see  to the right of the sentence of text  a 
+separate "NW".  Finally, as will be seen, on occa-
+sion it will be necessary to repeat a command  one 
+or   more  times  until  the  desired  effect   is 
+achieved.   In  these cases,  the command will  be 
+followed  by an ellipsis enclosed in  parentheses.  
+Thus,  for example,  "SW(...)" would indicate that 
+the  adventurer is to keep trying to go  southwest 
+from the current location until he gets through to 
+his destination.
+     With  these notes in mind then,  let's  begin 
+the game.
+
+
+               THE ADVENTURE BEGINS
+
+     The adventure itself will be subdivided  into 
+a series of six excursions into the cavern, during 
+each of which the adventurer will collect a number 
+of  treasures  and  then return with them  to  the 
+building.   Since  the object of the game  is  the 
+exploration  of Colossal Cavern,  the first excur-
+sion  must necessarily begin with the  gaining  of 
+the  entrance to the Cavern.  To facilitate  this, 
+you will need a couple of tools.   Enter the buil-     IN
+ding  and  look around.   To do this,  type  ENTER 
+BUILDING or IN or something similar.  Once you are 
+inside the building, you will see several objects: 
+a  bottle containing water,  an electric  lantern, 
+some  food,  and  a set of keys.   Each  of  these 
+objects,  as  will be discovered,  has a  specific 
+use, and thus will be needed at some time or other 
+in the course of the game.   You cannot,  however, 
+take  all  the objects with you now,  as  you  are 
+limited  in  the number of items you are  able  to 
+carry at any one time.   In fact,  as you will  be 
+returning to the building several times during the 
+course  of  your adventure,  it will not  even  be 
+necessary  to  take everything  now;  those  items 
+which  are of no immediate use may be left here to 
+be retrieved at a future time.   For the immediate 
+future  you will need only the lamp and the  keys, 
+so  take these (TAKE LAMP and TAKE  KEYS,  or  GET     GET LAMP, GET KEYS
+LANTERN  and GET KEYS,  or something similar  will 
+have  the desired effect).  If you have these  two 
+items  in hand,  you are ready to begin the  first 
+excursion.
+
+
+
+
+
+                 FIRST EXCURSION
+
+Treasures:  Golden nugget, diamonds, jewelry, rare 
+coins,  gem-encrusted  visorless helmet,  bars  of 
+silver, platinum pyramid.
+
+
+     Once you have the keys and the lamp, exit the     OUT
+building (EXIT BUILDING,  LEAVE,  EXIT,  OUT, etc, 
+will all get you out).  The entrance to the Cavern 
+lies  to  the south,  so go south  (GO  SOUTH,  or     S
+SOUTH,  or  just  S will do).   The game will  now 
+describe  what you see.   Go south a second  time,     S
+and  then again a third time.   At this point  you     S
+should  see a grate.  Using the keys,  unlock  the     OPEN
+grate  (OPEN GRATE,  UNLOCK,  OPEN,  or  something 
+similar).   Now  go down,  and you will be in  the     D
+Cavern.
+     Congratulations,  you're past the first step.  
+Wish I could say it's all down hill from here, but 
+it's  not.  You now proceed west,  where you  will     W
+find a small cage.   Take it,  as it will come  in     GET (cage)
+handy shortly.   Going west again, you will disco-     W
+ver  that it has become pitch black.   Though  you 
+will  from time to time encounter portions of  the 
+Cavern  which are lighted,  the majority of it  is 
+dark,  making  it  necessary  for you to  carry  a 
+source  of  light with you at  nearly  all  times.  
+This  is where the lantern begins its  usefulness.  
+Turn  it on (ON LAMP,  or ON LANTERN or just  ON).     ON
+One  thing must be noted about the lamp,  however: 
+it's  battery powered and the batteries  will  not 
+last forever.   Thus you are constrained to finish 
+your adventure as quickly as possible,  before the 
+batteries  run  out.   An adventurer lost  in  the 
+Cavern  without  a functioning lantern is  doomed.  
+There  does exist within the maze another  set  of 
+batteries, but to obtain them it would be necessa-
+ry  to  trade away one of the treasures (and  thus 
+points),  and  this you will want  to  avoid.   To 
+conserve battery power, then, requires that you do 
+two things:  first,  all treasures must be removed 
+from  the  Cavern  as quickly and  efficiently  as 
+possible;  wasted steps must be kept to a minimum.  
+And secondly, the lamp must be turned off at every 
+opportunity.
+     Here,  once  you have the lamp on,  you  will 
+discover that you are in a Debris Room,  and  that 
+there is a rusty rod lying nearby.   Take the rod;     GET (rod)
+it will be of continuing use throughout the adven-
+ture.   Now  proceed  west twice.   Here you  will     W, W
+discover a small bird. He too will be useful, but, 
+as  you  will  have noticed if  you  have  already 
+attempted to pick him up,  he proves to be a  very 
+elusive object.  The reason for this is that he is 
+frightened by the rod,  so you must first drop the     DROP ROD
+rod,  then get the bird and then pick the rod back     GET BIRD, GET (rod)
+up.  Performing  an inventory now  (INVENTORY,  or 
+INVENT for short) will show the bird secure in the 
+cage; this is in fact the cage's purpose.  Without 
+it  you would not be able to carry the bird,  even 
+if you could catch it.
+     Now proceed west again, to the top of a small     W
+pit, and then go down, to the Hall of Mists.  Keep     D
+your eyes open,  because soon, now (usually within 
+the  next couple of moves though  occasionally  it 
+takes  longer),  you  will  be seeing  your  first 
+dwarf.  Dwarves in the Cavern are not very friend-
+ly  to Adventurers,  as you will see.   The  first 
+dwarf you run across will,  in fact,  throw an axe 
+in  your general direction,  but will  fortunately 
+miss  (dwarves are notoriously bad  shots).   Once 
+this has happened,  be sure to pick up the axe  he 
+left behind,  as you will need it to protect your-
+self  against  further encounters with  the  crea-
+tures.  Until further notice, you will never again 
+want to be without this axe within the confines of 
+the  Cavern  as  it is almost  your  only  defense 
+against  hostile dwarves (there are two exceptions 
+to  this  rule,  both of which will  be  discussed 
+later).   To  combat a dwarf when he  appears  you 
+alternately  throw  the axe and retrieve it  until 
+you've killed the dwarf.   When you've  succeeded, 
+be sure to pick up the axe again before proceeding 
+on.   Note  that you must be careful as the  dwarf 
+will  also occasionally throw knives in your gene-
+ral direction.  Generally, he misses, but on occa-
+sion  he will get lucky and hit you.   (When  this 
+happens,  you're dead,  and you are faced with two 
+alternatives:  quit the game, or allow yourself to 
+be  resurrected.   For the purposes of this  walk-
+through,  which include the attempt to garner  all 
+of the 550 possible points, it is probably best to 
+quit and start over, as you will have lost a point 
+for getting killed and will also be forced to find 
+your  way back into the Cavern to the point  where 
+you were killed, which wastes battery energy which 
+is needed to complete the adventure.  On the other 
+hand, it may be instructional to continue the game 
+from  this point even though it is no longer  pos-
+sible  to obtain all possible points.   Should you 
+in  fact choose the latter option,  you will  find 
+yourself back in the building,  carrying  nothing.  
+The  lantern may be found immediately outside  the 
+building.  The rest of the items you were carrying 
+are presumably at the spot where you expired.)  As 
+you  proceed,  then,  through the Cavern,  it will 
+occasionally  be necessary to stop and battle  the 
+dwarves  that pop up.   These appear  somewhat  at 
+random, and I can thus never tell you exactly when 
+one  is coming;  the best I can do is to warn  you 
+when  one is likely to appear.  You must simply be 
+ready for them at all times.
+     Now you will proceed to get your first  trea-
+sure.   From the Hall of Mists go south, and there     S
+it is!   A large,  gold nugget!!   Take it, and go     GET (gold)
+north again.  Now, I said earlier that our goal is     N
+to  take  all  treasure back to the  building  and 
+leave it there.   However,  you'll notice that  if 
+you  try to take the nugget back the way you came, 
+you  cannot  get  back up to the top of  the  pit.  
+Therefore,  you are forced to find a different way 
+out.   Of these, there are at least two.  For now, 
+just hang on to the gold,  as you will be collect-
+ing other treasure along the way before  returning 
+to the building,  and besides, it would be a great 
+waste  of  steps to return to the  building  every 
+time you discover another treasure.
+     If  you're  back in the Hall of  Mists,  your 
+next  step is to go west again  from  there.   Now     W
+you've  come to your first check--a large  fissure 
+too big to cross.  Here, however, is where the rod 
+makes itself useful; wave it (say WAVE ROD).  Voi-     WAVE ROD
+la,  a crystal bridge (pretty neat,  huh?).  Cross     CROSS
+it (CROSS,  or WEST or W),  and there, on the west 
+bank  of  the fissure is your second  treasure,  a 
+collection  of diamonds.   Take them and return to     GET (diamonds), CROSS
+the  east bank of the fissure.   From here go east     E
+again,  back to the Hall of Mists.   Now, you will 
+proceed to the Hall of the Mountain King.   To get 
+there  from the Hall of Mists,  either go down  or     D
+north (they're one and the same).   Did you find a 
+large snake blocking your passage?   Now it's time 
+for  Polly to earn his birdseed.   Drop  the  bird     DROP BIRD
+(DROP BIRD).   Since you won't be needing the bird 
+any longer (this is the only thing he's good for), 
+just leave him where he is; as you have no further 
+use for the bird,  neither will you be needing the 
+cage, so drop it also.  You may also leave the rod     DROP CAGE, DROP ROD
+here  for the time being;  it will be used  again, 
+but not for a while yet.  
+     Go  south.   Here,  in the south side chamber     S
+you will find a collection of jewelry.   Take  it,     GET (jewelry)
+and go north, and then west.  Now you should be in     N, W
+the west side chamber,  where you will find a pile 
+of  rare coins (these are the coins which could be 
+traded for the extra batteries if  necessary,  but     
+it shouldn't be).   Take them, and go east back to     GET (coins), E
+the Hall of the Mountain King, and then proceed to 
+the northwest.   At the division in the passage go     NW
+east  to the dank cubicle,  where you will find  a     E
+small mushroom growing on one wall.  EAT the mush-     EAT
+room,  and  you  will find that your muscles  have 
+bulged "unbelievably".   You now have the strength 
+to  not only carry more items at a time  than  you 
+could  before,  but also to draw the sword (coming 
+up shortly) out of the rock in which it is  embed-
+ded.   The  duration  of the mushroom's effect  is 
+limited,  wearing off after a while, thus you will 
+make  good use of it while it  lasts.  Now  return 
+south,  and south again,  to the Hall of the Moun-     S, S
+tain King, then go northeast.  Here, in the morion     NE
+room,  you  will  find a  gem-encrusted  visorless 
+helmet.   Take it, and return south to the Hall of     GET (helmet), S
+the  Mountain King.   Now go east to the  Hall  of     E
+Mists,  and  east again.   Here you will find  the     E
+sword.  Having  eaten the mushroom,  you now  have 
+enough  strength to pull the sword from the  rock.  
+Take it, and go west and then down (or north) back     GET (sword), W, D
+to the Hall of the Mountain King.
+     Here  I must pause to discuss another of  the 
+Cavern's  residents,  as  it is entirely  possible 
+that  he  has made his initial appearance  by  now 
+(though  he usually waits until a bit  later,  and 
+sometimes until much later).  This is the Cavern's 
+very own resident pirate,  whose sole purpose,  it 
+seems,  consists in following you around and  pop-
+ping  out  at unexpected moments to make off  with 
+all  the treasure you've got  (therefore,  if  you 
+ever hear any faint rustling noises behind you, be 
+wary;  it's the pirate following you).   Sometimes 
+(and  this is more likely the case the earlier  it 
+occurs), his initial appearance consists simply in 
+being  spotted  by  you and  exclaiming  something 
+about  needing  to  hide his chest  "deep  in  the 
+maze", but often (and always on subsequent appear-
+ances),  it  will  simply be his  popping  out  of 
+nowhere  to  make  off with the treasure  you  are 
+carrying.   If this has happened to you (and if it 
+hasn't yet,  it will eventually, be assured) don't 
+worry about it.   The treasure is safe and  sound, 
+hidden  away  with the pirate's chest waiting  for 
+you to come get it.   In any case,  it is not pos-
+sible to get the chest until after the pirate  has 
+appeared and then "hied" himself off to hide it. 
+     From  the  Hall of the Mountain King  now  go 
+southwest.   What happened?  More than likely, you     SW(...)
+simply  "crawled around in some rocks and ended up 
+back  in  the main passage" or something  to  that 
+effect.   Here we have encountered another feature 
+of the Cavern.   There IS something to the  south-
+west  of  the Hall of the Mountain King,  but  you 
+usually  don't get there on the first try (if  you 
+did  get  there on the first  attempt,  read  this 
+anyway, because it won't happen again).  There are 
+several  spots like this in the Cavern,  where  it 
+pays  to  be persistent.   At such  spots  I  will 
+indicate  that  you need to keep trying until  you 
+get  through by following the directions  with  an 
+ellipsis  enclosed in parentheses.   For  example, 
+here I would say "Go southwest(...)".   Now,  keep 
+going  southwest until you get through.   I've had 
+to do it as many as eighteen times myself  (though 
+5  or 6 is normally more than you will  need),  so 
+keep trying!  
+     When you do get through,  you will find your-
+self in an East-West Canyon above a tight  canyon.  
+It is possible to go down from here into the other 
+canyon, but don't do so yet.  You won't be able to 
+get back up,  and will be going that way eventual-
+ly,  anyway.   From  the East-West Canyon go west.     W
+Did  you find the way blocked by a  large  dragon?  
+Your next job is to get rid of the dragon somehow, 
+as  you want both the rug he's lying on and a  few 
+of  his teeth,  and in any case he's blocking  the 
+passage.  To do this, simply kill the dragon (KILL     KILL
+DRAGON,  or  KILL).  When asked,  "With your  bare
+hands??"  respond "yes",  and there you  are,  one     Y
+dead dragon!   Leave the rug for now,  as you will 
+need the room to carry other things,  but take his     GET TEETH
+teeth.  You  will  collect the rug on one of  your 
+subsequent passes through this room.   Return east     E
+to  the East-West Canyon,  and then east again  to     E
+the Hall of The Mountain King.   Pick up the  bird     GET CAGE
+cage here.
+     From  the Hall of the Mountain King go north,     N
+where you will discover some bars of silver.  Take     GET (silver)
+these, and go north again, to the "Y2" Room. Here,     N
+turn off the lamp (OFF LAMP),  then drop the cage.     OFF, DROP CAGE
+You are again warned about being in the dark,  but 
+at  this point that won't concern you.   Here, you 
+are  about  to utilize some more of  the  Cavern's 
+magic  to  collect one more treasure and  then  to 
+exit  back to the building.   Say  PLOVER  (simply     PLOVER
+type  PLOVER and press the return key) and observe 
+the effect.   You should find that you've >foof<ed 
+your way into the Plover room where you will see a 
+giant  green emerald the size of a  Plover's  egg.  
+Don't take it, however, as this treasure cannot be 
+removed  by the way you will be leaving the  room.  
+The  treasure you are interested in at the  moment 
+lies  to the northeast.   You will return for  the 
+emerald  in a later excursion.   For now go north-     NE
+east.  Once again, you are in the dark, so turn on     ON
+the lamp (ON LAMP).   You are in the Dark Room and 
+you  will see a platinum pyramid,  8 inches  on  a 
+side.  Take this, return south to the Plover Room,     GET (pyramid), S
+and turn off the lamp again.  Now say PLOVER again     OFF, PLOVER
+to  pop  back to the "Y2" Room (it will  be  pitch 
+black  again),  and the say PLUGH (you may already     PLUGH
+have heard a hollow voice say this).   You are now 
+back in the building (this is one of the other two 
+exits from the Cavern mentioned earlier;  PLUGH is 
+a  magic  word which will pop you back  and  forth 
+between the building and "Y2").  Here do an inven-
+tory  (INVENTORY,  or INVENT for short)  and  drop 
+every object you are carrying except the axe,  the     DROP [all but lamp, axe
+lamp and the dragon's teeth.                                and teeth]
+     One note must be mentioned here.   Though the 
+effect  of the mushroom usually lasts much  longer 
+than  this,  occasionally it wears off before  you 
+can  get to and pick up the platinum pyramid.   If 
+this  has  happened,  you will find  that  it  has 
+become  impossible to pick up the pyramid  without 
+first  dropping  something else you are  carrying.  
+Without the effects of  the mushroom you can  only 
+carry  seven objects at a time;  with the mushroom 
+that limit is increased to twelve.  As you entered 
+the Plover Room you were carrying eleven  objects, 
+with  room for just one more as long as the  mush-
+room  continued.  Thus  if the mushroom wore  off, 
+your limit was reduced to seven again,  leaving no 
+room for the pyramid.  If that is the case, return 
+first  to  the building (using  PLOVER  and  PLUGH 
+where appropriate),  drop all your treasure,  then 
+return  to pick up the pyramid.   This will result 
+in  the taking of a few extra steps but is  accep-
+table.
+     At  this point you can type SCORE to see what 
+progress  you've made.   If everything went  well, 
+you  should  have taken between 45 and  50  turns, 
+have seven  treasures in the room, and have scored 
+129  points  (of course,  if you  encountered  the 
+pirate  along the way and lost a few treasures  to 
+him you won't have this many).   To see a descrip-
+tion  of  the room,  along with the  treasures  it 
+contains, say LOOK.
+
+
+
+                 SECOND EXCURSION
+
+Treasures:  emerald,  ming vase,  indian turquoise 
+beads, persian rug.
+
+
+     For this next section you will need, in addi-
+tion the the lamp and the axe and the  teeth,  the 
+bottle  and the water it contains,  so pick it up.     GET BOTTLE
+With these four objects in hand,  then,  pop  back     PLUGH
+into "Y2", turn on the lamp, and go south twice to     ON, S, S
+the Hall of the Mountain King, then southwest(...)     SW(...)
+to  the East-West Canyon.   This time go down from     D
+here, where you will find yourself in a wide place 
+in  a tight north-south canyon,  north to  a  tall     N
+east-west canyon,  and then north again, where you     N
+will  be  in  a room whose  walls  resemble  swiss 
+cheese.    This  room  is  called,   appropriately 
+enough, the Swiss Cheese Room.  From here, proceed 
+northwest(...)  to  the Oriental Room.   Here  you     NW(...)
+will discover an ancient ming vase,  but leave  it 
+for now; you will get it on the way back.  Now you 
+will  make a brief side trip to drop off the  dra-
+gon's  teeth for later use,  and then return  back 
+for the next treasure.   From the Oriental Room go 
+west  to a large,  low room,  then southwest to  a     W, SW
+sloping  corridor,  and finally up where you  will     U
+discover  a  bridge  across a large chasm  with  a 
+troll  standing  guard demanding you throw  him  a 
+treasure  before he will allow you to  pass.   You 
+will  not want to cross the bridge just  yet  (and 
+besides,  you  are not carrying any treasures with 
+which you could pay the toll; and forget any ideas 
+you  may have about doing him in to  avoid  paying 
+him.   Any  attempt will have "grave" consequences 
+for you).   For now,  just drop the teeth here and     DROP TEETH
+return back southwest,  down, and southeast to the     SW, D, SE
+Oriental Room.   Now, continue on the north to the     N
+Misty Cavern, and then west to a small alcove with     W
+a tight path leading east.
+     From  here  you will want to proceed  to  the 
+east,  but the path is so tight that you will soon 
+discover  you cannot pass as long as you are  car-
+rying anything.   First,  therefore, you must drop     DROP [everything]
+everything  you are carrying.   Once you have left 
+all  objects  behind (including the  axe  and  the 
+lamp),  go  east.   Recognize this place?   You're     E
+back at the Plover Room again.   You have  entered 
+this  time through the tight passage which you may 
+have  noticed  the first time you came  here  from 
+"Y2".   This  time  take the  emerald.   You  have     GET (emerald)
+returned for the emerald this way because,  unlike 
+the platinum pyramid, the emerald cannot be gotten 
+out  through  the "Y2" Room.   If you were to  try 
+using PLOVER while holding the emerald,  you would 
+discover that the treasure remained behind in  the 
+Plover Room.   Now,  with the emerald, return west     W
+to  the  alcove,  pick up everything  you  dropped     GET [everything]
+there,  and  then proceed back northwest and  then     NW
+south  to  the Oriental Room.   This time get  the     S, GET (vase)
+vase,  and  go southeast back to the Swiss  Cheese     SE
+Room.   From here go east and you will find  your-     E
+self  in  the Soft Room where you will discover  a 
+pillow  on the floor.   Take the  pillow.   Return     GET (pillow)
+west to the Swiss Cheese Room.                         W
+     Now  go  west to the east end of the Two  Pit     W
+Room,  west again to the west end of the room, and     W
+down,  where  you  will  discover  a  small  plant     D
+murmuring  for water.   Water the plant  with  the     WATER PLANT
+water  in your bottle (WATER PLANT or POUR  WATER) 
+and stand back!  You should now have a twelve foot 
+plant  bellowing loudly for more water.  This  re-
+quest  you will fulfill.  Proceed up,  west to the     U, W
+Slab Room, up again to a Secret Canyon (from here,     U
+if you were to go south,  you would be back at the
+canyon  where you found the dragon,  but don't  go 
+that  way now),  then north to Mirror  Canyon  and     N
+north  again  where you will find yourself on  the     N
+southern  edge of a large  underground  reservoir.  
+Here,  drop  everything you're carrying except the     DROP [all but lamp and
+lamp and the bottle (this includes the axe which I          bottle]
+said earlier you never wanted to be without).   Be 
+careful,  however,  in doing this, for the vase is 
+very  delicate.   In  order to set the  vase  down 
+without breaking it you must always drop the  pil-
+low first, then the vase, or it will shatter (I've 
+done this myself several times and still occasion-
+ally  forget).   In that case you've lost the vase 
+and might as well get rid of the pillow too.  Fill     FILL BOTTLE
+the  bottle  with water from the  Reservoir  (FILL 
+BOTTLE  will  do nicely,  as will GET  WATER)  and 
+then,  leaving  behind everything else  (that  is, 
+taking with you only the bottle and the lamp),  go 
+south,  south,  down, south  and down, back to the     S, S, D, S, D
+plant.  
+     It  must be noted that this being without the 
+axe  is  a risky business,  as a  dwarf  can,  and 
+frequently does (I think they're just waiting  for 
+you to leave the axe,  which several of their late 
+compatriots have by now undoubtedly discovered you 
+wield  quite  well,   behind  somewhere)  make  an 
+appearance shortly.   If and when this happens you 
+have a couple of choices.  You may either hightail 
+it back to the axe, kill the dwarf (he will follow 
+you  back  to the Reservoir),  leave the  axe  and 
+continue  on  with what you were doing,  hoping  a 
+second  dwarf doesn't appear (I have  occasionally 
+encountered  a  second  dwarf  after  killing  the 
+first,  and can recall distinctly one occasion  on 
+which, after ignoring the first dwarf for a period 
+of time,  I found myself confronted by TWO dwarves 
+simultaneously!), or you may attempt to ignore the 
+dwarf,  waiting until your progress takes you back 
+to  the axe and then kill the dwarf.   This latter 
+option  is  a bit risky,  as the dwarf  may  start 
+throwing  knives  (you will just have to  pray  he 
+keeps missing you),  but often,  depending on when 
+the  dwarf appears,  is the better option  as  the 
+route  back  to the axe is shorter if you  proceed 
+forward than if you double back.  If you decide to 
+return  to  the axe first,  simply  refer  to  the 
+previous paragraph for the route from the plant to 
+the Reservoir and back.  Once you have returned to 
+the plant, proceed on to the next paragraph.
+     There is one other option open to you, should 
+you  decide to ignore the dwarf and then begin  to 
+feel significantly endangered by his knives, but I 
+have  hesitated to mention it as it is very  risky 
+indeed.  There exists another magic word which can 
+occasionally   be  utilized  to  defend   yourself 
+against dwarfs, but it is prone to backfire for no 
+apparent  reason and should thus be used only as a 
+last resort.   That word is PHUGGG, and be sure to 
+pronounce  it carefully.   Two other  restrictions 
+apply to the use of this word.   Never, ever, EVER 
+use it in the vicinity of water,  and don't use it 
+if  you  are carrying  any  sharp  weapons.   Once 
+again,  a  word of caution is in order.   I myself 
+have  only  used the word four times;  in  two  of 
+those instances the results were disastrous.   The 
+other times it had the desired effect.
+     Once you have returned to the plant, water it     WATER PLANT
+again.  Now, go up and east to the east end of the     U, E
+Two  Pit Room,  and then down into the  east  pit.     D
+Here  you will find a small pool of oil;  take  it     GET OIL
+(GET  is  not sufficient here;  you must  say  GET 
+OIL).   Go up,  west,  and down back to the plant,     U, W, D
+then  climb  up the beanstalk (CLIMB),  where  you     CLIMB
+will find yourself in a narrow corridor.   Go west     W
+from here to the Giant Room.   Here you will see a 
+nest full of golden eggs.  Leave them for now; you 
+will return for them later.   Go north,  where you     N
+will encounter a large rusty door.   To open  this 
+door  you  must first oil the hinges (POUR OIL  or     OIL DOOR
+OIL  DOOR).   Once you have done  this,  go  north     N
+again.   You will find yourself in a cavern with a 
+waterfall,  a whirlpool, and a trident.  Leave the 
+trident and jump down into the whirlpool (say JUMP     D
+or  DOWN).   The  game will ask "Into  the  whirl-
+pool??"   Answer yes.  If you wish to preserve the     Y
+bottle,  drop it first,  but if you are being pur-
+sued by a dwarf,  you might wish to preserve  time 
+and just jump directly into the whirlpool.  If you 
+jump  in the whirlpool with the bottle,  you  will 
+lose it,  but as it is of no further use,  that is 
+of little consequence. 
+     You  should find yourself deposited gently on 
+the north shore of a large underground  Reservoir, 
+with a path proceeding to the north.   This is the 
+same  underground Reservoir on the southern  shore 
+of which you left all your gear.  (Remember in the 
+description  of the southern edge of the Reservoir 
+it  mentioned a path across the Reservoir  to  the 
+north  which  you couldn't get to?   This is  that 
+path.  After staring for months across the  Reser-
+voir  wondering how to get to that path,  I disco-
+vered this at about three a.m.  one morning when I 
+accidently told the game I wanted to go down  from 
+the  Waterfall Cavern and it responded with  "Into 
+the whirlpool??";   I thought,  "What the heck!  I 
+need  to  get to bed,  and it's as good a  way  of 
+ending  the  game  as  any."  I was  so  elated  I 
+couldn't get to sleep.) If you were being  follow-
+ing by a dwarf you will find he did not follow you 
+down the whirlpool (dwarves may be dumb,  but they 
+aren't  stupid).   Not to  worry,  however.   He's 
+waiting  for  you on the south side of the  Reser-
+voir.
+     If  you jumped into the whirlpool while  car-
+rying the bottle you were informed that everything 
+you were carrying was pulled from your grasp.  You 
+were  able  only to (just barely) hold on  to  the 
+lantern.   This is why you left everything on  the 
+south shore, so you did not lose it.
+     Now,  from  the north shore of the Reservoir,     
+proceed  north  along the  path  there,  and  then     N
+northeast  into the Witt Company Treasure Chamber.     NE
+Here you will find a set of turquoise beads.  Take     GET (beads)
+them and return west and then south to the  Reser-     W, S
+voir.   See  the gong?   Hit it,  and when  Darwin     HIT
+appears,  ride him (RIDE DARWIN,  RIDE TURTLE,  or     RIDE
+just  RIDE),  and he will take you back across the 
+Reservoir  to  the southern  edge.   Collect  your     GET [everything]
+stuff  (if there is a dwarf waiting there for  you 
+get the axe first and kill him) and proceed.
+     You will now return to the building and leave 
+your  treasure,  picking up the persian rug  along 
+the way.  To get to the building, go south, south,     S, S
+and  south again,  to the dragon and  the  persian     S
+rug--pick  up  the  rug--and  then east  and  east     GET (rug), E, E
+(back to the Hall of the Mountain King),  and then 
+north and north to Y2.   Turn off your  lamp,  pop     N, N, OFF, PLUGH
+back  to the building,  and leave there everything     DROP [all but lamp and 
+except the axe and the lantern.   If all has  gone          axe]
+well  (which  it most likely has not,  the  pirate 
+undoubtedly having made at least one, and possibly 
+more than one,  appearance),  you should have  now 
+eleven  treasures and 189 points,  and have  taken 
+between  100  and 110 turns (if you  doubled  back 
+after the axe to combat a dwarf,  or otherwise got 
+sidetracked,  of  course your total moves will  be 
+greater).   By  the way,  if you're trying to find 
+out how many moves you've made,  the game is keep-
+ing track, but it won't actually tell you how many 
+until  you quit.   Neither will it inform  you  of 
+your  ranking until the adventure has  ended,  one 
+way or another.
+
+
+                 THIRD EXCURSION
+
+Treasures:  mithril ring,  golden chain,  pirate's 
+chest,  and  anything which the pirate  has  taken 
+from you.
+
+
+     This time,  along with the lamp and the  axe,     GET FOOD, GET SWORD
+take the food, the sword and the keys and pop back     GET KEYS, PLUGH
+to  "Y2".   Turn  on the lantern and go south  and     ON, S
+south to the Hall of the Mountain King,  then pick     S
+up  the rod,  and you are ready to return  to  the     GET ROD
+Giant  Room.   To  get there,  go  southwest(...),     SW(...)
+west,  north,  down,  south,  and down,  climb the     W, N, D, S, D, CLIMB
+plant,  and go west.  Bypassing the eggs again, go     W
+east to a low tunnel and then north where you will     E, N
+encounter  a particularly nasty beast,  the  ogre.  
+Throw  the  sword at the ogre (THROW  SWORD)  and,     THROW SWORD
+when the metamorphosed sword has cooled,  get  the     GET (ring)
+ring.  There are a number of rooms and a couple of 
+treasures  on  the far side of the door which  the 
+ogre  was  blocking,  but you cannot stop  to  get 
+those now.  For now, return south and south to the     S, S
+Giant  Room,  pick up the eggs,  and go north  and     GET (eggs), N, N
+north back to Breathtaking View.  Once again leav-
+ing the trident, this time proceed west to the top     W
+of   a   steep   incline   and   then   go    down     D
+(Wheeeeeeeeeeeeeeee.......     >oof<) to the Large 
+Low Room (from here,  southeast would get you back 
+to  the  Oriental Room).  Now go southwest to  the     SW
+Sloping Corridor,  and then up.   You are now back     U
+at  the  Troll Bridge.   If  you were  unfortunate 
+enough  to  have the pirate pop out and take  your 
+treasure  at any point between the times when  you 
+got  the  eggs and when you got to the  bridge  (I 
+myself  have only had this happen once,  so it  is 
+possible, though rare enough), it will be necessa-
+ry to retrieve the eggs from him before proceeding 
+on,  as  they  are essential to  you  for  getting 
+across  the Troll Bridge.   To retrieve the  eggs, 
+return  to  the Giant Room and then  refer  below, 
+page 24.
+     This  time you do want to cross  the  bridge.  
+To  appease  the troll throw him the  golden  eggs 
+(THROW  EGGS).   Any  treasure  will  satisfy  the     THROW EGGS 
+troll,  but  you  have chosen to use the eggs  for 
+reasons  which will become  apparent  later.   Now 
+pick  up  the dragon's teeth which you  left  here     GET (teeth)
+earlier  and cross the bridge (CROSS or NE),  then     CROSS
+go  northeast to a long  east-west  corridor,  and     NE
+east to a fork in the path.   From here follow the     E
+northeast  fork  to  a junction with  warm  walls.     NE
+Once here,  drop the keys and the food,  then pro-     DROP KEYS, DROP FOOD
+ceed  to  the east into a chamber  with  boulders,     E
+where  you  will find rare  spices.   Collect  the     GET (spices)
+spices, return west to the junction where you left     W
+the keys and food,  and then go north to Spectacu-     N
+lar  View.   This is an underground volcano  which 
+you must cross somehow.   It also proved to be one 
+of the most difficult riddles for me,  and one  of 
+the last to be solved.   Here, once again wave the     WAVE ROD
+rod,  and  you will have a lava bridge across  the 
+gulf.   Now  drop the rod.   It will prove  useful     DROP ROD
+once more before your adventure ends,  but not for 
+the  time being.   Having formed the lava  bridge, 
+only  half  the riddle has been  solved,  however.  
+When I first discovered the bridge I was so elated 
+that I went charging right across it,  whereupon I 
+was  immediately overcome by fumes and  fell  into 
+the volcano.   The secret, which it took me a good 
+many  more  months to discover,  is that you  must 
+have  the  mithril ring in  your  possession  when 
+crossing;  it protects you from the effects of the 
+fumes.
+     With the ring firmly in hand, then, cross the     CROSS
+bridge.    You  will  now  find  yourself  at  the 
+southern  end  of a long  valley.   Proceed  again 
+north to the northern end of the valley.  Here you     N
+will find yourself staring at what appears to be a 
+blank  wall.   The  clues to the solution of  this 
+riddle are to be found in two rooms located in the 
+vicinity of the Hall of the Mountain King to which 
+this walk-through does not take you.  The first of 
+these  rooms is a dead end which has  the  message 
+"Stand  where the statue gazes and use the  proper 
+tool" scrawled on one wall.  The other room is the 
+Witt   Company  Tool  Room--Melenkurion  Division.  
+Here,  you  are standing where the  statue  gazes.  
+What tool, then, are you to use?  Well, the "tool" 
+is  simply the name of the Tool Room.   Enter  the 
+name  of  the Division (MELENKURION) and  suddenly     MELENKURION
+you will find three passages in the wall.  
+     You will explore each of these three passages 
+in turn.   Begin,  however with the passage to the 
+northeast, where you will find yourself in a wind-     NE
+ing passage which proceeds on to the north.   Fol-
+lowing it north,  you will come to a chamber  with     N
+golden  walls,  which  has  passages both  to  the 
+northwest  and  to  the  northeast.    Go  to  the 
+northwest first.   Here,  in the Translucent Room,     NW
+you  will discover another treasure,  the  chinese 
+jade bracelet.   Take it, and proceed back east to     GET (bracelet), E
+the chamber with the golden walls.   Now keep your 
+eyes open,  as at any moment you will be  besieged 
+by  more of the Cavern's residents-- this time  in 
+the form of little eight inch tall goblins.  These
+creatures  can  be safely ignored only  for  about 
+three  moves,  after which they swarm all over you 
+and rip your throat out.   To dispose of the  gob-
+lins,  throw  the  dragon's teeth and  watch  what     THROW TEETH
+happens.    Having  thus  rid  yourself  of  these 
+things,  it is safe to proceed.   From the chamber 
+with the golden walls go now northeast.   Here you     NE
+will  find a flask.   Take it,  and return  south,     GET (flask), S
+south  and  northwest to the northern end  of  the     S, NW
+valley.
+     This time, go to the northwest, to the south-     NW
+ern end of a foggy hall.   Now go north, where you     N
+will find yourself lost and bedazzled in the midst 
+of  a  strange fog out of which you cannot get  no 
+matter  how hard you try.   After wandering around 
+in  this fog for a while,  you will be  graciously 
+offered a clue for finding your way out, and then, 
+should  you accept the offer,  just as  graciously 
+charged twenty points for it.   I'll save you  the 
+twenty  points.   The clue runs as follows:  "Ok--
+what you need to do is apply a little  philosophy.  
+To  wit:  there is a question that you need to ask 
+whenever you explore a new room in this cave.   In 
+most places,  the answer to the question is 'yes'.  
+In  some other places,  it's 'no' for  an  obvious 
+reason.   Right  here,  the answer is 'no' but the 
+reason  isn't so obvious.   If you can figure  out 
+what  the  question is,  you can get out  of  here 
+easily.   I can tell you this--it's always a vital 
+question if you wish to survive."  After  puzzling 
+over  this clue for a while,  it dawned on me that 
+the  question referred to was "Do I need  to  have 
+the  lantern  on  here?"  As the  clue  said,  the 
+answer here is 'no',  so turn the lamp  off.   You     OFF
+will now see, off in one direction or another (the 
+direction  changes  each time you wander into  the 
+fog), some light.  Follow that light, and you will     [follow light]
+emerge from the fog next to a large  cairn.   Now, 
+from the cairn,  go down.  Once again, you will be     D
+in the dark,  so turn the lantern back on.   Here,     ON
+you  will be in a nondescript chamber,  where  you 
+will discover Omar Khayyam's toy yacht.   Take it,     GET (yacht)
+and proceed onward to the north.                       N
+     Here,  you  will  be in the  Pentagram  Room, 
+where  you  will find a pentagram inscribed  on  a 
+smooth floor.  Set the flask you picked up earlier     DROP FLASK
+in the pentagram (DROP FLASK will do nicely),  and 
+then  open it (OPEN FLASK).   The djinn which  was     OPEN FLASK
+sealed in the flask will escape,  but will be held 
+by  the magical properties of the  pentagram.   If 
+you were to open the flask anywhere else the djinn 
+would  depart  immediately without giving you  the 
+two  clues which you will need  later.   Now,  the 
+djinn  is requesting that you open  the  pentagram 
+and release him.   Do so, and he will give you the     OPEN PENTAGRAM
+first of the two clues, and then depart.  Remember 
+this  clue,  as it will not be of use to you until 
+after you get to the end game.   So that you  will 
+have a copy of it,  I will reproduce it here.  The 
+clue  the djinn gives is in the form of a  history 
+lesson an runs as follows:  "When Ralph Witt,  the 
+architect  and constructor of this cave,  was very 
+young,  he became very incensed that his name  was 
+at  the  end of the alphabet.   He felt (for  some 
+reason) that the letter W belonged near the begin-
+ning of the alphabet,  and that all of those  'up-
+start  letters  which  unfairly usurped  the  best 
+places' should be forced into exile at the end  of 
+the  alphabet.   His instinct for matters  magical 
+and  mystical led him to apply this strange belief 
+into  the cave's structure when he  excavated  it.  
+You  haven't yet been affected by his strange  ha-
+bits, but you should remember this."
+     Having  thus garnered this  clue,  leave  the 
+flask where it is and proceed on to the north,  to     N
+a  small  crack at the bottom of  a  chimney.   Be 
+alert,  as at any moment now the djinn will return 
+with  his second bit of information,  and then va-
+nish  forever.   This second message describes  in 
+detail  the  magic word PHUGGG which  I  explained 
+above.  This information is of no use to you while 
+you  are on this side of the Troll Bridge  as  you 
+will  not encounter any dwarves over here.   It is 
+unlikely  that  you will need it after  you  cross 
+back  either,  as it is very rare to  encounter  a 
+dwarf  again this late in the game (I myself  have 
+only  once encountered one at any point after  the 
+end of the Second Excursion,  and never,  with the 
+one  exception  noted below,  on this side of  the 
+Troll Bridge;  in addition,  the Pirate also  will 
+never  be seen on this side of the Bridge,  though 
+he  will  certainly be seen again once  you  cross 
+back over).   You will never in any case run  into 
+more  than  five  dwarves in the  course  of  your 
+adventure,  and by the time you have progressed to 
+the  Troll  Bridge you will normally have  encoun-
+tered your limit.  This will not be true, however, 
+should  you decide to cross the Troll Bridge  ear-
+lier in your adventure.  In any case, from here go 
+up to the top of the chimney,  and then go  south,     U, S
+where  you will be at the top end of a lava  tube. 
+Go  down  the  tube and you will be  back  at  the     D
+southern  end of the foggy hall.   From  here,  go 
+south  back  to  the  north  end  of  the  valley.     S                 
+     You are now ready to begin the final--and  by 
+all  acounts  the most interesting--of  the  three 
+"mini-excursions"  to  the north of  the  volcano. 
+Proceed now to the north, where you will be in the     N
+southern  end of a basilisk's  den.   Fortunately, 
+the  creature  is sleeping,  but you must be  very 
+careful  not to awaken him,  as it's curtains  for 
+you if you do.   Very quietly,  then, sneak around 
+him to the north (NORTH).   Though you did  manage     N
+to  avoid waking the basilisk,  you will see  that 
+you  also  disturbed his sleep.   Should you  pass 
+this way again,  you will undoubtedly awaken  him.  
+You are now in a rough passage to the north of the 
+basilisk's den.   From here, go north to a fork in     N
+the passage.  Here, drop the axe, as you will need     DROP AXE
+the room to carry something else, and then proceed 
+down the steps,  and down a second time, where you     D, D
+will  come to an exit off the steps to the  north.  
+Take  this exit and you will find you are--back at     N
+the "Y2" Room!   What a minute.   Or are you?   If 
+this is the "Y2" Room,  where's the bird cage  you 
+left  here earlier?   As it turns out,  this isn't 
+the "Y2" Room,  but a duplicate of it,  thus it is 
+called the "Y2"? Room.  Just for fun, and to prove 
+this isn't really "Y2", try saying either PLUGH or 
+PLOVER.   What happened?   You will find that  you 
+are  perched precariously on a ledge two  thousand 
+feet above an underground volcano.   This ledge is 
+the  one  place where I have encountered  a  dwarf 
+(actually  two of them!) on this side of the Troll 
+Bridge.   You  might have also,  but  don't  worry 
+about them.  To get back to "Y2"? simply say PLUGH 
+or PLOVER again.
+     From  "Y2"?,  go  west.   You are now in  the     W
+Enchanted Catacombs.   Whatever you do, don't move 
+until  you have read the rest of this  section  on 
+the Catacombs.  The Catacombs are the first of the 
+three  mazes which you will traverse in the course 
+of  your  adventure.   There are a total  of  four 
+mazes in the Cavern,  but the fourth one--the Bat-
+tery Maze, where you would be able to get an extra 
+set  of batteries for the lantern--it will not  be 
+necessary  for the purposes of this  adventure  to 
+enter.   Mazes  are hazardous because all parts of 
+them  look  exactly like every  other  part,  thus 
+making it impossible to distinguish one part  from 
+another  and therefore terribly easy to get  lost.  
+This  particular maze is especially difficult,  as 
+it is possible to go any direction from any  room.  
+Thus,  unlike  the Pirate's Maze,  it is not  even 
+possible  to  discover  which room you are  in  by 
+determining what directions you can and cannot  go 
+from it.   If you wish to map out a maze, you must 
+first  make each room distinctive so that,  if you 
+come  across it again in you wanderings,  you  can 
+know  whether you have been there before and  also 
+exactly which room it is.   The way to do this  is 
+to drop an object in each room you visit.
+     Now  that you are in the Enchanted Catacombs, 
+what  next?   The  secret to the Catacombs  is  to 
+realize that from any given room,  every direction 
+leads  you back to the room you just  came  from--
+every direction, that is, except the one direction 
+which leads you forward.   Thus, you must discover 
+the  one direction which leads you forward to your 
+goal.   This  rule  applies to every room  in  the 
+Catacombs  but one--the one you are currently  in.  
+That is,  you cannot get back to "Y2"?  from  here 
+once you have entered this room.  You will need to 
+find  a  different way out.   You may map out  the 
+Catacombs on your own,  if you so desire,  but  as 
+this  would take a significant amount of both time 
+and battery power,  I suggest doing the following: 
+from where you now stand in the first room of  the 
+Catacombs  go south,  then southwest,  then north-     S, SW, NW
+west,  then  south,  then down,  then  west,  then     S, D, W
+northwest, then north, then south, then north, and     NW, N, S, N
+finally  east.   If you followed these  directions     E
+properly  you will find yourself standing  in  the 
+west end of the Audience Hall.  Here, you may turn     OFF
+off  the lantern.   From here go east to the  east     E
+end of the Hall,  where you will see a throne with 
+the  remains  of some strange  creature.   In  the 
+creature's  hand  is the jewel-encrusted  sceptre.  
+Take it.   When you do, however, listen carefully,     GET (sceptre)
+as  the  skeleton will speak  one  brief  sentence 
+before crumbling to dust.   The sentence is simply 
+this:  "Remember--[word]!"  where [word] is one of 
+five possible magic words:  knerl, blerbi, snoeze, 
+zorton,  or klaetu.   Which word he speaks changes 
+from game to game.   Remember which one it was (it 
+may  help  to write it down) as you will  need  it 
+twice.
+     Once  you  have  gotten the sceptre  and  the 
+word,  proceed  back west to the west end  of  the     W
+Audience Hall. From here you will need to traverse 
+the  Catacombs  once again to get out.   The  path 
+back  through the Catacombs runs like  this:  from 
+the west end of the Audience Hall go west, turn on     W, ON
+the lantern,  then go southwest,  east, southeast,     SW, E, SE
+northeast, east, southeast, down, south and north,     NE, E, SE, D, S, N
+whereupon you should find yourself back at "Y2"?.
+     From "Y2"?  go south back to the stairs,  and     S
+then  continue down the stairs,  at the bottom  of     D
+which  you will discover in a storage room a  pol-
+ished metal plate.  Get it, and then climb back up     GET (plate), U
+to the top of the stairs (UP and UP and UP), where     U, U
+you  will see the axe which you  dropped  earlier. 
+This  time,  follow the fork in the passage to the 
+north, and you will find yourself in the Peelgrunt     N
+Room.  What the name means (if anything) I have no 
+idea,  but  you will find that one entire wall  is 
+taken  up by a massive walk-in safe,  the door  to 
+which is locked fast.   To open the  safe,  repeat 
+the  magic word which you heard from the  skeleton     [word]
+on  the throne.   Make sure you use the word which 
+the skeleton spoke and not one of the  others,  as 
+speaking the wrong one will have disastrous conse-
+quences.  Now that the safe is open, enter it, and     IN
+you  will discover the massive iridium crown.   Do 
+not take it.   Instead, you are going to leave all     DROP [all treasure but
+the  treasures you are carrying,  except the  ring          the ring]
+(which  you will need to get back across the  lava 
+bridge) in the safe.  After you have dropped them, 
+exit the safe,  close the door (CLOSE  SAFE),  and     OUT, CLOSE (safe)
+proceed  back south,  to the fork in the  passage.     S
+Retrieve your axe,  and proceed south again to the     GET (axe), S
+rough passage and you will see the basilisk sleep-
+ing  fitfully.   You must get by him,  so  proceed 
+south  once more.   This time you will awaken  the     S
+creature,  but  (assuming you are carrying it)  he 
+will  see own reflection in the metal plate  which 
+you  are carrying and be instantly turned to  gra-
+nite.   You may now discard the plate at any point     DROP PLATE 
+you  choose,  as it has served  its  purpose.   Go 
+south  again to the north end of the  valley,  and     S
+then  south once more to the southern end and  the     S
+lava  bridge.   Now,  again with the ring in hand, 
+cross  the  bridge (CROSS or SOUTH)  back  to  the     CROSS
+south side of the bridge.   Pick up the rod.  From     GET (rod)
+here,  proceed  south,  pick  up the keys and  the     S, GET KEYS
+food,  then go south,  southeast, south, and east.     GET (food), S, SE, S, E
+You  will  discover yourself in the  Barren  Room, 
+where  a  bear is chained to the far side  of  the 
+wall  with a golden chain.   You want that  chain, 
+and  also the bear (believe it or not) but in  his 
+current state you couldn't get close enough to the 
+bear to unlock him.  Now the food comes in  handy.  
+Throw it to the bear (THROW FOOD), who will eat it     THROW FOOD
+ravenously  and then tame down considerably.   You 
+are  now free to unlock the chain with  the  keys.     UNLOCK 
+Take  the chain and the bear (if you say GET  BEAR     GET CHAIN
+or  TAKE  BEAR,  the bear will follow  you  around     GET (bear)
+until  you say DROP BEAR),  drop the  keys,  which     DROP KEYS
+have served their final purpose,  and return west,     W
+then west again,  then north,  west, and west once     W, N, W, W
+more to the Troll Bridge.  The troll is nowhere to 
+be seen.   Now try to cross the bridge.  The troll     CROSS
+will  step out of nowhere and block your  way.  As 
+you  don't  want to sacrifice another treasure  to 
+the troll,  you must find another way to get  back 
+over the bridge.   To do this,  drop the bear, and     DROP BEAR
+he  will scare away the troll,  who will never  be 
+seen by you again.   You are now free to cross the     CROSS
+bridge,  but  resist every temptation to take  the 
+bear  with  you,  as his weight will collapse  the 
+bridge and throw you and him both into the  depths 
+of  the  chasm.   Once you have crossed the  Troll 
+Bridge,  return to the Swiss Cheese Room by  going 
+southwest,  down,  southeast, and southeast again,     SW, D, SE, SE
+then  back  to  the Hall of the Mountain  King  by     
+going west, west, west, up, south, east and east.      W, W, W, U, S, E, E
+     You  are  now ready for the final leg of  the 
+Third Excursion,  in which you will finally settle 
+your score with that pesky pirate.   If the pirate 
+HASN'T appeared by now (I find it hard to believe, 
+but anything is possible) your wandering around in 
+the  depths  of his own maze carrying  a  load  of 
+treasure  will prove a greater temptation than  he 
+can  bear  and draw him out of hiding.   From  the 
+Hall of the Mountain King first proceed  northwest     NW
+and then east,  back to the dank cubicle where you     E
+earlier found the mushroom.  By this time you will 
+find  that another one has grown there.   Take it,     GET (mushroom)
+but do not eat it just yet.  Now go back south and     S
+south to the Hall of the Mountain King,  where you     S
+are ready to proceed on to the pirate's maze.  You     
+have  taken the mushroom because without  it  it's 
+possible  that  there is more treasure in the  pi-
+rate's maze than you could carry in one trip.   To 
+find the pirate's maze from the Hall of the  Moun-
+tain  King go west to the West Side Chamber,  then     W 
+continue west and then west again.   Here you will     W, W
+find yourself at the East End of a Long Hall. From 
+here  go east (or up) to the West End of the  Hall     E
+of Mists.   To get to the Pirate's Maze from  here 
+go  south.   Be certain you are at the West End of     S
+the Hall of Mists before going south, not the West 
+End of the Long Hall, as going south from the West 
+End  of  the Long Hall will also take you  into  a 
+maze;  that  maze,  however,  is not the  Pirate's 
+Maze,  but the Battery Maze.  Once inside the maze 
+be  extremely careful,  as it is very easy to  get 
+lost in it.
+     Once you have gone south from the West End of 
+the  Hall of Mists you are in the  Pirate's  Maze.  
+Now  (and be sure to follow these directions  very 
+carefully  so you don't get lost) go east,  south,     E, S
+south,  south, north, and east.  You should now be     S, S, N, E
+standing  on  the brink of a pit  with  an  orange 
+column down which you can climb.  At the bottom of 
+it is the Bird Chamber, where you originally found 
+the bird.  Don't climb down just yet, however; you 
+will  do that as soon as you have gotten the trea-
+sure from the pirate.   From here proceed east and     E
+northwest  and you will find the  pirate's  chest,     NW
+along  with  any treasure he has stolen from  you.  
+Pick up everything you can.   If you find you have     GET [everything]
+a full load before you've taken everything eat the 
+mushroom,  then  pick up the rest.  If  you  still 
+can't get it all, you will have to leave something 
+non-essential  behind  (i.e.  anything except  the 
+lamp,  the rod,  the axe and the treasures).  From 
+this  point  on,  you will never  see  the  pirate 
+again,  as  he goes off to some dark corner of the 
+Cavern somewhere to nurse his wounds for the  rest 
+of the game. Now return southeast and north to the     SE, N
+orange column and go down.                             D
+     You  should  now  be in the Bird  Chamber  (a 
+"splendid chamber thirty feet high").   From  here 
+you  will return to the building to drop off  your 
+load  of  treasures  and prepare  for  the  Fourth 
+Excursion.   Go  east from the Bird  Chamber,  and     E
+then east again,  where you will find yourself  in     E
+the Debris Room.  Here you will discover the third 
+and  final way back to the building.   You noticed 
+the magic word on the wall?   This, if you haven't 
+discovered  by now,  does in this room what  PLUGH 
+does in "Y2". So, turn off your lamp and repeat it     OFF, XYZZY
+now (XYZZY) and-->foof<--you're back in the  buil-
+ding.   Now  drop off everything  you're  carrying     DROP [all but lamp and
+except the lamp and the axe.  If you so desire you          axe]
+may  type SCORE to check your progress  (you  will 
+have  at  this point 254 points) and then LOOK  to 
+see  a description of the room and all your  trea-
+sures.   
+
+
+                 FOURTH EXCURSION
+
+Treasures:  rare spices,  iridium crown,  sceptre, 
+jade bracelet, toy yacht.
+
+
+     The  Fourth Excursion is by far the  shortest 
+of  the  six  (just as the Third was  by  far  the 
+longest) and is in fact just a little jaunt in and 
+out.   Taking  the lamp,  pop into the "Y2"  Room,     PLUGH
+turn on the lantern, go south twice to the Hall of     ON, S, S
+the Mountain King and then go down.   You will now     D
+find  yourself  in a  large,  high-ceilinged  room 
+facing  another door to a massive walk-in safe (at 
+least I think it's a different door;  at any rate, 
+as you will soon see,  the safe itself is the same 
+one  as  you earlier placed  your  treasures  in).  
+Here,  once again,  you will need to use the magic 
+word  you  got  in the Audience Hall to  open  the 
+safe, and once again you must make certain you use 
+the correct word to avoid disastrous  consequences 
+(on  the other hand,  if you're curious about what 
+those consequences might be,  go ahead and use the 
+wrong word; I dare ya.).  Once the safe is opened,     [word], IN
+enter  it and you will find all the treasures  you 
+left there earlier.   Collect them, exit the safe,     GET [all], OUT
+close it, and go up, north and north to "Y2", turn     CLOSE (safe), U, N, N
+off  the lamp,  and return to the building.   Drop     OFF, PLUGH, DROP [all 
+off  everything  except  the  lamp  and  the  axe.          but lamp and axe]
+Typing SCORE and LOOK now will show 319 points and 
+nineteen  treasures.
+   
+
+
+                 FIFTH EXCURSION
+
+Treasure:  golden eggs,  crystal trident,  cask of 
+opals, crystalline sculpture.
+
+
+     For the Fifth Excursion all you will need  is 
+the  lamp and axe.   Return to "Y2",  turn on  the     PLUGH, ON
+lamp,  and  you  are ready to return to the  Giant 
+Room.   Go south,  then south again to the Hall of     S, S
+the Mountain King.   From here,  go northwest  and     NW
+then  north,  where you will discover a small vial     N
+filled  with an oily liquid.   Take the  vial  and     GET (vial)
+return north and south to the Hall of the Mountain     N, S
+King. To get to the Giant Room, go southwest(...),     SW(...)
+west (there's the dragon's carcass),  north, down,     W, N, D
+south and down, climb the plant, and go west.  Now     S, D, CLIMB, W
+it  is  time to reclaim the golden eggs  from  the     
+troll.  You have noticed the words FEE FIE FOE FOO 
+enscribed  on  the wall of the room.   These  were 
+undoubtedly  put  there by the  giant  himself  to 
+guard  against forgetfulness (giants,  as everyone 
+knows,  have notoriously short  memories).  Repeat     FEE
+these  words,  but  do so one at a time (that  is,     FIE
+type FEE,  press return,  then FIE,  return,  FOE,     FOE
+return,  and FOO, return) and the eggs will appear     FOO
+back  in the room.   These are the  only  treasure 
+that can be reclaimed in this manner, and they can 
+be  so  retrieved  from wherever they are  in  the 
+Cavern  (or  even from the  building,  I  believe, 
+though I have never tried) but you must be in  the 
+Giant Room to do so.   This is why it was the eggs 
+which you threw to the troll,  and not a different 
+treasure.
+     Taking  the  eggs,  go north  and  north,  to     GET (eggs), N, N 
+Breathtaking View.   This time,  take the trident,     GET (trident)
+and  return  south and south,  to the Giant  Room.     S, S
+(Note:  if  the trident is now back in  the  buil-
+ding--that is,  if the pirate had earlier made off 
+with  it and you have retrieved it from his maze--
+you may skip this little side trip to Breathtaking 
+View.)  By now you should have been informed that, 
+despite  the care that has been taken to  preserve 
+them,  your batteries are running low. If not, you 
+soon  will be.   Our next job will be to  recharge 
+them (you could,  of course,  as was suggested, go 
+get the other batteries,  but as you will see,  it 
+would  be  a wasted trip).   From the  Giant  Room 
+proceed east and north,  back to where you earlier     E, N
+found  the  ogre,  and then go north  through  the     N
+door.  You will now be inside the Sorcerer's Lair, 
+where  you will see "NOSIDE SAMOHT"  inscribed  on 
+one  of the walls.   From the Sorcerer's Lair pro-
+ceed east,  and then east again. Here is where you     E, E 
+will  recharge the batteries of your  lamp.   Drop     DROP LAMP
+the lamp,  then say NOSIDE SAMOHT,  and there  you     NOSIDE SAMOHT
+are.   Note:  be certain you are not holding on to 
+the  lamp when you repeat the words,  as the power 
+surge would kill you if you were.  WARNING: If you 
+have  not yet received a message about  your  bat-
+teries  going dim,  DON'T DO THIS yet!   You  will 
+destroy  your lamp and to be without a lamp in the 
+Cavern is a fate as bad as death.   Wait until you 
+are told that your lamp is dim,  and then recharge 
+it.  The procedure for doing so (dropping the lamp 
+and  then saying NOSIDE SAMOHT) can be  done  suc-
+cessfully  at any point before you pass back  into 
+the Sorcerer's Lair.  Once you have recharged your 
+batteries,  they  will  last sufficiently long  to 
+complete  your adventure.   Please note also  that 
+this recharging works only once.   You cannot keep 
+running  back here every time your  batteries  run 
+low.
+     Now pick up the lantern and proceed on to the     GET (lamp), NE
+northeast and the southeast.   Here you will see a     SE
+viscious-looking  growth covering the walls of the 
+tunnel through which you wish to  proceed.   Throw     THROW VIAL
+the  vial  at it,  and it will wither away to  no-
+thing.   Proceed  south through  the  tunnel,  and     S
+south  again,  where  you  will find the  cask  of     S
+opals.   Take them,  then go north,  north,  west,     GET (opals), N, N, W
+southwest,  north,  west and southeast.   Here you     SW, N, W, SE
+are in the Ice Room,  at the top of an ice  slide.  
+Go  down  the ice slide to the bottom.   Here  you     D
+will  find  yourself in the third and  final  maze 
+which you must tackle--the Ice Tunnels.   To avoid 
+getting lost,  follow these directions very  care-
+fully:  go northwest,  west,  south,  west, north,     NW, W, S, W, N
+northwest, west, west, south, and south, where you     NW, W, W, S, S
+will find the crystalline sculpture.  Get it, then     GET (sculpture)
+proceed  north,  north,  northwest,  west,  south,     N, N, NW, W, S
+northwest,  northwest,  west, west, and northwest.     NW, NW, W, W, NW
+Now you will see a sign which says "This way out".  
+To get out of the Ice Tunnels,  say THURB. (If you     THURB
+were to map out the Ice Tunnels in their entirety, 
+you  would  find  they spelled  out  THURB.)   You 
+should now be back in the Ice Room.
+     Finally, it is time to return to the building 
+with your treasures.   To get there from here,  go 
+northwest,   north,  north,  west,  south,  south,     NW, N, N, W, S, S
+south,  climb down the plant, go up, west, up, and     S, D, U, W, U
+south to the dragon,  and then east,  east,  north     S, E, E, N
+and north to "Y2".   Turn off the lamp,  return to     N, OFF, PLUGH
+the building,  and drop everything you're carrying     DROP [all but lamp, axe
+except the lamp, the axe and the trident.                   and trident]
+
+
+
+                 SIXTH EXCURSION
+
+Treasures: pearl, pieces of eight, spyglass.
+
+
+     There  is one final excursion to make to col-
+lect the last of the treasures.  For this you will 
+need,  in addition to the lantern and the trident, 
+the rod.   Get it, and return to "Y2", turn on the     GET ROD, PLUGH, ON
+lamp,  and go south.  This time, rather than going     S
+south again to the Hall of the Mountain  King,  go 
+down to the Dirty Passage.   From here, go west to     D, W
+the  Dusty Rocks Room,  down to Complex  Junction,     D
+and  then north to the Shell Room,  where you will     N
+discover  a giant clam.   Open the clam (the  clam     OPEN (clam)
+can  only be opened with the trident,  that's  why 
+you brought it along) and the pearl will fall  out 
+(the  clam turns out to be an oyster).   The pearl 
+has  rolled away,  so you must go after it to  re-
+trieve it.   To do so,  go down and down,  to  the     D, D
+cul-de-sac.   Pick  up the pearl and go up and  up     GET (pearl), U, U
+back to the Shell Room.   From here, there are but 
+two  treasures remaining.   Go up,  then up again,     U, U
+and you will see your way proceeds over a patch of 
+damp sand.   This is quicksand,  and if you try to 
+walk on it you will surely die.   First,  wave the     WAVE ROD
+rod,  whereupon you will be informed that  nothing 
+obvious  has  happened,  and  then it is  safe  to 
+proceed.   Go  east,  to the bend in the  passage,     E
+then  north,  to the fork in the  corral  passage,     N
+then  north  again to the Fourier  Passage.   From     N
+here  go southwest and then down,  to  the  Beach,     SW, D
+where you will find a bag containing the pieces of 
+eight.   Pick  it  up,  then return up,  west  and     GET (bag), U, W
+northwest  to  the fork in  the  corral  passsage.     NW
+From  here  go east to the Entrance to  the  Jonah     E
+Room  and  then proceed south to the South End  of     S
+the  Jonah Room,  where you will find the last  of 
+the  treasures,  a spyglass made of whale  baleen.  
+Get  the spyglass,  and you are ready to return to     GET (spyglass) 
+the building with the last of the treasures.
+     From  the  south  end of the  Jonah  Room  go 
+north, then west and south back to the fork in the     N, W, S
+passage.   Here  you must once again wave the  rod     WAVE ROD
+before attempting to cross the quicksand.   Now go 
+west,  west and down to the Shell Room,  and  then     W, W, D
+south to the Complex Junction.   Now up,  east, up     S, U, E, U
+and  north  will complete the trip back  to  "Y2".     N
+Turn  off the lamp,  return to the  building,  and     OFF, PLUGH
+drop everything you're carrying except the axe and     DROP [all but lamp and
+the lamp.                                                   axe]
+     Though  you  have  now  discovered  all   the 
+treasures  in  the Cavern,  there is yet one  last 
+point  to be gained in the Cavern.   With the  axe 
+and  lamp in hand,  return to "Y2",  turn  on  the     PLUGH, ON 
+lamp,  and go south,  down,  west, down, and east,     S, D, W, D, E
+where  you will find yourself in the Anteroom  and 
+will  see  several  recent  issues  of  "Spelunker 
+Today"  scattered about the floor.  Pick these up,     GET (magazines)
+and  the  proceed to the east.   You  are  now  at     E
+Witt's End,  aptly named,  as you will see.  Here, 
+drop  the  magazines,  whereupon you will  receive     DROP MAGAZINES
+that final point (i.e.  you are awarded one  point 
+for  dropping  "Spelunker Today" at  Witt's  End).
+Now  comes  the hard part--getting out  of  Witt's 
+End,  though,  as you will see,  it really doesn't 
+matter whether you actually make it out or not; it 
+just gives you something to do.
+     To  get  out of Witt's End,  you must  simply 
+keep trying all directions until you find yourself     N(...) 
+back in the Anteroom.   Actually,  you can try any     S(...)
+direction   exept  west.    Keep  slugging   away.     E(...)
+Sometimes  it can take forty or fifty moves  (make     W(...)
+that OFTEN it can take forty or fifty moves).  You     etc.
+will,  if  you spend enough time mucking about  in 
+Witt's  End,  in all likelihood be asked  at  some 
+point  if  you would like a hint to help  you  get 
+out.   Don't  take it,  as you will be charged  20 
+points for it, and the clue is simply three words: 
+Don't  go  west.   As I said,  it  really  doesn't 
+matter  whether  you make it out of Witt's End  or 
+not,  because  once  you have garnered  this  last 
+point  your  sole remaining job consists  in  just 
+wandering around the Cavern until the  appropriate 
+moment.  If you do get out, pick any direction you 
+desire and wander at will.
+
+                   THE END GAME
+
+     It  is time now to proceed to the  End  Game.  
+It  has  taken me three years to reach this  part, 
+and  much more effort to complete it.  As  already 
+mentioned,  your final job will consists simply of 
+wandering around the Cavern until you hear a voice     [wander at will]
+announce  that  the Cavern will be  closing  soon.  
+This usually takes between 30 and 35 moves  (minus 
+the  moves  it took you to get into  Witt's  End). 
+Once  you hear the voice,  wander around a  little     [more wandering at
+longer  (between  10 and 15 moves) until you  hear     will]
+the voice announce that the Cavern is closed.   At 
+this  point  you  will be transported to  the  End 
+Game,  and discover yourself in a small, cylindri-
+cal room with a flat floor,  flat ceiling,  and no 
+visible exits. In addition, if you type SCORE, you 
+will see that you have been awarded 69 points  for 
+getting  into  this room,  bringing your total  to 
+510.  You will also notice, if you take inventory, 
+that you are not carrying anything.   Since  there 
+are no manipulable objects in the room, and neith-
+er  are you carrying any yourself,  the exit  from 
+here cannot be gained in that manner.   Therefore, 
+logically, the room must be exited by speaking the 
+proper word or words, and the problem then becomes 
+to  discover what those words might  be.   Perhaps 
+you  have  already tried to use some of the  magic 
+words which you picked up in the Cavern, all to no 
+avail.   What then is the secret?   The trick here 
+is  that  you do not use any of  the  magic  words 
+found  in  the Cavern--you use all of  them.   The 
+second  half of the puzzle is discovering in  what 
+order they must be used.   If you will now  recall 
+the  words of the djinn in discussing the peculia-
+rities of Ralph Witt,  you will remember that Witt 
+had  a fixation with "the last shall be first  and 
+the  first  last",  at least when it came  to  the 
+alphabetical orders.  The secret then is this: you 
+must speak each of the magic words,  but you  must 
+do so one at a time (a la FEE FIE FOE FOO) and you 
+must speak them in reverse alphabetical order.  If 
+you have forgotten,  the magical words,  which are 
+seventeen in number,  are,  in alphabetical order, 
+as follows:
+     
+     BLERBI             KNERL              SAMOHT      [speak magic words]
+     FEE                MELENKURION        SNOEZE
+     FIE                NOSIDE             THURB
+     FOE                PHUGGG             XYZZY
+     FOO                PLOVER             ZORTON
+     KLAETU             PLUGH
+
+Simply enter each of these words,  beginning  with 
+ZORTON and proceeding through BLERBI, and you will 
+find  that you are--"Standing at the end of a road 
+before a small brick building."  This is the  same 
+brick building (to my knowledge) wherein you began 
+your adventure,  however, if you enter it now, you 
+will  discover that it is empty--all the treasures 
+and other objects which you placed there are gone. 
+Typing SCORE will show that you have been  awarded 
+an  additional  20 points for getting out  of  the 
+cylindrical  room (in my opinion,  these last  two 
+pointage awards should be reversed--20 for getting 
+into  the  room and 69 for getting out--for it  is 
+much easier to get into it than to get out again).  
+A little additional exploration will discover that 
+you cannot get back into the cave,  either through 
+the grate,  which is locked again (and the keys to 
+which  you  do not possess) or through  the  magic 
+words,  which no longer work.
+    The  answer then to this last riddle  of  your 
+quest lies above ground,  and is this:  from where 
+you  stand in front of the building go south,  and     S
+then  south once more.   You will now be  standing     S
+near  a  2-foot slit in the ground into which  all 
+the waters of the stream tumble.  You may remember 
+seeing this slit when you past it at the beginning 
+of the game on your way to the grate, only then it 
+was  but 2 inches wide and much too narrow to  fit 
+through.  Now it has widened considerably.  It has 
+become,  in fact, the entrance to the last portion 
+of  the game.   If you had tried going  down  this 
+slit  when  you passed it before,  you would  have 
+received a response something like "You don't  fit 
+through a two-inch slit!"  This time, however, you 
+will fit,  so enter the slit,  watch what happens,     ENTER SLIT
+and then your adventure is done.  Congratulations.  
+All  of adventuredom gives tribute to you,  Adven-
+turer Grandmaster!

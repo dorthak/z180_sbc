@@ -1,0 +1,16 @@
+Adventure for CP/M 
+==================
+
+Index        -- This file
+README       -- General documentation
+adv-A02/     -- Adventure 350 (version A02)   [SIG/M volume  1]
+		and FORTRAN source            [SIG/M volume  2]
+adv-B00/     -- Adventure 550 (version B00)   [SIG/M volume  3]
+adv-B01/     -- Adventure 550 (version B01)   [SIG/M volume 11]
+adv-B02/     -- Adventure 580 (version B02)
+adv-a02.lbr  -- Original distribution archive for version A02
+adv-b01.lbr  -- Original distribution archive for version B01
+advdis/      -- Programs to disassemble the B-version game files;  
+		and documentation.
+advent.step  -- Walkthrough for Adventure 550 (ASCII).
+advent.ws    -- Walkthrough for Adventure 550 (WordStar format).

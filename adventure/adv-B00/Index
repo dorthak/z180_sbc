@@ -1,0 +1,10 @@
+Adventure 550 for CP/M - version B00
+====================================
+
+Index        -- This file
+adv     .com -- Run this to play the game (Z80 CPU only).
+advi    .dat -- "A-Code" bytecode of the game.
+advi    .ptr -- Index over advi.dat.
+advt    .dat -- Encoded game text.
+advt    .ptr -- Index over advt.dat.
+symbol  .tab -- Use in conjunction with advdis to get an A-code disassembly.

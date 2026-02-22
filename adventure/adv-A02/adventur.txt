@@ -1,0 +1,22 @@
+     Hello.  This is the A02 version of Adventure.  It is a modification of 
+the  original  Adventure  game floating around between  CP/M  users.   This 
+version corrects several flaws in the first version.  Most noticable is the 
+re-activation  of  the hints (there was a kludge in  the  previous  version 
+which kept the hints from working).   Also, the SAVE command now works.  To 
+suspend a game, type SAVE, answer YES when Adventure asks for confirmation, 
+and  when the game stops and you get your OS prompt (A> for  CP/M,  A.  for 
+CDOS)  type SAVE ADSAVE.COM 157 (for CP/M,  reverse the filename and record 
+count).   There also are a couple of fixes made to the database to clean up 
+a  couple  of glitches like a missing or extra line here or  there,  and  a 
+couple of places where the end of a message got cut off.
+
+     This A02 version has one large advantage over the A01 release; that is 
+that  the message file was compressed to 63K (it used to be  128K).   Note:  
+This is a change in the format of the file, no messages were deleted.
+
+     Stand by for the forthcoming B00 Adventure -- This one has a cave that 
+is  twice as large (it's a 550 point version).   All of the features of the 
+original  Adventure are in this version,  plus a whole bunch of new  rooms, 
+treasures,  and ways for the bumbling explorer to get himself killed.
+
+                                        Mike Goetz

@@ -1,0 +1,32 @@
+                      DISK.DOC
+
+                    -FOG/GAM.013
+
+        First Osborne Group (FOG) Games Disk
+
+This disk contains support files for the Adventure 
+game AD.COM found on -FOG/GAM.014.  This version was 
+received from the Osborne Users Group (OUG) of the 
+Washington D.C. area.
+
+To play Adventure, make a copy of this disk and 
+SYSGEN system tracks to the copy.  Place AD.COM in 
+drive B and the copy of this disk in drive A.  At 
+the A> prompt, type
+     B:AD
+This Adventure game is similar but more detailed 
+than Adventure found on -FOG/GAM.001.  In 
+particular, you can interrupt a game for 
+continuation at a later time.  To interrupt play, 
+use the SAVE verb.  When the A> prompt appears, type
+     <CTRL-C>
+     SAVE 157 B:ADSAVE.COM
+B must have at least 40K space.  To restart the 
+game, at the A> prompt, type
+     B:ADSAVE
+See ADVENTUR.DOC for further information.
+
+                    Jim Woolley
+                 FOG Disk Librarian
+                   October, 1982
+

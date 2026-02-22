@@ -1,0 +1,9 @@
+Adventure 350 for CP/M - version A02 source
+===========================================
+
+Index	     -- this file.
+adinit  .com -- Compiles the adventure database.
+adsource.txt -- Compilation instructions (ASCII). 
+adsource.ws  -- Compilation instructions (WordStar, renamed from adsource.txt) 
+adventur.dat -- Source for the game world.
+*.for        -- FORTRAN source for the runtime.

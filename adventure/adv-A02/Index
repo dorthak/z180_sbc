@@ -1,0 +1,12 @@
+Adventure 350 for CP/M - version A02
+====================================
+
+Index        -- This file
+ad      .com -- Run this to play the game.
+adventur.msg -- Messages.
+adventur.txt -- Documentation, in ASCII.
+adventur.ws  -- Documentation, in the original Wordstar format.
+                (renamed from adventur.doc)
+disk    .doc -- Original archiver's comments and instructions.
+*.dat        -- Adventure data files.
+source/	     -- FORTRAN source code.

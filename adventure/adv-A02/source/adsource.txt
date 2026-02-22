@@ -1,0 +1,40 @@
+     Hello.  This is the A02 version of Adventure.  It is a modification of 
+the  original  Adventure  game floating around between  CP/M  users.   This 
+version corrects several flaws in the first version.  Most noticable is the 
+re-activation  of  the hints (there was a kludge in  the  previous  version 
+which kept the hints from working).   Also, the SAVE command now works.  To 
+suspend a game, type SAVE, answer YES when Adventure asks for confirmation, 
+and  when the game stops and you get your OS prompt (A> for  CP/M,  A.  for 
+CDOS)  type SAVE ADSAVE.COM 157 (for CP/M,  reverse the filename and record 
+count).   There also are a couple of fixes made to the database to clean up 
+a  couple  of glitches like a missing or extra line here or  there,  and  a 
+couple of places where the end of a message got cut off.
+     This A02 version has one large advantage over the A01 release; that is 
+that  the message file was compressed to 63K (it used to be  128K).   Note:  
+This is a change in the format of the file, no messages were deleted.
+     Stand by for the forthcoming B00 Adventure -- This one has a cave that 
+is  twice as large (it's a 550 point version).   All of the features of the 
+original  Adventure are in this version,  plus a whole bunch of new  rooms, 
+treasures,  and ways for the bumbling explorer to get himself killed.
+     To compile this mess,  you'll need a FORTRAN compiler and 64K of  RAM.  
+You  will  also need more disk space than is available on a single  density 
+diskette,  so you're going to have to do some disk swapping to get this all 
+compiled.   There are three phases to geting this thing running.  First you 
+must  create the runtime program (AD.COM).   This program uses a  bunch  of 
+database  files  which  are  created  by  a  second  program  (ADINIT.COM).  
+Therefore you must also create this program.   Finally, you must create the 
+database using ADINIT.
+     To create AD,  you must compile the following files:  ADVMAIN, MAINSB, 
+and ADVENSUB.   NOTE:  ADVENSUB is used for both programs.   Then link them 
+together:
+          LINK ADVMAIN,MAINSB,ADVENSUB/S,FORLIB/S,AD/N/E
+     To create ADINIT,  you must compile ADVENT,  ADVINIT3,  INSUB, and use 
+ADVENSUB again.  To link them:
+          LINK ADVENT,ADVINIT3,INSUB,ADVENSUB/S,FORLIB/S,ADINIT/N/E
+     Finally,  to create the database,  put the data file (ADVENTUR.DAT) in 
+drive B,  a blank (more or less) disk in A, and run ADINIT.  It takes about 
+six  minutes  running  on a 4mhz Z-80 with Persci  277  drives.   Note:   I 
+enhanced the efficiency of this program considerably;  it used to take more 
+than twice as long to run.
+                                             Mike Goetz
+
