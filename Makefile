@@ -38,13 +38,17 @@ clean:
 	rm -fr *.com
 	rm -fr *.tmp
 	rm -fr *.dep
+	rm -fr *.img
+	cd filesystem && $(MAKE) clean
+	cd test && $(MAKE) clean
 
 flash:
 	~/z80-retro/2065-Z80-programmer/pi/flash < firmware.bin
 
 install:
-	sudo dd if=bios.bin of=/dev/sda1 bs=512
-	sync
+	cd filesystem && $(MAKE) all
+#	sudo dd if=bios.bin of=/dev/sda1 bs=512
+#	sync
 
 
 # .SECONDARY:
