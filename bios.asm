@@ -456,7 +456,7 @@ bios_read:
 
         ; XXX This is a hack that won't work unless the disk partition < 0x10000
         ; XXX This has the SD card partition offset hardcoded in it!!!
-  .sd_partition_base: equ	$0800
+  .sd_partition_base: .equ	$0800
         ld	    de, .sd_partition_base	; XXX add the starting partition block number
     	add	    hl, de			    ; HL = SD physical block number
 
@@ -464,7 +464,7 @@ bios_read:
     	ld	    de, 0
     	push	de			        ; 32-bit SD block number (big end)
     	push	hl			        ; 32-bit SD block number (little end)
-    	ld	    de, .bios_sdbuf		; DE = target buffer to read the 512-byte block
+    	ld	    de, bios_sdbuf		; DE = target buffer to read the 512-byte block
     	call	sd_cmd17		    ; read the SD block
     	pop	    hl			        ; clean the SD block number from the stack
     	pop	    de
@@ -479,7 +479,7 @@ bios_read:
 
 .bios_read_sd_ok:
     	; calculate the CP/M sector offset address (.disk_sector*128)
-    	ld	    hl, (.disk_sector)	; must be 0..3
+    	ld	    hl, (disk_sector)	; must be 0..3
     	add	    hl, hl			    ; HL *= 2
     	add	    hl, hl			    ; HL *= 4
     	add	    hl, hl			    ; HL *= 8
@@ -489,11 +489,11 @@ bios_read:
     	add	    hl, hl			    ; HL *= 128
  
     	; calculate the address of the CP/M sector in the .bios_sdbuf
-    	ld	    bc ,.bios_sdbuf
+    	ld	    bc, bios_sdbuf
     	add	    hl, bc			    ; HL = @ of cpm sector in the .bios_sdbuf
 
     	; copy the data of interest from the SD block
-    	ld	    de, (.disk_dma)		; target address
+    	ld	    de, (disk_dma)		; target address
     	ld	    bc, $0080		    ; number of bytes to copy
     	ldir
 
@@ -695,7 +695,7 @@ bios_alv_a:
 	ds	(4087/8)+1	        ; scratchpad used by BDOS for disk allocation info
 bios_alv_a_end:
 
-bios_sd_buf:
+bios_sdbuf:
     ds  512, $a5
 
 bios_stack_lo:
