@@ -13,7 +13,7 @@
 ;    3 = print all the above plus verbose 'noisy' debug messages
 ;##########################################################################
 
-debug:      .equ 3
+debug:      .equ 0
 
 
     .include "z180.asm"

@@ -1,4 +1,4 @@
-.PHONY: all clean flash install burn
+.PHONY: all clean flash install burn ls
 
 #CROSS_AS=uz80as
 #CROSS_AS_FLAGS=-t hd64180
@@ -51,6 +51,8 @@ install:
 burn:
 	cd filesystem && $(MAKE) burn
 
+ls:
+	cd filesystem && $(MAKE) lsimg
 
 # .SECONDARY:
 

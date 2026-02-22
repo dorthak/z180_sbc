@@ -5,7 +5,9 @@
 
     ;.include "io.asm"
 
-spi_init:       ld          a, 6                ; div by 1280 - 14KHz @18MHz clock?
+;spi_init:       ld          a, 6                ; div by 1280 - 14KHz @18MHz clock?
+;spi_init:       ld          a, 3                ; div by 160 - 112KHz @18MHz clock?
+spi_init:       ld          a, 2                ; div by 80 - 224KHz @18MHz clock? or 400kHz @ phi = 4MHz?
                 out0        (CNTR), a
 
                 ld          a, sd_enable_bit    ; SD Enable is active low, so set high at init
