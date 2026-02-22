@@ -3,8 +3,12 @@
 ;   Wayne Warthen's RomWBW project
 ; All of their Copyright is retained by original authors
 
-    .include "init.asm"
+; Since z180 decrements SP prior to a push, setting stack_top to 0 will place first 
+; byte stored in stack at $FFFF, the top of RAM.
+;stack_top:              .equ    0
+stack_top:              .equ    LOAD_BASE   ; set stack to below where CP/M will go
 
+    .include "init.asm"
 
 
 ;debug: .equ 1
