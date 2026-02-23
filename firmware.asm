@@ -192,6 +192,8 @@ boot_sd_2:
 	asciiz  '\r\nEntering hcxc_ok (CMD17) - read MBR\r\n\r\n'
     .endif
 
+	call	spi_gofast						; Initialization done, increase speed to max
+
 
 	ld		hl, 0							; SD card block number to read
 	push	hl								; high half
