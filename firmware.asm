@@ -91,7 +91,7 @@ boot_sd_1:
     .endif
 
     ld      de, LOAD_BASE                   ; temporary buffer
-    call    sd_cmd8                         ; CMD9 sent to verify SD card version and voltage
+    call    sd_cmd8                         ; CMD8 sent to verify SD card version and voltage
 
 	; The response should be: 0x01 0x00 0x00 0x01 0xAA.
 	ld	    a, (LOAD_BASE)

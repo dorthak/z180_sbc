@@ -7,7 +7,8 @@
 
 ;spi_init:       ld          a, 6                ; div by 1280 - 14KHz @18MHz clock?
 ;spi_init:       ld          a, 3                ; div by 160 - 112KHz @18MHz clock?
-spi_init:       ld          a, 2                ; div by 80 - 224KHz @18MHz clock? or 400kHz @ phi = 4MHz?
+;spi_init:       ld          a, 2                ; div by 80 - 224KHz @18MHz clock? or 400kHz @ phi = 4MHz?
+spi_init:       ld          a, 0                ; div by 20 - 896KHz @18MHz clock? or 1600kHz @ phi = 4MHz?
                 out0        (CNTR), a
 
                 ld          a, sd_enable_bit    ; SD Enable is active low, so set high at init
@@ -15,6 +16,13 @@ spi_init:       ld          a, 2                ; div by 80 - 224KHz @18MHz cloc
                 out0        (sd_enable_addr), a ; and write out to harware
                 ret
 
+
+; Increase SPI speed after SD card initialization.
+; Clobbers AF
+spi_gofast:    
+                ld          a, 0                ; div by 20 - 896KHz @18MHz clock? or 1600kHz @ phi = 4MHz?
+                out0        (CNTR), a
+ 
 
 ; Send byte in C
 ; Clobbers AF

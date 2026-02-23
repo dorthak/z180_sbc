@@ -454,9 +454,34 @@ bios_read:
 
         ld	    hl, (disk_track)	; HL = CP/M track number
 
+        ; Check to see if the SD block in bios_sdbuf is already the one we want
+        ld      a, (bios_sdbuf_val)     ; get the bios_sdbuf valid flag
+        or      a                       ; is it a non-zero value?
+        jr      nz, .bios_read_block    ; block buffer invalid, read the SD block
+
+        ld      a, (bios_sdbuf_trk)     ; A = CP/M track LSB
+        cp      l                       ; is it the one we want?
+        jr      nz, .bios_read_block    ; LSB does not match, read the SD block
+
+        ld      a, (bios_sdbuf_trk+1)   ; A = CP/M track MSB
+        cp      h                       ; is it the one we want?
+        jr      z, .bios_read_sd_ok     ; The SD block in bios_sdbuf is the one we want
+
+.bios_read_block:
+        .if debug >= 1
+	        call	iputs
+	        db	"bios_read cache miss: \0"
+	        call	debug_disk
+        .endif    
+
+        ; Assume SD card block will be read ok
+        ld      (bios_sdbuf_trk), hl    ; store the current CP/M track number in bios_sdbuf
+        xor     a                       ; A = 0
+        ld      (bios_sdbuf_val), A     ; mark the bios_sdbuf as valid
+
         ; XXX This is a hack that won't work unless the disk partition < 0x10000
         ; XXX This has the SD card partition offset hardcoded in it!!!
-  .sd_partition_base: .equ	$0800
+.sd_partition_base: .equ	$0800
         ld	    de, .sd_partition_base	; XXX add the starting partition block number
     	add	    hl, de			    ; HL = SD physical block number
 
@@ -694,6 +719,11 @@ bios_dpb_a:
 bios_alv_a:
 	ds	(4087/8)+1	        ; scratchpad used by BDOS for disk allocation info
 bios_alv_a_end:
+
+bios_sdbuf_trk:		        ; The CP/M track number last left in the .bios_sdbuf
+	ds	    2, $ff		    ; initial value = garbage
+bios_sdbuf_val:		        ; The CP/M track number in bios_sdbuf_trk is valid when this is 0
+	ds	    1, $ff		    ; initial value = INVALID         
 
 bios_sdbuf:
     ds  512, $a5
