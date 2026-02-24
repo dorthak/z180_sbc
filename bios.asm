@@ -32,7 +32,7 @@ stacktop:   .equ 0x0000             ; end of RAM
     .include "cpm22.asm"
 
     .ifne $-(CPM_BASE+0x1600)
-    .fail THE BIOS VECTOR TABLE IS IN THE WRONG PLACE
+        .fail THE BIOS VECTOR TABLE IS IN THE WRONG PLACE
     .endif
 
 BOOT:   JP      bios_boot
@@ -153,18 +153,91 @@ bios_boot:
 ;
 ;##########################################################################
 
+; WARNING: The following assumes that CPM_BASE%128 is zero!
+
+wb_nsects:  .equ (BOOT-CPM_BASE)/128			    ; number of sectors to load
+wb_trk:	    .equ (CPM_BASE-LOAD_BASE)/512		    ; first track number (rounded down)
+wb_sec:	    .equ ((CPM_BASE-LOAD_BASE)/128) & $03	; first sector number
+
+
 bios_wboot:
+
+    ld      sp, bios_wboot_stack                    ; the bios_dirbuf is garbage right now
+
     .if debug >=2
         call    iputs
         asciiz  "\r\nbios_wboot entered\r\n"
     .endif
 
-    ; TODO: Reload CCP and BDOS here
+	; mark the .bios_sdbuf as invalid
+	ld	    a, 1
+	ld	    (bios_sdbuf_val), a	    ; mark .bios_sdbuf_trk as invalid
+
+	; reload the CCP and BDOS
+
+	ld	    c, 0			        ; C = drive number (0=A)
+	call	bios_seldsk		        ; load the OS from drive A
+
+	ld	    bc, wb_trk		        ; BC = track number whgere the CCP starts
+	call	bios_settrk
+
+	ld	    bc, wb_sec		        ; sector where the CCP begins on .wb_trk
+	call	bios_setsec
+
+	ld	    bc, CPM_BASE		    ; starting address to read the OS into
+	call	bios_setdma
+
+	ld	    bc, wb_nsects		    ; BC = gross number of sectors to read
+ 
+.wboot_loop:
+	push	bc			            ; save the remaining sector count
+
+	call	bios_read		        ; read 1 sector
+
+	or	    a			            ; bios_read sets A=0 on success
+	jr	    z, .wboot_sec_ok		; if read was OK, continue processing
+
+
    	call	iputs
-	db	    "\r\n\r\nERROR: THE WBOOT FUNCTION IS UNIMPLEMENTED.  HALTING."
+	db	    "\r\n\r\nERROR: WBOOT READ FAILED.  HALTING."
 	db	    "\r\n\n*** PRESS RESET TO REBOOT ***\r\n"
 	db	    0
-	jp	    $		; endless spin loop 
+	jp	    $		                ; endless spin loop 
+
+
+.wboot_sec_ok:
+	; advance the DMA pointer by 128 bytes
+	ld	    hl, (disk_dma)		    ; HL = the last used DMA address
+	ld	    de, 128
+	add	    hl, de			        ; HL += 128
+	ld	    b, h
+	ld	    c, l			        ; BC = HL
+	call	bios_setdma
+
+	; increment the sector/track numbers
+	ld	    a, (disk_sector)	    ; A = last used sector number (low byte only for 0..3)
+	inc	    a
+	and	    $03		    	        ; if A+1 = 4 then A=0
+	jr	    nz, .wboot_sec		    ; if A+1 !=4 then do not advance the track number
+
+	; advance to the next track
+	ld	    bc, (disk_track)
+	inc	    bc
+	call    bios_settrk
+	xor	    a			            ; set A=0 for first sector on new track
+
+.wboot_sec
+	ld	    b, 0
+	ld	    c, a
+	call    bios_setsec
+
+	pop	    bc			            ; BC = remaining sector counter value
+	dec	    bc			            ; BC -= 1
+	ld	    a, b
+	or	    c
+	jr	    nz, .wboot_loop		    ; if BC != 0 then goto .wboot_loop
+
+    ; Fall through to gocpm
 
 gocpm:
     .if debug >=2
@@ -192,8 +265,15 @@ gocpm:
         call	hexdump    
     .endif
 
-	ld	    a, (4)		            ; load the current disk # from page-zero into a/c
-	ld	    c, a
+    .if 0
+	; This is not quite right because it include the user number and
+	; can get us stuck re-selesting an invalid disk drive!
+        ld	    a, (4)		            ; load the current disk # from page-zero into a/c
+        ld	    c, a
+    .else
+        ld      c, 0                    ; Right now, ONLY valid drive is A
+    .endif
+    
 	jp	    CPM_BASE	            ; start the CCP
 
     jp      halt_loop
@@ -703,6 +783,7 @@ bios_dph:
 
 bios_dirbuf:
 	ds	128		            ; scratch directory buffer
+bios_wboot_stack:			; (ab)use the BDOS directory buffer as a stack during WBOOT
 
 bios_dpb_a:
 	dw	4		            ; SPT
@@ -720,11 +801,16 @@ bios_alv_a:
 	ds	(4087/8)+1	        ; scratchpad used by BDOS for disk allocation info
 bios_alv_a_end:
 
+
+; #######################################################################
+; Various buffers
+; #######################################################################
+
+
 bios_sdbuf_trk:		        ; The CP/M track number last left in the .bios_sdbuf
 	ds	    2, $ff		    ; initial value = garbage
 bios_sdbuf_val:		        ; The CP/M track number in bios_sdbuf_trk is valid when this is 0
 	ds	    1, $ff		    ; initial value = INVALID         
-
 bios_sdbuf:
     ds  512, $a5
 
