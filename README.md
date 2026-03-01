@@ -18,4 +18,6 @@ Be sure to edit `MakeInfo.default` with the correct paths and device names for y
 
 `make install` will generate a file system to place on an SD card.  You must install cpm tools using `sudo apt install cpmtools` or equivalent, and you must have a valid diskdefs file in the correct location.
 
-`make burn` will put the file system onto the SD card.  Be sure to look carefully at the `Makefile` in the `filesystem` directory to make certain the correct device is being written to, and the code is being run on the correct device.  The settings there work on my RPi.  Getting this wrong can brick your computer!
+`make getsaves` downloads image from SD card and extracts `.SAV ` files into the `filesystem\saves` directory for later inclusion in `make install`
+
+`make burn` will put the file system onto the SD card.  Be sure to look carefully at the `MakeInfo.default` to make certain the correct device is being written to, and the code is being run on the correct device.  The settings there work on my RPi.  gitGetting this wrong can brick your computer!

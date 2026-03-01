@@ -1,0 +1,1 @@
+Stores save files for Adventure game between file system burns

@@ -1,4 +1,4 @@
-.PHONY: all clean flash install burn ls
+.PHONY: all clean flash install burn ls getsaves
 
 -include MakeInfo.default
 
@@ -34,14 +34,15 @@ bios: bios.bin
 
 
 clean:
-	rm -fr *.hex
-	rm -fr *.bin
-	rm -fr *.obj
-	rm -fr *.lst
-	rm -fr *.com
-	rm -fr *.tmp
-	rm -fr *.dep
-	rm -fr *.img
+	rm -f *.hex
+	rm -f *.bin
+	rm -f *.obj
+	rm -f *.lst
+	rm -f *.com
+	rm -f *.tmp
+	rm -f *.dep
+	rm -f *.img
+	rm -f *.com
 	cd filesystem && $(MAKE) clean
 	cd test && $(MAKE) clean
 
@@ -56,6 +57,9 @@ burn:
 
 ls:
 	cd filesystem && $(MAKE) lsimg
+
+getsaves:
+	cd filesystem && $(MAKE) getsaves
 
 # .SECONDARY:
 
