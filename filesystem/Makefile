@@ -1,12 +1,7 @@
 .PHONY: all clean burn lsimg
 
-# For normal use on a plain Raspberry PI
-SD_DEV=/dev/sda1
+-include ../MakeInfo.default
 
-# This is used before burning an SD card image to make sure we are on the correct host!
-SD_HOSTNAME=Retro
-
-DISKDEF=z80-retro-2k-8m
 
 all: filesystem.img
 

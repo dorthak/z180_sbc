@@ -6,6 +6,8 @@ See Makefile for assembler options.
 
 Some other Makefile notes:
 
+Be sure to edit `MakeInfo.default` with the correct paths and device names for your installation.  DO NOT USE AS-IS.  
+
 `make` or `make all` will build the firmware and the bios.  To build test programs, run, for example `make blinky1`.
 
 `make clean` will delete all intermediate and compiled files.

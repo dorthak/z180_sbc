@@ -1,5 +1,7 @@
 .PHONY: all clean flash install burn ls
 
+-include MakeInfo.default
+
 #CROSS_AS=uz80as
 #CROSS_AS_FLAGS=-t hd64180
 
@@ -10,7 +12,8 @@ CROSS_AS_FLAGS=-Fbin -esc -dotdir -hd64180 -ldots -I./lib -I./cpm
 #CROSS_AS_FLAGS=--z180 -u --dotnames -y -L ./lib
 
 DATE := $(shell date +"%Y-%m-%d %H:%M:%S%z")
-GIT_VERSION := $(shell git show -s --format='%h - %s - %ci')
+#GIT_VERSION := $(shell git show -s --format='%h - %s - %ci')
+GIT_VERSION := $(shell git describe --long --dirty; git show -s --format='%ci')
 
 
 #all: spi_test
@@ -43,7 +46,7 @@ clean:
 	cd test && $(MAKE) clean
 
 flash:
-	~/z80-retro/2065-Z80-programmer/pi/flash < firmware.bin
+	$(FLASH_PROG) < firmware.bin
 
 install:
 	cd filesystem && $(MAKE) all
