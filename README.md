@@ -4,7 +4,7 @@ Version 1.0 is the first fully functional (if extremely limited) firmware, bios,
 
 All development was done on a Raspberry Pi 3B running Raspberry Pi OS 13 (Trixie) 64-bit.  It should work fine on any other Linux-based system, and maybe others, but I've not tested it on any other platforms.
 
-To flash the board's ROM you will need either a ROM programmer (I use XGecu T48 on a Windows PC using their native software) or a way to flash it in-system.  I switched to the latter by using John Winans' z80 Retro programmer (hardware and software* here: https://github.com/Z80-Retro/2065-Z80-programmer) connected to the same RPi and my own adapter board (link forthcoming).
+To flash the board's ROM you will need either a ROM programmer (I use XGecu T48 on a Windows PC using their native software) or a way to flash it in-system.  I switched to the latter by using John Winans' z80 Retro programmer (hardware and software* here: https://github.com/Z80-Retro/2065-Z80-programmer) connected to the same RPi and my own adapter board (https://github.com/dorthak/z180_SBC_ISP_Adapter).
 
 This project is currently designed to be assembled using the vasm assembler, found here: http://sun.hasenbraten.de/vasm/ and here: https://github.com/StarWolf3000/vasm-mirror  It needs to be built to support the oldstyle syntax module and the z80 CPU module.
 
