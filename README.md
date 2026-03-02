@@ -2,7 +2,7 @@ This project is a firmware boot loader, BIOS, and CP/M 2.2 s100computes z180 sbc
 
 Version 1.0 is the first fully functional (if extremely limited) firmware, bios, and CP/M combo.  It supports only a single disk (as a partition on the board's SD card) and a single serial console (on the board's USB Port A). 
 
-All development was done on a Raspberry Pi 3B running Raspberry Pi OS 13 (Trixies) 64-bit.  It should work fine on any other Linux-based system, and maybe others, but I've not tested it on any other platforms.
+All development was done on a Raspberry Pi 3B running Raspberry Pi OS 13 (Trixie) 64-bit.  It should work fine on any other Linux-based system, and maybe others, but I've not tested it on any other platforms.
 
 To flash the board's ROM you will need either a ROM programmer (I use XGecu T48 on a Windows PC using their native software) or a way to flash it in-system.  I switched to the latter by using John Winans' z80 Retro programmer (hardware and software* here: https://github.com/Z80-Retro/2065-Z80-programmer) connected to the same RPi and my own adapter board (link forthcoming).
 
