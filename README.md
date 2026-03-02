@@ -1,4 +1,10 @@
-Development code for CP/M bios and drivers for the s100 computes z180 sbc board (https://s100computers.com/My%20System%20Pages/Z180%20SBC/Z180%20SBC1.htm) based on the code created by John Winans in his z80 Retro project (https://github.com/Z80-Retro)
+This project is a firmware boot loader, BIOS, and CP/M 2.2 s100computes z180 sbc board (https://s100computers.com/My%20System%20Pages/Z180%20SBC/Z180%20SBC1.htm).  The project is heavily based on the code created by John Winans in his z80 Retro project (https://github.com/Z80-Retro), modified for this hardware.
+
+Version 1.0 is the first fully functional (if extremely limited) firmware, bios, and CP/M combo.  It supports only a single disk (as a partition on the board's SD card) and a single serial console (on the board's USB Port A). 
+
+All development was done on a Raspberry Pi 3B running Raspberry Pi OS 13 (Trixies) 64-bit.  It should work fine on any other Linux-based system, and maybe others, but I've not tested it on any other platforms.
+
+To flash the board's ROM you will need either a ROM programmer (I use XGecu T48 on a Windows PC using their native software) or a way to flash it in-system.  I switched to the latter by using John Winans' z80 Retro programmer (hardware and software* here: https://github.com/Z80-Retro/2065-Z80-programmer) connected to the same RPi and my own adapter board (link forthcoming).
 
 This project is currently designed to be assembled using the vasm assembler, found here: http://sun.hasenbraten.de/vasm/ and here: https://github.com/StarWolf3000/vasm-mirror  It needs to be built to support the oldstyle syntax module and the z80 CPU module.
 
@@ -6,18 +12,22 @@ See Makefile for assembler options.
 
 Some other Makefile notes:
 
-Be sure to edit `MakeInfo.default` with the correct paths and device names for your installation.  DO NOT USE AS-IS.  
+Be sure to edit `MakeInfo.default` with the correct paths and device names for your installation.  DO NOT USE AS-IS, some of the options can damage your host system if not set correctly.  
 
 `make` or `make all` will build the firmware and the bios.  To build test programs, run, for example `make blinky1`.
 
 `make clean` will delete all intermediate and compiled files.
 
-`make flash` will install firmware.bin onto the z180 SBC board using a z80 Retro programmer (hardware and software here: https://github.com/Z80-Retro/2065-Z80-programmer) and my adapter board (link TBD).  Note a change needs to be made in the programmer code - in `pi/flash.c`, line 520, needs to be changed from:
+`make flash` will install firmware.bin onto the z180 SBC board using a z80 Retro programmer.  Be sure to set a path to flash program in `MakeInfo.default`.
 
-`if (d != 0xbfb5 && d != 0xbfb6 && d != 0xbfb7)` to `if (d != 0xbfb5 && d != 0xbfb6 && d != 0xbfb7 && d != 0x3ec0)` to support the ROM chip on the z180 SBC board.  The programmer then needs to be re-built.
+`make install` will generate a file system to place on an SD card.  You must install cpm tools using `sudo apt install cpmtools` or equivalent, and you must have a valid diskdefs file in the correct location.  This will create a file system image that includes the BIOS/CPM, all of the files in the `cpm/filesystem/`directory, the files for the Adventure game located in the `adventure/adv-B03` directory, and any save files previously extracted with `make getsaves`
 
-`make install` will generate a file system to place on an SD card.  You must install cpm tools using `sudo apt install cpmtools` or equivalent, and you must have a valid diskdefs file in the correct location.
+`make getsaves` downloads an image from the SD card and extracts `.SAV ` files, if any, into the `filesystem/saves` directory for later inclusion in `make install`
 
-`make getsaves` downloads image from SD card and extracts `.SAV ` files into the `filesystem\saves` directory for later inclusion in `make install`
+`make burn` will put the file system onto the SD card.  Be sure to look carefully at the `MakeInfo.default` to make certain the correct device is being written to, and that the code is being run on the correct device.  The settings there work on my RPi.  gitGetting this wrong can brick your computer!
 
-`make burn` will put the file system onto the SD card.  Be sure to look carefully at the `MakeInfo.default` to make certain the correct device is being written to, and the code is being run on the correct device.  The settings there work on my RPi.  gitGetting this wrong can brick your computer!
+* out of the box, the Retro Programmer software does not work with the SST39SF040 ROM chip on this board.  However, a small change in the programmer code fixes this - in `pi/flash.c`, line 520, needs to be changed from:
+
+`if (d != 0xbfb5 && d != 0xbfb6 && d != 0xbfb7)` to `if (d != 0xbfb5 && d != 0xbfb6 && d != 0xbfb7 && d != 0x3ec0)`  
+
+The programmer software then needs to be re-built.
