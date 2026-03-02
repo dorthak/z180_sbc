@@ -20,11 +20,15 @@ Be sure to edit `MakeInfo.default` with the correct paths and device names for y
 
 `make flash` will install firmware.bin onto the z180 SBC board using a z80 Retro programmer.  Be sure to set a path to flash program in `MakeInfo.default`.
 
-`make install` will generate a file system to place on an SD card.  You must install cpm tools using `sudo apt install cpmtools` or equivalent, and you must have a valid diskdefs file in the correct location.  This will create a file system image that includes the BIOS/CPM, all of the files in the `cpm/filesystem/`directory, the files for the Adventure game located in the `adventure/adv-B03` directory, and any save files previously extracted with `make getsaves`
+`make progs` will assemble (into COM files) several test programs in the progs directory.
+
+`make install` will generate a file system to place on an SD card.  You must install cpm tools using `sudo apt install cpmtools` or equivalent, and you must have a valid diskdefs file in the correct location.  This will create a file system image that includes the BIOS/CPM, all of the files in the `cpm/filesystem/`directory, the files for the Adventure game located in the `adventure/adv-B03/` directory, any `.com` files in the `progs/` directory and any save files previously extracted with `make getsaves`
 
 `make getsaves` downloads an image from the SD card and extracts `.SAV ` files, if any, into the `filesystem/saves` directory for later inclusion in `make install`
 
 `make burn` will put the file system onto the SD card.  Be sure to look carefully at the `MakeInfo.default` to make certain the correct device is being written to, and that the code is being run on the correct device.  The settings there work on my RPi.  gitGetting this wrong can brick your computer!
+
+
 
 * out of the box, the Retro Programmer software does not work with the SST39SF040 ROM chip on this board.  However, a small change in the programmer code fixes this - in `pi/flash.c`, line 520, needs to be changed from:
 

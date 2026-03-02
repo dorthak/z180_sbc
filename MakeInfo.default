@@ -1,5 +1,5 @@
 CROSS_AS=~/vasm/vasmz80_oldstyle
-CROSS_AS_FLAGS=-Fbin -esc -dotdir -hd64180 -ldots -I./lib -I./cpm
+CROSS_AS_FLAGS=-Fbin -esc -dotdir -hd64180 -ldots -I./lib -I./cpm -quiet -x
 
 # Location of the flash program for flashing ROM using Retro Ptrogrammer
 

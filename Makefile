@@ -1,23 +1,23 @@
-.PHONY: all clean flash install burn ls getsaves
+.PHONY: all clean flash install burn ls getsaves progs
 
 -include MakeInfo.default
 
 #CROSS_AS=uz80as
 #CROSS_AS_FLAGS=-t hd64180
 
-CROSS_AS=~/vasm/vasmz80_oldstyle
-CROSS_AS_FLAGS=-Fbin -esc -dotdir -hd64180 -ldots -I./lib -I./cpm
+#CROSS_AS=~/vasm/vasmz80_oldstyle
+#CROSS_AS_FLAGS=-Fbin -esc -dotdir -hd64180 -ldots -I./lib -I./cpm
 
 #CROSS_AS=zasm
 #CROSS_AS_FLAGS=--z180 -u --dotnames -y -L ./lib
 
 DATE := $(shell date +"%Y-%m-%d %H:%M:%S%z")
 #GIT_VERSION := $(shell git show -s --format='%h - %s - %ci')
-GIT_VERSION := $(shell git describe --long --dirty; git show -s --format='%ci')
+GIT_VERSION := $(shell git describe --tags --long --dirty; git show -s --format='%ci')
 
 
 #all: spi_test
-all: firmware bios 
+all: firmware bios
 
 blinky1: test/blinky1.bin
 blinky2: test/blinky2.bin
@@ -45,6 +45,7 @@ clean:
 	rm -f *.com
 	cd filesystem && $(MAKE) clean
 	cd test && $(MAKE) clean
+	cd progs && $(MAKE) clean
 
 flash:
 	$(FLASH_PROG) < firmware.bin
@@ -60,13 +61,14 @@ ls:
 
 getsaves:
 	cd filesystem && $(MAKE) getsaves
+	
+progs:
+	cd progs && $(MAKE) all
 
-# .SECONDARY:
+.SECONDARY:
 
 %.tmp: %.asm 
 	cat $< | sed  -e "s/@@DATE@@/$(DATE)/g" -e "s/@@GIT_VERSION@@/$(GIT_VERSION)/g" > $(basename $@).tmp
-
-
 
 %.bin: %.tmp 
 	$(CROSS_AS) $(CROSS_AS_FLAGS) -depend=make -depfile $@.dep -o $@ $(basename $@).tmp -L $(basename $@).lst

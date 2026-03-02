@@ -11,6 +11,7 @@ filesystem.img: ../bios.bin ../cpm/filesystem/* ../adventure/adv-B03
 	cpmcp -f $(DISKDEF) filesystem.img ../cpm/filesystem/* 0:
 	cpmcp -f $(DISKDEF) filesystem.img ../adventure/adv-B03/* 0:
 	cpmcp -f $(DISKDEF) filesystem.img ./saves/* 0:
+	cpmcp -f $(DISKDEF) filesystem.img ../progs/*.com 0:
 
 clean:
 	rm -f *.hex
