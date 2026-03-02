@@ -10,7 +10,7 @@ filesystem.img: ../bios.bin ../cpm/filesystem/* ../adventure/adv-B03
 	mkfs.cpm -f $(DISKDEF) -b ../bios.bin filesystem.img
 	cpmcp -f $(DISKDEF) filesystem.img ../cpm/filesystem/* 0:
 	cpmcp -f $(DISKDEF) filesystem.img ../adventure/adv-B03/* 0:
-	cpmcp -f $(DISKDEF) filesystem.img ../saves/* 0:
+	cpmcp -f $(DISKDEF) filesystem.img ./saves/* 0:
 
 clean:
 	rm -f *.hex
@@ -41,10 +41,11 @@ getsaves:
 		false; \
 	fi
 	rm -f filesystem.img
-	sudo dd if=$(SD_DEV) of=filesystem.img bs=512 conv=fsync
-	cpmls -f $(DISKDEF filesystem.img
-	cpmcp -f $(DISKDEF) filesystem.img -p 0:*.sav ../saves/
+	sudo dd if=$(SD_DEV)  bs=512 conv=fsync count=1000 > filesystem.img
 	
+#	cpmls -f $(DISKDEF) filesystem.img
+	cpmcp -f $(DISKDEF) -p filesystem.img  0:*.sav ./saves/
+
 
 lsimg: filesystem.img
 	cpmls -f $(DISKDEF) $^
